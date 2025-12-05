@@ -121,3 +121,44 @@ export interface WorkerAvailabilityPattern {
     reason?: string;
   }[];
 }
+
+export interface WorkerProfile {
+  id: string;
+  name: string;
+  photo?: string;
+  roleMatch: boolean;
+  rating: number; // 1-5
+  rank: ReliabilityGrade | 'New';
+  ourBookings: number;
+  ourHours: number;
+  agency: string;
+  rate: number; // hourly rate
+  bio: string;
+  refCode: string;
+  activityInSystem: {
+    clients: number;
+    bookings: number;
+    hoursSold: number;
+  };
+  tempWorkOutside: string;
+  credentials: string[];
+  tags: string[];
+  documents: { name: string; url: string }[];
+}
+
+export interface OpportunityFeedItem {
+  id: string;
+  category: 'investment' | 'buyers' | 'benefits' | 'social';
+  title: string;
+  description: string;
+  image?: string;
+  primaryMetric: {
+    label: string;
+    value: string;
+  };
+  secondaryMetric: {
+    label: string;
+    value: string;
+  };
+  link?: string;
+}
