@@ -79,10 +79,10 @@ export default function ModeSwitcher() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 border border-border rounded-lg shadow-2xl z-50 overflow-hidden"
+              className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-2xl z-50 overflow-hidden"
             >
-              <div className="p-3 bg-muted/50 border-b border-border">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+              <div className="p-3 bg-gray-50 border-b border-gray-200">
+                <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide">
                   Switch View Mode
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default function ModeSwitcher() {
                         ? mode.value === 'worker'
                           ? 'bg-emerald-50 hover:bg-emerald-100'
                           : 'bg-blue-50 hover:bg-blue-100'
-                        : 'hover:bg-muted/50'
+                        : 'bg-white hover:bg-gray-50'
                     )}
                   >
                     <div
@@ -123,7 +123,7 @@ export default function ModeSwitcher() {
 
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold">{mode.label}</span>
+                        <span className="font-semibold text-gray-900">{mode.label}</span>
                         {isActive && (
                           <span
                             className={cn(
@@ -137,7 +137,7 @@ export default function ModeSwitcher() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground mb-2">{mode.description}</p>
+                      <p className="text-xs text-gray-600 mb-2">{mode.description}</p>
                       <div className="flex items-center gap-2 text-xs">
                         <div
                           className={cn(
@@ -149,8 +149,8 @@ export default function ModeSwitcher() {
                           {mode.userName.split(' ')[1][0]}
                         </div>
                         <div>
-                          <div className="font-medium">{mode.userName}</div>
-                          <div className="text-muted-foreground">{mode.org}</div>
+                          <div className="font-medium text-gray-900">{mode.userName}</div>
+                          <div className="text-gray-600">{mode.org}</div>
                         </div>
                       </div>
                     </div>
@@ -158,9 +158,9 @@ export default function ModeSwitcher() {
                 );
               })}
 
-              <div className="p-3 bg-muted/30 border-t border-border">
-                <p className="text-xs text-muted-foreground">
-                  💡 <strong>Tip:</strong> Each view shows different screens and features relevant
+              <div className="p-3 bg-gray-50 border-t border-gray-200">
+                <p className="text-xs text-gray-600">
+                  💡 <strong className="text-gray-900">Tip:</strong> Each view shows different screens and features relevant
                   to that user type.
                 </p>
               </div>
