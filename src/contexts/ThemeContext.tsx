@@ -1,17 +1,37 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 export type ViewMode = 'worker' | 'business';
 
 interface ThemeContextType {
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
+  userName: string;
+  organizationName: string;
   isPrimaryColor: (color: string) => boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const WORKER_NAMES = {
+  worker: 'Yvonne Chen',
+  business: 'Mark Anderson',
+};
+
+const ORG_NAMES = {
+  worker: 'Springfield Workers Co-op',
+  business: 'Acme Insights Inc',
+};
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [viewMode, setViewMode] = useState<ViewMode>('worker');
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    // Persist mode in localStorage
+    const saved = localStorage.getItem('poems-view-mode');
+    return (saved as ViewMode) || 'worker';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('poems-view-mode', viewMode);
+  }, [viewMode]);
 
   const isPrimaryColor = (color: string) => {
     if (viewMode === 'worker') {
@@ -20,8 +40,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return color.includes('blue') || color.includes('sky');
   };
 
+  const userName = WORKER_NAMES[viewMode];
+  const organizationName = ORG_NAMES[viewMode];
+
   return (
-    <ThemeContext.Provider value={{ viewMode, setViewMode, isPrimaryColor }}>
+    <ThemeContext.Provider value={{ viewMode, setViewMode, userName, organizationName, isPrimaryColor }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -52,3 +75,4 @@ export function getThemeColor(viewMode: ViewMode, variant: 'primary' | 'secondar
 
   return colorMap[viewMode][variant];
 }
+

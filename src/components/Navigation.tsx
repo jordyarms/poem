@@ -11,45 +11,86 @@ import {
   Wallet,
   BarChart3,
   User,
-  Search
+  Search,
+  Building,
+  Target,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTheme, ViewMode } from '@/contexts/ThemeContext';
+import ModeSwitcher from './ModeSwitcher';
 
-const navItems = [
-  { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/opportunities', label: 'Opportunities', icon: Briefcase },
-  { path: '/availability', label: 'Availability', icon: Calendar },
-  { path: '/roles', label: 'My Roles', icon: Award },
-  { path: '/market-data', label: 'Market Data', icon: TrendingUp },
-  { path: '/booking', label: 'Make Booking', icon: CalendarCheck },
-  { path: '/pools', label: 'Business Pools', icon: Users },
-  { path: '/chains', label: 'Chain Builder', icon: LinkIcon },
-  { path: '/finance', label: 'Finance', icon: Wallet },
-  { path: '/analytics', label: 'Analytics', icon: BarChart3 },
-  { path: '/profile', label: 'Profile', icon: User },
-  { path: '/search', label: 'Search', icon: Search },
+interface NavItem {
+  path: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  modes: ViewMode[];
+}
+
+const navItems: NavItem[] = [
+  { path: '/', label: 'Dashboard', icon: LayoutDashboard, modes: ['worker', 'business'] },
+
+  // Worker-specific
+  { path: '/opportunities', label: 'Opportunities', icon: Briefcase, modes: ['worker'] },
+  { path: '/availability', label: 'My Availability', icon: Calendar, modes: ['worker'] },
+  { path: '/roles', label: 'My Roles', icon: Award, modes: ['worker'] },
+  { path: '/market-data', label: 'Market Data', icon: TrendingUp, modes: ['worker'] },
+
+  // Business-specific
+  { path: '/booking', label: 'Make Booking', icon: CalendarCheck, modes: ['business'] },
+  { path: '/select-workers', label: 'Select Workers', icon: Users, modes: ['business'] },
+  { path: '/requirements', label: 'Requirements', icon: LinkIcon, modes: ['business'] },
+  { path: '/packages', label: 'Packages', icon: Building, modes: ['business'] },
+  { path: '/pools', label: 'Worker Pools', icon: Users, modes: ['business'] },
+  { path: '/intervention', label: 'Interventions', icon: Target, modes: ['business'] },
+  { path: '/analytics', label: 'Analytics', icon: BarChart3, modes: ['business'] },
+
+  // Shared
+  { path: '/finance', label: 'Finance', icon: Wallet, modes: ['worker', 'business'] },
+  { path: '/profile', label: 'Profile', icon: User, modes: ['worker', 'business'] },
+  { path: '/search', label: 'Search', icon: Search, modes: ['worker', 'business'] },
 ];
 
 export default function Navigation() {
   const location = useLocation();
+  const { viewMode } = useTheme();
+
+  // Filter navigation items based on current mode
+  const visibleNavItems = navItems.filter((item) => item.modes.includes(viewMode));
 
   return (
     <nav className="bg-card border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">P</span>
+              <div
+                className={cn(
+                  'w-8 h-8 rounded-md flex items-center justify-center',
+                  viewMode === 'worker' ? 'bg-emerald-600' : 'bg-blue-600'
+                )}
+              >
+                <span className="text-white font-bold text-lg">P</span>
               </div>
               <span className="text-xl font-bold">POEMs</span>
             </Link>
+
+            {/* Mode Badge */}
+            <div
+              className={cn(
+                'hidden md:flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium',
+                viewMode === 'worker'
+                  ? 'bg-emerald-100 text-emerald-700'
+                  : 'bg-blue-100 text-blue-700'
+              )}
+            >
+              {viewMode === 'worker' ? '🟢 Worker' : '🔵 Business'}
+            </div>
           </div>
 
           {/* Navigation Links */}
           <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
 
@@ -58,10 +99,12 @@ export default function Navigation() {
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    'flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
                     isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      ? viewMode === 'worker'
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-blue-600 text-white'
+                      : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -71,19 +114,15 @@ export default function Navigation() {
             })}
           </div>
 
-          {/* User Menu */}
+          {/* Mode Switcher */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
-                <User className="w-4 h-4" />
-              </div>
-            </div>
+            <ModeSwitcher />
           </div>
         </div>
 
         {/* Mobile Navigation */}
         <div className="lg:hidden pb-4 grid grid-cols-5 gap-2">
-          {navItems.slice(0, 5).map((item) => {
+          {visibleNavItems.slice(0, 5).map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
 
@@ -92,10 +131,12 @@ export default function Navigation() {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "flex flex-col items-center space-y-1 px-2 py-2 rounded-md text-xs transition-colors",
+                  'flex flex-col items-center space-y-1 px-2 py-2 rounded-md text-xs transition-colors',
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    ? viewMode === 'worker'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-blue-600 text-white'
+                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                 )}
               >
                 <Icon className="w-5 h-5" />
