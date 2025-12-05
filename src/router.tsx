@@ -3,6 +3,7 @@ import RootLayout from './layouts/RootLayout';
 import Dashboard from './pages/Dashboard';
 import Opportunities from './pages/Opportunities';
 import Availability from './pages/Availability';
+import Roles from './pages/Roles';
 import BusinessPools from './pages/BusinessPools';
 import ChainBuilder from './pages/ChainBuilder';
 import MarketInterventions from './pages/MarketInterventions';
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: 'availability',
         element: <Availability />,
+      },
+      {
+        path: 'roles',
+        element: <Roles />,
       },
       {
         path: 'pools',

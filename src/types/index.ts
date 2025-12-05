@@ -88,3 +88,36 @@ export interface Notification {
   createdAt: Date;
   link?: string;
 }
+
+export interface WorkerRole {
+  id: string;
+  name: string;
+  category: string;
+  issuer: string;
+  status: 'active' | 'inactive' | 'pending';
+  hourlyRate: number;
+  totalBookings: number;
+  lastBooked?: Date;
+  requirements: string[];
+  description: string;
+  qualifications: string[];
+  workerId: string;
+}
+
+export interface WorkerAvailabilityPattern {
+  userId: string;
+  weeklyPattern: {
+    monday: { start: number; end: number }[];
+    tuesday: { start: number; end: number }[];
+    wednesday: { start: number; end: number }[];
+    thursday: { start: number; end: number }[];
+    friday: { start: number; end: number }[];
+    saturday: { start: number; end: number }[];
+    sunday: { start: number; end: number }[];
+  };
+  exceptions: {
+    date: Date;
+    available: boolean;
+    reason?: string;
+  }[];
+}
