@@ -7,6 +7,9 @@ import Roles from './pages/Roles';
 import MarketData from './pages/MarketData';
 import MakeBooking from './pages/MakeBooking';
 import SelectWorkers from './pages/SelectWorkers';
+import Requirements from './pages/Requirements';
+import Packages from './pages/Packages';
+import CreateIntervention from './pages/CreateIntervention';
 import BusinessPools from './pages/BusinessPools';
 import ChainBuilder from './pages/ChainBuilder';
 import MarketInterventions from './pages/MarketInterventions';
@@ -47,6 +50,18 @@ export const router = createBrowserRouter([
       {
         path: 'select-workers',
         element: <SelectWorkers />,
+      },
+      {
+        path: 'requirements',
+        element: <Requirements />,
+      },
+      {
+        path: 'packages',
+        element: <Packages />,
+      },
+      {
+        path: 'intervention',
+        element: <CreateIntervention />,
       },
       {
         path: 'pools',

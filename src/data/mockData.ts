@@ -945,3 +945,250 @@ export const getUserOpportunities = (_userId: string): Opportunity[] => {
 export const getUserBookings = (userId: string): Booking[] => {
   return mockBookings.filter((booking) => booking.workerId === userId);
 };
+
+// ==== CHAIN BUILDER & PACKAGE DATA ====
+
+export const requirementTypes = [
+  { value: 'room', label: 'Room/Venue', icon: 'Building' },
+  { value: 'equipment', label: 'Equipment', icon: 'Laptop' },
+  { value: 'catering', label: 'Catering', icon: 'UtensilsCrossed' },
+  { value: 'staff', label: 'Staff', icon: 'Users' },
+  { value: 'transportation', label: 'Transportation', icon: 'Car' },
+];
+
+export const locationOptions = [
+  { value: 'london-city', label: 'London City Centre', coordinates: { lat: 51.5074, lng: -0.1278 } },
+  { value: 'manchester', label: 'Manchester', coordinates: { lat: 53.4808, lng: -2.2426 } },
+  { value: 'birmingham', label: 'Birmingham', coordinates: { lat: 52.4862, lng: -1.8904 } },
+  { value: 'edinburgh', label: 'Edinburgh', coordinates: { lat: 55.9533, lng: -3.1883 } },
+];
+
+export const roomOptions = [
+  { value: 'conf-50', label: 'Conference Room (50 pax)', price: 150 },
+  { value: 'conf-100', label: 'Conference Room (100 pax)', price: 250 },
+  { value: 'hall-200', label: 'Event Hall (200 pax)', price: 450 },
+];
+
+export const equipmentOptions = [
+  { value: 'projector', label: 'Projector & Screen', price: 50 },
+  { value: 'av-basic', label: 'AV Package (Basic)', price: 120 },
+  { value: 'av-premium', label: 'AV Package (Premium)', price: 280 },
+];
+
+export const cateringOptions = [
+  { value: 'breakfast', label: 'Breakfast Buffet', pricePerPerson: 12 },
+  { value: 'lunch', label: 'Lunch Buffet', pricePerPerson: 18 },
+  { value: 'dinner', label: 'Dinner Service', pricePerPerson: 35 },
+  { value: 'snacks', label: 'Snacks & Refreshments', pricePerPerson: 8 },
+];
+
+export const staffRoleOptions = [
+  { value: 'receptionist', label: 'Receptionist', rate: 22 },
+  { value: 'assistant', label: 'Event Assistant', rate: 18 },
+  { value: 'tech-support', label: 'Tech Support', rate: 35 },
+  { value: 'coordinator', label: 'Event Coordinator', rate: 45 },
+];
+
+export const transportOptions = [
+  { value: 'taxi', label: 'Taxi (4 pax)', pricePerTrip: 25 },
+  { value: 'minibus', label: 'Minibus (12 pax)', pricePerTrip: 65 },
+  { value: 'coach', label: 'Coach (50 pax)', pricePerTrip: 180 },
+];
+
+export interface PackageOption {
+  id: string;
+  complete: boolean;
+  components: {
+    transportation?: { provider: string; price: number; type: string };
+    room?: { provider: string; price: number; bundled?: boolean };
+    equipment?: { provider: string; price: number; bundledWithRoom?: boolean };
+    display?: { provider: string; price: number };
+    catering?: { provider: string; price: number; bundled?: boolean };
+    staff?: { provider: string; price: number };
+    returnTransport?: { provider: string; price: number; type: string };
+  };
+  totalPrice: number;
+  rating: number;
+  location: string;
+}
+
+export const mockPackages: PackageOption[] = [
+  {
+    id: 'pkg-1',
+    complete: true,
+    components: {
+      transportation: { provider: 'City Cabs', price: 25, type: 'Taxi' },
+      room: { provider: 'Grand Conference Centre', price: 250, bundled: false },
+      equipment: { provider: 'WITH ROOM', price: 0, bundledWithRoom: true },
+      display: { provider: 'AV Solutions Ltd', price: 120 },
+      catering: { provider: 'Premium Catering Co', price: 360, bundled: false },
+      staff: { provider: 'Event Staff Pro', price: 176 },
+      returnTransport: { provider: 'City Cabs', price: 25, type: 'Taxi' },
+    },
+    totalPrice: 956,
+    rating: 4.8,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-2',
+    complete: true,
+    components: {
+      transportation: { provider: 'QuickRide', price: 22, type: 'Taxi' },
+      room: { provider: 'Business Hub', price: 180, bundled: false },
+      equipment: { provider: 'Business Hub', price: 50, bundledWithRoom: false },
+      display: { provider: 'WITH EQUIPMENT', price: 0 },
+      catering: { provider: 'WITH ROOM', price: 0, bundled: true },
+      staff: { provider: 'FlexStaff', price: 144 },
+      returnTransport: { provider: 'QuickRide', price: 22, type: 'Taxi' },
+    },
+    totalPrice: 418,
+    rating: 4.5,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-3',
+    complete: true,
+    components: {
+      transportation: { provider: 'Metro Coaches', price: 65, type: 'Minibus' },
+      room: { provider: 'Victoria Conference Hall', price: 320, bundled: false },
+      equipment: { provider: 'WITH ROOM', price: 0, bundledWithRoom: true },
+      display: { provider: 'Tech Display Pro', price: 95 },
+      catering: { provider: 'Victoria Catering', price: 288, bundled: false },
+      staff: { provider: 'Elite Events', price: 198 },
+      returnTransport: { provider: 'Metro Coaches', price: 65, type: 'Minibus' },
+    },
+    totalPrice: 1031,
+    rating: 4.9,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-4',
+    complete: true,
+    components: {
+      transportation: { provider: 'City Cabs', price: 25, type: 'Taxi' },
+      room: { provider: 'Central Venue', price: 200, bundled: false },
+      equipment: { provider: 'AV Rentals', price: 85, bundledWithRoom: false },
+      display: { provider: 'WITH EQUIPMENT', price: 0 },
+      catering: { provider: 'Quick Bites', price: 240, bundled: false },
+      staff: { provider: 'Event Staff Pro', price: 160 },
+      returnTransport: { provider: 'City Cabs', price: 25, type: 'Taxi' },
+    },
+    totalPrice: 735,
+    rating: 4.3,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-5',
+    complete: true,
+    components: {
+      transportation: { provider: 'Executive Cars', price: 45, type: 'Executive' },
+      room: { provider: 'Luxury Conference', price: 450, bundled: false },
+      equipment: { provider: 'WITH ROOM', price: 0, bundledWithRoom: true },
+      display: { provider: 'Premium AV', price: 180 },
+      catering: { provider: 'Gourmet Catering', price: 525, bundled: false },
+      staff: { provider: 'Professional Events', price: 225 },
+      returnTransport: { provider: 'Executive Cars', price: 45, type: 'Executive' },
+    },
+    totalPrice: 1470,
+    rating: 5.0,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-6',
+    complete: false,
+    components: {
+      transportation: { provider: 'City Cabs', price: 25, type: 'Taxi' },
+      room: { provider: 'Meeting Space Hub', price: 150, bundled: false },
+      equipment: { provider: 'WITH ROOM', price: 0, bundledWithRoom: true },
+      catering: { provider: 'Simple Catering', price: 180, bundled: false },
+      returnTransport: { provider: 'City Cabs', price: 25, type: 'Taxi' },
+    },
+    totalPrice: 380,
+    rating: 4.0,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-7',
+    complete: false,
+    components: {
+      room: { provider: 'Community Centre', price: 100, bundled: false },
+      equipment: { provider: 'Basic AV', price: 40, bundledWithRoom: false },
+      staff: { provider: 'Student Helpers', price: 88 },
+    },
+    totalPrice: 228,
+    rating: 3.8,
+    location: 'London City Centre',
+  },
+  {
+    id: 'pkg-8',
+    complete: false,
+    components: {
+      transportation: { provider: 'QuickRide', price: 22, type: 'Taxi' },
+      room: { provider: 'Budget Venue', price: 120, bundled: false },
+      display: { provider: 'Display Hire', price: 60 },
+      returnTransport: { provider: 'QuickRide', price: 22, type: 'Taxi' },
+    },
+    totalPrice: 224,
+    rating: 3.5,
+    location: 'London City Centre',
+  },
+];
+
+// ==== INTERVENTION DATA ====
+
+export const interventionRoles = [
+  'Customer Survey Specialist',
+  'Market Research Interviewer',
+  'Data Collection Assistant',
+  'Mystery Shopper',
+  'Field Researcher',
+  'Event Assistant',
+  'Receptionist',
+  'Administrative Support',
+  'Warehouse Operative',
+  'Retail Assistant',
+  'Delivery Driver',
+  'Cleaner',
+  'Security Guard',
+  'Kitchen Assistant',
+  'Hospitality Staff',
+  'Call Centre Operator',
+  'Data Entry Clerk',
+  'General Labourer',
+  'Promotional Staff',
+  'Stock Counter',
+];
+
+export const interventionSkills = [
+  'Customer Service',
+  'Data Collection',
+  'Communication',
+  'Attention to Detail',
+  'Computer Literacy',
+  'Driving License',
+  'Food Safety',
+  'First Aid',
+  'Cash Handling',
+  'Inventory Management',
+  'Report Writing',
+  'Time Management',
+  'Teamwork',
+  'Problem Solving',
+  'Microsoft Office',
+  'Phone Etiquette',
+  'Physical Fitness',
+  'Multilingual',
+  'Conflict Resolution',
+  'Sales Experience',
+];
+
+export const geographicAreas = [
+  { value: 'london', label: 'London', beneficiaries: 2450 },
+  { value: 'manchester', label: 'Manchester', beneficiaries: 980 },
+  { value: 'birmingham', label: 'Birmingham', beneficiaries: 1120 },
+  { value: 'edinburgh', label: 'Edinburgh', beneficiaries: 650 },
+  { value: 'glasgow', label: 'Glasgow', beneficiaries: 720 },
+  { value: 'liverpool', label: 'Liverpool', beneficiaries: 540 },
+  { value: 'bristol', label: 'Bristol', beneficiaries: 480 },
+  { value: 'nationwide', label: 'Nationwide', beneficiaries: 8500 },
+];
