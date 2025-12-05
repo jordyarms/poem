@@ -23,7 +23,7 @@ export default function WorkerDetailPanel({ worker, isOpen, onClose }: WorkerDet
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/20 z-40"
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
           />
 
           {/* Side Panel */}
@@ -32,10 +32,10 @@ export default function WorkerDetailPanel({ worker, isOpen, onClose }: WorkerDet
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-background border-l border-border shadow-2xl z-50 overflow-y-auto"
+            className="fixed right-0 top-0 h-full w-full md:w-[500px] bg-white dark:bg-gray-900 border-l border-border shadow-2xl z-50 overflow-y-auto"
           >
             {/* Header */}
-            <div className="sticky top-0 bg-background border-b border-border p-6 flex items-start justify-between">
+            <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-border p-6 flex items-start justify-between z-10">
               <div className="flex items-start gap-4 flex-1">
                 {worker.photo && (
                   <img
@@ -207,12 +207,12 @@ export default function WorkerDetailPanel({ worker, isOpen, onClose }: WorkerDet
             </div>
 
             {/* Footer Actions */}
-            <div className="sticky bottom-0 bg-background border-t border-border p-6">
+            <div className="sticky bottom-0 bg-white dark:bg-gray-900 border-t border-border p-6 z-10">
               <div className="flex gap-3">
                 <Button variant="outline" className="flex-1">
                   View Full Profile
                 </Button>
-                <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">
                   Select Worker
                 </Button>
               </div>
