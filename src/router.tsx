@@ -4,6 +4,8 @@ import Dashboard from './pages/Dashboard';
 import Opportunities from './pages/Opportunities';
 import Availability from './pages/Availability';
 import Roles from './pages/Roles';
+import MarketData from './pages/MarketData';
+import MakeBooking from './pages/MakeBooking';
 import BusinessPools from './pages/BusinessPools';
 import ChainBuilder from './pages/ChainBuilder';
 import MarketInterventions from './pages/MarketInterventions';
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: 'roles',
         element: <Roles />,
+      },
+      {
+        path: 'market-data',
+        element: <MarketData />,
+      },
+      {
+        path: 'booking',
+        element: <MakeBooking />,
       },
       {
         path: 'pools',

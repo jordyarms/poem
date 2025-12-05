@@ -419,6 +419,117 @@ export const mockAvailabilityPattern: WorkerAvailabilityPattern = {
   ],
 };
 
+// Mock Market Data
+export const mockMarketData = {
+  supplyDemandByDay: [
+    { day: 'M', supply: 45, demand: 38 },
+    { day: 'T', supply: 52, demand: 41 },
+    { day: 'W', supply: 48, demand: 45 },
+    { day: 'Th', supply: 51, demand: 48 },
+    { day: 'F', supply: 43, demand: 52 },
+    { day: 'S', supply: 28, demand: 22 },
+    { day: 'Su', supply: 22, demand: 18 },
+  ],
+  supplyDemandByHour: [
+    { hour: '0', supply: 8, demand: 5 },
+    { hour: '6', supply: 42, demand: 38 },
+    { hour: '12', supply: 65, demand: 58 },
+    { hour: '18', supply: 48, demand: 45 },
+    { hour: '24', supply: 12, demand: 8 },
+  ],
+  noticePeriod: [
+    { range: '<1', count: 8 },
+    { range: '<2', count: 15 },
+    { range: '<4', count: 32 },
+    { range: '<8', count: 45 },
+    { range: '<12', count: 38 },
+    { range: '<24', count: 28 },
+    { range: '<48', count: 18 },
+    { range: '>48', count: 12 },
+  ],
+  rateByDay: [
+    { day: 'M', rate: 18.5 },
+    { day: 'T', rate: 17.8 },
+    { day: 'W', rate: 18.2 },
+    { day: 'Th', rate: 19.1 },
+    { day: 'F', rate: 19.8 },
+    { day: 'S', rate: 16.2 },
+    { day: 'Su', rate: 15.5 },
+  ],
+};
+
+// Mock Booking Data
+export const mockBookingAccounts = [
+  { id: 'acc-1', name: 'Main Operations Account', balance: 12450.50 },
+  { id: 'acc-2', name: 'Marketing Campaign Fund', balance: 8200.00 },
+  { id: 'acc-3', name: 'Special Projects', balance: 15600.75 },
+];
+
+export const mockBookingRoles = [
+  { id: 'role-survey', name: 'Customer Surveyors' },
+  { id: 'role-research', name: 'Market Researchers' },
+  { id: 'role-data', name: 'Data Entry Specialists' },
+  { id: 'role-retail', name: 'Retail Assistants' },
+  { id: 'role-demo', name: 'Product Demonstrators' },
+];
+
+export const mockBookingLocations = [
+  { id: 'loc-1', name: 'London - Central', address: 'City Centre, London EC1' },
+  { id: 'loc-2', name: 'Manchester - Trafford', address: 'Trafford Park, Manchester M17' },
+  { id: 'loc-3', name: 'Birmingham - Bullring', address: 'Bull Ring, Birmingham B5' },
+  { id: 'loc-4', name: 'Leeds - City Centre', address: 'City Square, Leeds LS1' },
+];
+
+// Generate heatmap data for worker availability
+export const generateWorkerHeatmap = () => {
+  const dates: Date[] = [];
+  const startDate = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    dates.push(date);
+  }
+
+  const heatmapData: any[][] = [];
+
+  dates.forEach((date) => {
+    const daySlots: any[] = [];
+    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+
+    for (let hour = 6; hour < 18; hour++) {
+      // More workers available during business hours on weekdays
+      let baseCount = 0;
+
+      if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+        // Weekday
+        if (hour >= 9 && hour < 17) {
+          baseCount = Math.floor(Math.random() * 5) + 5; // 5-9 workers
+        } else {
+          baseCount = Math.floor(Math.random() * 3) + 2; // 2-4 workers
+        }
+      } else {
+        // Weekend
+        baseCount = Math.floor(Math.random() * 3) + 1; // 1-3 workers
+      }
+
+      daySlots.push({
+        day: date,
+        hour,
+        available: true,
+        count: baseCount,
+        metadata: {
+          workerCount: baseCount,
+        },
+      });
+    }
+
+    heatmapData.push(daySlots);
+  });
+
+  return heatmapData;
+};
+
 // Helper function to get current user (for demo purposes)
 export const getCurrentUser = (): User => mockUsers[0];
 
