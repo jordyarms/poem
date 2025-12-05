@@ -29,6 +29,7 @@ export interface DataTableProps<T = any> {
   className?: string;
   striped?: boolean;
   hoverable?: boolean;
+  onRowClick?: (row: T) => void;
 }
 
 export default function DataTable<T extends Record<string, any>>({
@@ -48,6 +49,7 @@ export default function DataTable<T extends Record<string, any>>({
   className,
   striped = true,
   hoverable = true,
+  onRowClick,
 }: DataTableProps<T>) {
   const [sortConfig, setSortConfig] = useState<{
     key: string;
@@ -181,11 +183,13 @@ export default function DataTable<T extends Record<string, any>>({
             return (
               <Fragment key={id}>
                 <tr
+                  onClick={() => onRowClick?.(row)}
                   className={cn(
                     'border-b border-border transition-colors',
                     striped && rowIndex % 2 === 0 && 'bg-muted/20',
                     hoverable && 'hover:bg-muted/40',
-                    isSelected && 'bg-primary/10'
+                    isSelected && 'bg-primary/10',
+                    onRowClick && 'cursor-pointer'
                   )}
                 >
                   {selectable && (

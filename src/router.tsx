@@ -6,6 +6,7 @@ import Availability from './pages/Availability';
 import Roles from './pages/Roles';
 import MarketData from './pages/MarketData';
 import MakeBooking from './pages/MakeBooking';
+import SelectWorkers from './pages/SelectWorkers';
 import BusinessPools from './pages/BusinessPools';
 import ChainBuilder from './pages/ChainBuilder';
 import MarketInterventions from './pages/MarketInterventions';
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: 'booking',
         element: <MakeBooking />,
+      },
+      {
+        path: 'select-workers',
+        element: <SelectWorkers />,
       },
       {
         path: 'pools',

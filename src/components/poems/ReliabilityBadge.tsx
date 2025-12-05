@@ -3,28 +3,30 @@ import { cn } from '@/lib/utils';
 import type { ReliabilityGrade } from '@/types';
 
 interface ReliabilityBadgeProps {
-  grade: ReliabilityGrade;
+  grade: ReliabilityGrade | 'New';
   size?: 'sm' | 'md' | 'lg';
   showLabel?: boolean;
   animate?: boolean;
 }
 
-const gradeColors: Record<ReliabilityGrade, { bg: string; text: string; border: string }> = {
+const gradeColors: Record<ReliabilityGrade | 'New', { bg: string; text: string; border: string }> = {
   1: { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-300' },
   2: { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-300' },
   3: { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-300' },
   4: { bg: 'bg-amber-100', text: 'text-amber-800', border: 'border-amber-300' },
   5: { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-300' },
   6: { bg: 'bg-red-100', text: 'text-red-800', border: 'border-red-300' },
+  New: { bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-gray-300' },
 };
 
-const gradeLabels: Record<ReliabilityGrade, string> = {
+const gradeLabels: Record<ReliabilityGrade | 'New', string> = {
   1: 'Exceptional',
   2: 'Excellent',
   3: 'Good',
   4: 'Fair',
   5: 'Needs Improvement',
   6: 'New/Unrated',
+  New: 'New Worker',
 };
 
 const sizes = {
@@ -52,7 +54,7 @@ export default function ReliabilityBadge({
         sizes[size]
       )}
     >
-      <span>Grade {grade}</span>
+      <span>{grade === 'New' ? 'New' : `Grade ${grade}`}</span>
       {showLabel && <span className="font-normal">· {label}</span>}
     </div>
   );
