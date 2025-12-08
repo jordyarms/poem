@@ -18,6 +18,7 @@ import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import MyFunds from './pages/MyFunds';
+import ThisMorningsRoutes from './pages/ThisMorningsRoutes';
 
 export const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ export const router = createBrowserRouter([
       {
         path: 'my-funds',
         element: <MyFunds />,
+      },
+      {
+        path: 'mornings-routes',
+        element: <ThisMorningsRoutes />,
       },
     ],
   },

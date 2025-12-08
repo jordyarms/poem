@@ -14,6 +14,7 @@ import {
   Search,
   Building,
   Target,
+  Truck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme, ViewMode } from '@/contexts/ThemeContext';
@@ -46,6 +47,7 @@ const navItems: NavItem[] = [
 
   // Policy-specific
   { path: '/my-funds', label: 'My Funds', icon: Wallet, modes: ['policy'] },
+  { path: '/mornings-routes', label: 'Morning Routes', icon: Truck, modes: ['policy'] },
 
   // Shared
   { path: '/finance', label: 'Finance', icon: Wallet, modes: ['worker', 'business'] },
