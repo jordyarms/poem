@@ -19,6 +19,7 @@ import Profile from './pages/Profile';
 import Search from './pages/Search';
 import MyFunds from './pages/MyFunds';
 import ThisMorningsRoutes from './pages/ThisMorningsRoutes';
+import UnifundRegistry from './pages/UnifundRegistry';
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ export const router = createBrowserRouter([
       {
         path: 'mornings-routes',
         element: <ThisMorningsRoutes />,
+      },
+      {
+        path: 'unifund-registry',
+        element: <UnifundRegistry />,
       },
     ],
   },
