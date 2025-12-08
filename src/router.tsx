@@ -20,6 +20,7 @@ import Search from './pages/Search';
 import MyFunds from './pages/MyFunds';
 import ThisMorningsRoutes from './pages/ThisMorningsRoutes';
 import UnifundRegistry from './pages/UnifundRegistry';
+import TransitionDashboard from './pages/TransitionDashboard';
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
       {
         path: 'unifund-registry',
         element: <UnifundRegistry />,
+      },
+      {
+        path: 'transition-dashboard',
+        element: <TransitionDashboard />,
       },
     ],
   },

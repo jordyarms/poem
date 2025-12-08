@@ -16,6 +16,7 @@ import {
   Target,
   Truck,
   Coins,
+  Activity,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme, ViewMode } from '@/contexts/ThemeContext';
@@ -50,6 +51,7 @@ const navItems: NavItem[] = [
   { path: '/my-funds', label: 'My Funds', icon: Wallet, modes: ['policy'] },
   { path: '/mornings-routes', label: 'Morning Routes', icon: Truck, modes: ['policy'] },
   { path: '/unifund-registry', label: 'Unifund Registry', icon: Coins, modes: ['policy'] },
+  { path: '/transition-dashboard', label: 'Transition Dashboard', icon: Activity, modes: ['policy'] },
 
   // Shared
   { path: '/finance', label: 'Finance', icon: Wallet, modes: ['worker', 'business'] },
