@@ -216,7 +216,7 @@ export default function MakeBooking() {
         className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900"
       >
         <p>
-          <strong>How it works:</strong> Click on time slots to see available workers. Darker blue indicates more workers available.
+          <strong>How it works:</strong> Click on time slots to see available workers. Darker blue shades indicate higher worker availability.
           Numbers show the exact count of qualified workers for each time slot.
         </p>
       </motion.div>

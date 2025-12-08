@@ -23,10 +23,14 @@ const getSlotColor = (
 
   if (mode === 'heatmap') {
     const count = slot.count || 0;
-    if (count === 0) return 'bg-gray-50 border-gray-200 text-gray-400';
-    if (count <= 2) return 'bg-amber-100 border-amber-300 text-amber-800';
-    if (count <= 5) return 'bg-emerald-100 border-emerald-300 text-emerald-800';
-    return 'bg-blue-100 border-blue-300 text-blue-800';
+    // Monochrome blue gradient based on worker density
+    if (count === 0) return 'bg-white border-gray-200 text-gray-400';
+    if (count === 1) return 'bg-blue-50 border-blue-100 text-blue-700';
+    if (count === 2) return 'bg-blue-100 border-blue-200 text-blue-800';
+    if (count <= 4) return 'bg-blue-200 border-blue-300 text-blue-900';
+    if (count <= 6) return 'bg-blue-300 border-blue-400 text-blue-900';
+    if (count <= 8) return 'bg-blue-400 border-blue-500 text-white';
+    return 'bg-blue-500 border-blue-600 text-white'; // 9+ workers
   }
 
   return 'bg-gray-50 border-gray-200';
@@ -178,19 +182,19 @@ export default function AvailabilityGrid({
         {mode === 'heatmap' && (
           <>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-gray-50 border-2 border-gray-200 rounded"></div>
+              <div className="w-4 h-4 bg-white border-2 border-gray-200 rounded"></div>
               <span>None</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-amber-100 border-2 border-amber-300 rounded"></div>
+              <div className="w-4 h-4 bg-blue-50 border-2 border-blue-100 rounded"></div>
               <span>1-2 workers</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-emerald-100 border-2 border-emerald-300 rounded"></div>
+              <div className="w-4 h-4 bg-blue-200 border-2 border-blue-300 rounded"></div>
               <span>3-5 workers</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-blue-100 border-2 border-blue-300 rounded"></div>
+              <div className="w-4 h-4 bg-blue-400 border-2 border-blue-500 rounded"></div>
               <span>6+ workers</span>
             </div>
           </>
