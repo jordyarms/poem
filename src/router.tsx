@@ -21,6 +21,7 @@ import MyFunds from './pages/MyFunds';
 import ThisMorningsRoutes from './pages/ThisMorningsRoutes';
 import UnifundRegistry from './pages/UnifundRegistry';
 import TransitionDashboard from './pages/TransitionDashboard';
+import MyChecks from './pages/MyChecks';
 
 export const router = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ export const router = createBrowserRouter([
       {
         path: 'transition-dashboard',
         element: <TransitionDashboard />,
+      },
+      {
+        path: 'my-checks',
+        element: <MyChecks />,
       },
     ],
   },

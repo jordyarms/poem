@@ -17,6 +17,7 @@ import {
   Truck,
   Coins,
   Activity,
+  Shield,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTheme, ViewMode } from '@/contexts/ThemeContext';
@@ -36,6 +37,7 @@ const navItems: NavItem[] = [
   { path: '/opportunities', label: 'Opportunities', icon: Briefcase, modes: ['worker'] },
   { path: '/availability', label: 'My Availability', icon: Calendar, modes: ['worker'] },
   { path: '/roles', label: 'My Roles', icon: Award, modes: ['worker'] },
+  { path: '/my-checks', label: 'My Checks', icon: Shield, modes: ['worker'] },
   { path: '/market-data', label: 'Market Data', icon: TrendingUp, modes: ['worker'] },
 
   // Business-specific
