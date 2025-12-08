@@ -27,7 +27,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: '/', label: 'Dashboard', icon: LayoutDashboard, modes: ['worker', 'business'] },
+  { path: '/', label: 'Dashboard', icon: LayoutDashboard, modes: ['worker', 'business', 'policy'] },
 
   // Worker-specific
   { path: '/opportunities', label: 'Opportunities', icon: Briefcase, modes: ['worker'] },
@@ -44,10 +44,13 @@ const navItems: NavItem[] = [
   { path: '/intervention', label: 'Interventions', icon: Target, modes: ['business'] },
   { path: '/analytics', label: 'Analytics', icon: BarChart3, modes: ['business'] },
 
+  // Policy-specific
+  { path: '/my-funds', label: 'My Funds', icon: Wallet, modes: ['policy'] },
+
   // Shared
   { path: '/finance', label: 'Finance', icon: Wallet, modes: ['worker', 'business'] },
-  { path: '/profile', label: 'Profile', icon: User, modes: ['worker', 'business'] },
-  { path: '/search', label: 'Search', icon: Search, modes: ['worker', 'business'] },
+  { path: '/profile', label: 'Profile', icon: User, modes: ['worker', 'business', 'policy'] },
+  { path: '/search', label: 'Search', icon: Search, modes: ['worker', 'business', 'policy'] },
 ];
 
 export default function Navigation() {
@@ -67,7 +70,9 @@ export default function Navigation() {
               <div
                 className={cn(
                   'w-8 h-8 rounded-md flex items-center justify-center',
-                  viewMode === 'worker' ? 'bg-emerald-600' : 'bg-blue-600'
+                  viewMode === 'worker' && 'bg-emerald-600',
+                  viewMode === 'business' && 'bg-blue-600',
+                  viewMode === 'policy' && 'bg-purple-600'
                 )}
               >
                 <span className="text-white font-bold text-lg">P</span>
@@ -79,12 +84,14 @@ export default function Navigation() {
             <div
               className={cn(
                 'hidden md:flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium',
-                viewMode === 'worker'
-                  ? 'bg-emerald-100 text-emerald-700'
-                  : 'bg-blue-100 text-blue-700'
+                viewMode === 'worker' && 'bg-emerald-100 text-emerald-700',
+                viewMode === 'business' && 'bg-blue-100 text-blue-700',
+                viewMode === 'policy' && 'bg-purple-100 text-purple-700'
               )}
             >
-              {viewMode === 'worker' ? '🟢 Worker' : '🔵 Business'}
+              {viewMode === 'worker' && '🟢 Worker'}
+              {viewMode === 'business' && '🔵 Business'}
+              {viewMode === 'policy' && '🟣 Policy'}
             </div>
           </div>
 
@@ -100,11 +107,10 @@ export default function Navigation() {
                   to={item.path}
                   className={cn(
                     'flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
-                    isActive
-                      ? viewMode === 'worker'
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-blue-600 text-white'
-                      : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                    isActive && viewMode === 'worker' && 'bg-emerald-600 text-white',
+                    isActive && viewMode === 'business' && 'bg-blue-600 text-white',
+                    isActive && viewMode === 'policy' && 'bg-purple-600 text-white',
+                    !isActive && 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -132,11 +138,10 @@ export default function Navigation() {
                 to={item.path}
                 className={cn(
                   'flex flex-col items-center space-y-1 px-2 py-2 rounded-md text-xs transition-colors',
-                  isActive
-                    ? viewMode === 'worker'
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-blue-600 text-white'
-                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                  isActive && viewMode === 'worker' && 'bg-emerald-600 text-white',
+                  isActive && viewMode === 'business' && 'bg-blue-600 text-white',
+                  isActive && viewMode === 'policy' && 'bg-purple-600 text-white',
+                  !isActive && 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                 )}
               >
                 <Icon className="w-5 h-5" />

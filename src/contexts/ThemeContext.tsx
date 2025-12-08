@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-export type ViewMode = 'worker' | 'business';
+export type ViewMode = 'worker' | 'business' | 'policy';
 
 interface ThemeContextType {
   viewMode: ViewMode;
@@ -15,11 +15,13 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 const WORKER_NAMES = {
   worker: 'Yvonne Chen',
   business: 'Mark Anderson',
+  policy: 'Sarah Williams',
 };
 
 const ORG_NAMES = {
   worker: 'Springfield Workers Co-op',
   business: 'Acme Insights Inc',
+  policy: 'Regional Development Fund',
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -37,7 +39,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (viewMode === 'worker') {
       return color.includes('emerald') || color.includes('green');
     }
-    return color.includes('blue') || color.includes('sky');
+    if (viewMode === 'business') {
+      return color.includes('blue') || color.includes('sky');
+    }
+    return color.includes('purple') || color.includes('violet');
   };
 
   const userName = WORKER_NAMES[viewMode];
@@ -70,6 +75,11 @@ export function getThemeColor(viewMode: ViewMode, variant: 'primary' | 'secondar
       primary: 'blue',
       secondary: 'sky',
       accent: 'indigo',
+    },
+    policy: {
+      primary: 'purple',
+      secondary: 'violet',
+      accent: 'fuchsia',
     },
   };
 

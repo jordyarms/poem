@@ -1,5 +1,5 @@
 import { useTheme } from '@/contexts/ThemeContext';
-import { Briefcase, Users, ChevronDown } from 'lucide-react';
+import { Briefcase, Users, ChevronDown, Building2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -27,6 +27,15 @@ export default function ModeSwitcher() {
       color: 'blue',
       description: 'Business/employer perspective',
     },
+    {
+      value: 'policy' as const,
+      label: 'Policy View',
+      icon: Building2,
+      userName: 'Sarah Williams',
+      org: 'Regional Development Fund',
+      color: 'purple',
+      description: 'Government & public agency perspective',
+    },
   ];
 
   const currentMode = modes.find((m) => m.value === viewMode)!;
@@ -39,13 +48,18 @@ export default function ModeSwitcher() {
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           'flex items-center gap-3 px-4 py-2 rounded-lg border-2 transition-all',
-          viewMode === 'worker'
-            ? 'bg-emerald-50 border-emerald-300 hover:bg-emerald-100'
-            : 'bg-blue-50 border-blue-300 hover:bg-blue-100'
+          viewMode === 'worker' && 'bg-emerald-50 border-emerald-300 hover:bg-emerald-100',
+          viewMode === 'business' && 'bg-blue-50 border-blue-300 hover:bg-blue-100',
+          viewMode === 'policy' && 'bg-purple-50 border-purple-300 hover:bg-purple-100'
         )}
       >
         <Icon
-          className={cn('w-5 h-5', viewMode === 'worker' ? 'text-emerald-600' : 'text-blue-600')}
+          className={cn(
+            'w-5 h-5',
+            viewMode === 'worker' && 'text-emerald-600',
+            viewMode === 'business' && 'text-blue-600',
+            viewMode === 'policy' && 'text-purple-600'
+          )}
         />
         <div className="text-left">
           <div className="text-xs text-muted-foreground">Viewing as</div>
@@ -55,7 +69,9 @@ export default function ModeSwitcher() {
           className={cn(
             'w-4 h-4 transition-transform',
             isOpen && 'rotate-180',
-            viewMode === 'worker' ? 'text-emerald-600' : 'text-blue-600'
+            viewMode === 'worker' && 'text-emerald-600',
+            viewMode === 'business' && 'text-blue-600',
+            viewMode === 'policy' && 'text-purple-600'
           )}
         />
       </button>
@@ -100,23 +116,26 @@ export default function ModeSwitcher() {
                     }}
                     className={cn(
                       'w-full flex items-start gap-3 p-4 transition-colors text-left',
-                      isActive
-                        ? mode.value === 'worker'
-                          ? 'bg-emerald-50 hover:bg-emerald-100'
-                          : 'bg-blue-50 hover:bg-blue-100'
-                        : 'bg-white hover:bg-gray-50'
+                      isActive && mode.value === 'worker' && 'bg-emerald-50 hover:bg-emerald-100',
+                      isActive && mode.value === 'business' && 'bg-blue-50 hover:bg-blue-100',
+                      isActive && mode.value === 'policy' && 'bg-purple-50 hover:bg-purple-100',
+                      !isActive && 'bg-white hover:bg-gray-50'
                     )}
                   >
                     <div
                       className={cn(
                         'p-2 rounded-lg',
-                        mode.value === 'worker' ? 'bg-emerald-100' : 'bg-blue-100'
+                        mode.value === 'worker' && 'bg-emerald-100',
+                        mode.value === 'business' && 'bg-blue-100',
+                        mode.value === 'policy' && 'bg-purple-100'
                       )}
                     >
                       <ModeIcon
                         className={cn(
                           'w-5 h-5',
-                          mode.value === 'worker' ? 'text-emerald-600' : 'text-blue-600'
+                          mode.value === 'worker' && 'text-emerald-600',
+                          mode.value === 'business' && 'text-blue-600',
+                          mode.value === 'policy' && 'text-purple-600'
                         )}
                       />
                     </div>
@@ -128,9 +147,9 @@ export default function ModeSwitcher() {
                           <span
                             className={cn(
                               'px-2 py-0.5 text-xs font-medium rounded-full',
-                              mode.value === 'worker'
-                                ? 'bg-emerald-600 text-white'
-                                : 'bg-blue-600 text-white'
+                              mode.value === 'worker' && 'bg-emerald-600 text-white',
+                              mode.value === 'business' && 'bg-blue-600 text-white',
+                              mode.value === 'policy' && 'bg-purple-600 text-white'
                             )}
                           >
                             Active
@@ -142,7 +161,9 @@ export default function ModeSwitcher() {
                         <div
                           className={cn(
                             'w-6 h-6 rounded-full flex items-center justify-center text-white font-semibold',
-                            mode.value === 'worker' ? 'bg-emerald-600' : 'bg-blue-600'
+                            mode.value === 'worker' && 'bg-emerald-600',
+                            mode.value === 'business' && 'bg-blue-600',
+                            mode.value === 'policy' && 'bg-purple-600'
                           )}
                         >
                           {mode.userName.split(' ')[0][0]}

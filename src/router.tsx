@@ -17,6 +17,7 @@ import Finance from './pages/Finance';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
+import MyFunds from './pages/MyFunds';
 
 export const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
       {
         path: 'search',
         element: <Search />,
+      },
+      {
+        path: 'my-funds',
+        element: <MyFunds />,
       },
     ],
   },
