@@ -1,7 +1,8 @@
-import { MapPin, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import Map, { MapMarker, MapCircle } from '@/components/poems/Map';
 
 interface Route {
   id: string;
@@ -10,7 +11,6 @@ interface Route {
   miles: number;
   status: 'assigned' | 'open';
   openTime?: string;
-  position: { top: string; left: string };
 }
 
 interface FilterBarProps {
@@ -122,83 +122,52 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
   );
 }
 
-interface RouteCardProps {
-  route: Route;
-}
-
-function RouteCard({ route }: RouteCardProps) {
-  const getStatusColor = () => {
-    if (route.status === 'assigned') return 'bg-blue-600 text-white';
-    return 'bg-emerald-600 text-white';
-  };
-
-  const getStatusLabel = () => {
-    if (route.status === 'assigned') return 'ASSIGNED';
-    return route.openTime ? `OPEN TO ${route.openTime}` : 'OPEN';
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="absolute bg-white border-2 border-gray-300 rounded-lg p-3 shadow-lg min-w-[140px]"
-      style={{ top: route.position.top, left: route.position.left }}
-    >
-      <div className="font-bold text-gray-900 mb-2">{route.label}:</div>
-      <div className="text-sm text-gray-700 mb-1">{route.drops} drops</div>
-      <div className="text-sm text-gray-700 mb-2">{route.miles} miles</div>
-      <div className={cn('text-xs font-bold px-2 py-1 rounded text-center', getStatusColor())}>
-        {getStatusLabel()}
-      </div>
-    </motion.div>
-  );
-}
-
 function RouteMap({ routes }: { routes: Route[] }) {
+  const hubCenter: [number, number] = [40.7539, -73.9851];
+
+  // Hub marker
+  const hubMarker: MapMarker = {
+    id: 'hub',
+    position: hubCenter,
+    title: 'Underpass Warehouse',
+    description: '456 Freeway Street - Distribution Hub',
+  };
+
+  // Convert routes to circles distributed around the hub
+  const routeCircles: MapCircle[] = routes.map((route, index) => {
+    // Distribute routes in a circle around the hub
+    const angle = (index / routes.length) * 2 * Math.PI;
+    const distance = 0.03; // Distance from hub in degrees (~3km)
+    const lat = hubCenter[0] + distance * Math.cos(angle);
+    const lng = hubCenter[1] + distance * Math.sin(angle);
+
+    // Circle radius based on number of drops (larger routes = larger circles)
+    const radius = route.drops * 15; // meters
+
+    // Color based on status: blue for assigned, green for open
+    const color = route.status === 'assigned' ? '#2563eb' : '#059669';
+
+    return {
+      id: route.id,
+      center: [lat, lng],
+      radius: radius,
+      color: color,
+      fillColor: color,
+      label: `${route.label}: ${route.drops} drops, ${route.miles} miles${
+        route.status === 'open' && route.openTime ? ` - Open to ${route.openTime}` : ''
+      }`,
+    };
+  });
+
   return (
-    <div className="relative bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border-2 border-gray-300 overflow-hidden" style={{ height: '500px' }}>
-      {/* Map placeholder background with road-like pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="roads" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-              <path d="M 0,50 L 100,50" stroke="#8B7355" strokeWidth="2" fill="none" />
-              <path d="M 50,0 L 50,100" stroke="#8B7355" strokeWidth="2" fill="none" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#roads)" />
-        </svg>
-      </div>
-
-      {/* River/waterway visual element */}
-      <div className="absolute bottom-0 right-0 w-1/3 h-2/3">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M 0,100 Q 50,80 100,100 L 100,0 Q 70,40 0,0 Z"
-            fill="#93C5FD"
-            opacity="0.3"
-          />
-        </svg>
-      </div>
-
-      {/* Green space indicators */}
-      <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-emerald-200 rounded-full opacity-30" />
-      <div className="absolute bottom-1/3 right-1/3 w-20 h-20 bg-emerald-200 rounded-full opacity-30" />
-
-      {/* Route cards */}
-      {routes.map((route) => (
-        <RouteCard key={route.id} route={route} />
-      ))}
-
-      {/* Hub indicator */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="bg-red-500 rounded-full p-2 shadow-lg">
-          <MapPin className="w-6 h-6 text-white" />
-        </div>
-        <div className="text-xs font-semibold text-gray-700 bg-white px-2 py-1 rounded mt-1 whitespace-nowrap text-center shadow">
-          Underpass Warehouse
-        </div>
-      </div>
+    <div className="rounded-lg border-2 border-gray-300 overflow-hidden" style={{ height: '500px' }}>
+      <Map
+        center={hubCenter}
+        zoom={12}
+        markers={[hubMarker]}
+        circles={routeCircles}
+        height="500px"
+      />
     </div>
   );
 }
@@ -225,7 +194,6 @@ export default function ThisMorningsRoutes() {
       drops: 82,
       miles: 12,
       status: 'assigned',
-      position: { top: '15%', left: '20%' },
     },
     {
       id: 'b',
@@ -233,7 +201,6 @@ export default function ThisMorningsRoutes() {
       drops: 75,
       miles: 14,
       status: 'assigned',
-      position: { top: '10%', left: '65%' },
     },
     {
       id: 'c',
@@ -242,7 +209,6 @@ export default function ThisMorningsRoutes() {
       miles: 8,
       status: 'open',
       openTime: '6:30 AM',
-      position: { top: '55%', left: '10%' },
     },
     {
       id: 'd',
@@ -250,7 +216,6 @@ export default function ThisMorningsRoutes() {
       drops: 88,
       miles: 5,
       status: 'assigned',
-      position: { top: '70%', left: '45%' },
     },
     {
       id: 'e',
@@ -258,7 +223,6 @@ export default function ThisMorningsRoutes() {
       drops: 77,
       miles: 15,
       status: 'assigned',
-      position: { top: '50%', left: '70%' },
     },
   ];
 

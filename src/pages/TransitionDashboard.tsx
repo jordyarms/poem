@@ -1,7 +1,8 @@
-import { TrendingUp, TrendingDown, MapPin, ArrowUpRight } from "lucide-react";
+import { TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Map, { MapMarker } from "@/components/poems/Map";
 
 interface FilterBarProps {
   filters: {
@@ -245,96 +246,48 @@ function SemicircularGauge({
 }
 
 function GeographicMap() {
+  // Availability markers for different locations in the city
+  const markers: MapMarker[] = [
+    {
+      id: 'east-city',
+      position: [40.7589, -73.9851], // East side
+      title: 'Holder Availability: East City',
+      description: '7PM – 11PM weekdays',
+    },
+    {
+      id: 'downtown',
+      position: [40.7489, -73.9851], // Downtown
+      title: 'Holder Availability: Downtown',
+      description: '6AM – 9AM weekdays',
+    },
+    {
+      id: 'west-district',
+      position: [40.7539, -74.0051], // West district
+      title: 'Holder Availability: West District',
+      description: '12PM – 3PM daily',
+    },
+    {
+      id: 'north-quarter',
+      position: [40.7689, -73.9851], // North quarter
+      title: 'Holder Availability: North Quarter',
+      description: '5PM – 8PM weekends',
+    },
+    {
+      id: 'south-zone',
+      position: [40.7389, -73.9851], // South zone
+      title: 'Holder Availability: South Zone',
+      description: '10AM – 2PM weekdays',
+    },
+  ];
+
   return (
-    <div
-      className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border-2 border-gray-300 p-4 relative"
-      style={{ height: "350px" }}
-    >
-      {/* Map placeholder background */}
-      <div className="absolute inset-0 opacity-10">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern
-              id="map-roads"
-              x="0"
-              y="0"
-              width="80"
-              height="80"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 0,40 L 80,40"
-                stroke="#8B7355"
-                strokeWidth="1.5"
-                fill="none"
-              />
-              <path
-                d="M 40,0 L 40,80"
-                stroke="#8B7355"
-                strokeWidth="1.5"
-                fill="none"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#map-roads)" />
-        </svg>
-      </div>
-
-      {/* River */}
-      <div className="absolute bottom-0 right-0 w-2/5 h-3/5">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M 0,100 Q 60,70 120,100 L 120,0 Q 80,50 0,0 Z"
-            fill="#93C5FD"
-            opacity="0.4"
-          />
-        </svg>
-      </div>
-
-      {/* Green spaces */}
-      <div className="absolute top-1/4 left-1/5 w-20 h-20 bg-emerald-200 rounded-full opacity-25" />
-      <div className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-emerald-200 rounded-full opacity-25" />
-
-      {/* Availability markers */}
-      <div className="absolute top-[20%] left-[30%]">
-        <div className="bg-red-500 rounded-full p-2">
-          <MapPin className="w-4 h-4 text-white" />
-        </div>
-      </div>
-      <div className="absolute top-[40%] right-[35%]">
-        <div className="bg-red-500 rounded-full p-2">
-          <MapPin className="w-4 h-4 text-white" />
-        </div>
-      </div>
-      <div className="absolute bottom-[35%] left-[45%]">
-        <div className="bg-red-500 rounded-full p-2">
-          <MapPin className="w-4 h-4 text-white" />
-        </div>
-      </div>
-      <div className="absolute top-[15%] right-[20%]">
-        <div className="bg-red-500 rounded-full p-2">
-          <MapPin className="w-4 h-4 text-white" />
-        </div>
-      </div>
-      <div className="absolute bottom-[45%] left-[20%]">
-        <div className="bg-red-500 rounded-full p-2">
-          <MapPin className="w-4 h-4 text-white" />
-        </div>
-      </div>
-
-      {/* Info box */}
-      <div className="absolute top-4 right-4 bg-white border-2 border-gray-300 rounded-lg p-3 shadow-lg max-w-[200px]">
-        <h4 className="font-semibold text-gray-900 text-sm mb-1">
-          Holder Availability: East City
-        </h4>
-        <p className="text-xs text-gray-700">7PM – 11PM weekdays</p>
-        <a
-          href="#"
-          className="text-xs text-purple-600 hover:text-purple-700 mt-1 inline-block"
-        >
-          Analysis
-        </a>
-      </div>
+    <div className="rounded-lg border-2 border-gray-300 overflow-hidden" style={{ height: '350px' }}>
+      <Map
+        center={[40.7539, -73.9851]}
+        zoom={13}
+        markers={markers}
+        height="350px"
+      />
     </div>
   );
 }
