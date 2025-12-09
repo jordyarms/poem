@@ -31,7 +31,7 @@ export default function NavDropdown({ label, icon: Icon, items, viewMode }: NavD
     >
       <button
         className={cn(
-          'flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+          'flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors',
           isAnyItemActive && viewMode === 'worker' && 'bg-emerald-600 text-white',
           isAnyItemActive && viewMode === 'business' && 'bg-blue-600 text-white',
           isAnyItemActive && viewMode === 'policy' && 'bg-purple-600 text-white',
@@ -55,7 +55,7 @@ export default function NavDropdown({ label, icon: Icon, items, viewMode }: NavD
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    'flex items-center space-x-2 px-3 py-2 text-sm transition-colors',
+                    'flex items-center space-x-2 px-3 py-1.5 text-sm transition-colors',
                     isActive && viewMode === 'worker' && 'bg-emerald-50 text-emerald-700 font-medium',
                     isActive && viewMode === 'business' && 'bg-blue-50 text-blue-700 font-medium',
                     isActive && viewMode === 'policy' && 'bg-purple-50 text-purple-700 font-medium',

@@ -124,27 +124,27 @@ export default function Navigation() {
   return (
     <nav className="bg-card border-b border-border">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-12">
           {/* Logo/Brand */}
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center gap-4">
+            <Link to="/" className="flex items-center space-x-1.5">
               <div
                 className={cn(
-                  'w-8 h-8 rounded-md flex items-center justify-center',
+                  'w-7 h-7 rounded-md flex items-center justify-center',
                   viewMode === 'worker' && 'bg-emerald-600',
                   viewMode === 'business' && 'bg-blue-600',
                   viewMode === 'policy' && 'bg-purple-600'
                 )}
               >
-                <span className="text-white font-bold text-lg">P</span>
+                <span className="text-white font-bold text-base">P</span>
               </div>
-              <span className="text-xl font-bold">POEMs</span>
+              <span className="text-lg font-bold">POEMs</span>
             </Link>
 
             {/* Mode Badge */}
             <div
               className={cn(
-                'hidden md:flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium',
+                'hidden md:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium',
                 viewMode === 'worker' && 'bg-emerald-100 text-emerald-700',
                 viewMode === 'business' && 'bg-blue-100 text-blue-700',
                 viewMode === 'policy' && 'bg-purple-100 text-purple-700'
@@ -168,7 +168,7 @@ export default function Navigation() {
                     key={item.path}
                     to={item.path}
                     className={cn(
-                      'flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                      'flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors',
                       isActive && viewMode === 'worker' && 'bg-emerald-600 text-white',
                       isActive && viewMode === 'business' && 'bg-blue-600 text-white',
                       isActive && viewMode === 'policy' && 'bg-purple-600 text-white',

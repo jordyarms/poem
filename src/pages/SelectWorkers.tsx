@@ -312,25 +312,24 @@ export default function SelectWorkers() {
   ];
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-7xl mx-auto space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold flex items-center gap-3">
-              <Users className="w-8 h-8 text-blue-600" />
+            <h1 className="text-2xl font-bold flex items-center gap-2">
+              <Users className="w-6 h-6 text-blue-600" />
               Select Your Workers
             </h1>
-            <p className="text-muted-foreground mt-1">
+            <p className="text-sm text-muted-foreground mt-0.5">
               Choose workers for your booking - view details and build your team
             </p>
           </div>
-          <div className="flex gap-3">
-            <Button variant="outline" size="lg">
+          <div className="flex gap-2">
+            <Button variant="outline">
               Save Draft
             </Button>
             <Button
-              size="lg"
               className="bg-blue-600 hover:bg-blue-700"
               disabled={selectedWorkers.length === 0}
             >
@@ -340,9 +339,9 @@ export default function SelectWorkers() {
         </div>
 
         {/* Available Workers */}
-        <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
+        <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-bold flex items-center gap-2">
               <User className="w-5 h-5 text-blue-600" />
               Available Workers ({filteredAvailableWorkers.length})
             </h2>
@@ -350,7 +349,7 @@ export default function SelectWorkers() {
 
           <FilterBar filters={filters} />
 
-          <div className="mt-4">
+          <div className="mt-3">
             <DataTable
               data={filteredAvailableWorkers}
               columns={availableColumns}
@@ -360,18 +359,18 @@ export default function SelectWorkers() {
         </div>
 
         {/* Selected Workers */}
-        <div className="bg-card border border-blue-200 rounded-lg p-6 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
+        <div className="bg-card border border-blue-200 rounded-lg p-4 shadow-sm">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-bold flex items-center gap-2">
               <Users className="w-5 h-5 text-emerald-600" />
               Selected Workers ({selectedWorkers.length})
             </h2>
           </div>
 
           {selectedWorkers.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <Users className="w-12 h-12 mx-auto mb-3 opacity-30" />
-              <p>No workers selected yet. Click the + button to add workers.</p>
+            <div className="text-center py-8 text-muted-foreground">
+              <Users className="w-10 h-10 mx-auto mb-2 opacity-30" />
+              <p className="text-sm">No workers selected yet. Click the + button to add workers.</p>
             </div>
           ) : (
             <>
@@ -382,39 +381,39 @@ export default function SelectWorkers() {
               />
 
               {/* Cost Summary */}
-              <div className="mt-6 pt-6 border-t border-border">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="bg-blue-50 rounded-lg p-4">
+              <div className="mt-4 pt-4 border-t border-border">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                  <div className="bg-blue-50 rounded-lg p-3">
                     <div className="flex items-center gap-2 text-blue-600 mb-1">
                       <Users className="w-4 h-4" />
                       <span className="text-sm font-medium">Workers</span>
                     </div>
-                    <div className="text-2xl font-bold text-blue-900">{selectedWorkers.length}</div>
+                    <div className="text-xl font-bold text-blue-900">{selectedWorkers.length}</div>
                   </div>
-                  <div className="bg-blue-50 rounded-lg p-4">
+                  <div className="bg-blue-50 rounded-lg p-3">
                     <div className="flex items-center gap-2 text-blue-600 mb-1">
                       <Clock className="w-4 h-4" />
                       <span className="text-sm font-medium">Total Hours</span>
                     </div>
-                    <div className="text-2xl font-bold text-blue-900">
+                    <div className="text-xl font-bold text-blue-900">
                       {totalHours * selectedWorkers.length}h
                     </div>
                   </div>
-                  <div className="bg-blue-50 rounded-lg p-4">
+                  <div className="bg-blue-50 rounded-lg p-3">
                     <div className="flex items-center gap-2 text-blue-600 mb-1">
                       <DollarSign className="w-4 h-4" />
                       <span className="text-sm font-medium">Avg Rate</span>
                     </div>
-                    <div className="text-2xl font-bold text-blue-900">
+                    <div className="text-xl font-bold text-blue-900">
                       ${averageRate.toFixed(2)}/hr
                     </div>
                   </div>
-                  <div className="bg-blue-100 rounded-lg p-4 border-2 border-blue-300">
+                  <div className="bg-blue-100 rounded-lg p-3 border-2 border-blue-300">
                     <div className="flex items-center gap-2 text-blue-700 mb-1">
                       <DollarSign className="w-4 h-4" />
                       <span className="text-sm font-medium">Total Cost</span>
                     </div>
-                    <div className="text-2xl font-bold text-blue-900">
+                    <div className="text-xl font-bold text-blue-900">
                       ${totalCost.toFixed(2)}
                     </div>
                   </div>

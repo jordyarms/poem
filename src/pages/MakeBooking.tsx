@@ -43,18 +43,18 @@ export default function MakeBooking() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
+    <div className="container mx-auto p-4 max-w-7xl">
       {/* Header - Business Blue Theme */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-4"
       >
-        <div className="flex items-center gap-2 mb-2">
-          <Calendar className="w-8 h-8 text-blue-600" />
-          <h1 className="text-3xl font-bold">Make a Booking</h1>
+        <div className="flex items-center gap-2 mb-1">
+          <Calendar className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold">Make a Booking</h1>
         </div>
-        <p className="text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           Select available time slots and book workers for your requirements
         </p>
       </motion.div>
@@ -64,11 +64,11 @@ export default function MakeBooking() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="bg-card border border-border rounded-lg p-6 mb-6"
+        className="bg-card border border-border rounded-lg p-4 mb-4"
       >
-        <h2 className="text-xl font-semibold mb-4">Booking Details</h2>
+        <h2 className="text-lg font-semibold mb-3">Booking Details</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Account Selection */}
           <div>
             <label className="flex items-center justify-between text-sm font-medium text-muted-foreground mb-2">
@@ -145,7 +145,7 @@ export default function MakeBooking() {
       </motion.div>
 
       {/* Week Navigation */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
@@ -177,9 +177,9 @@ export default function MakeBooking() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="bg-card border border-border rounded-lg p-6 mb-6"
+        className="bg-card border border-border rounded-lg p-4 mb-4"
       >
-        <h2 className="text-xl font-semibold mb-4">Worker Availability</h2>
+        <h2 className="text-lg font-semibold mb-3">Worker Availability</h2>
         <AvailabilityGrid
           mode="heatmap"
           data={heatmapData}
@@ -198,7 +198,7 @@ export default function MakeBooking() {
           Enter detailed Sessions
         </button>
 
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <Button variant="outline">
             Save Draft
           </Button>
@@ -213,7 +213,7 @@ export default function MakeBooking() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900"
+        className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900"
       >
         <p>
           <strong>How it works:</strong> Click on time slots to see available workers. Darker blue shades indicate higher worker availability.
