@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Users, Plus, Minus, DollarSign, Clock, User } from 'lucide-react';
+import { Users, Plus, Minus, DollarSign, Clock, User, Star, CheckCircle, XCircle } from 'lucide-react';
 import DataTable from '@/components/poems/DataTable';
 import WorkerDetailPanel from '@/components/poems/WorkerDetailPanel';
 import FilterBar from '@/components/poems/FilterBar';
@@ -79,9 +79,38 @@ export default function SelectWorkers() {
       ),
     },
     {
+      key: 'roleMatch',
+      label: 'Role Match',
+      sortable: true,
+      render: (worker: WorkerProfile) => (
+        <div className="flex items-center justify-center">
+          {worker.roleMatch ? (
+            <CheckCircle className="w-5 h-5 text-emerald-600" />
+          ) : (
+            <XCircle className="w-5 h-5 text-gray-400" />
+          )}
+        </div>
+      ),
+    },
+    {
       key: 'rating',
       label: 'Rating',
       sortable: true,
+      render: (worker: WorkerProfile) => (
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, index) => (
+            <Star
+              key={index}
+              className={`w-4 h-4 ${
+                index < Math.floor(worker.rating)
+                  ? 'fill-amber-400 text-amber-400'
+                  : 'text-gray-300'
+              }`}
+            />
+          ))}
+          <span className="ml-1 text-sm font-medium">{worker.rating.toFixed(1)}</span>
+        </div>
+      ),
     },
     {
       key: 'rank',
@@ -91,6 +120,11 @@ export default function SelectWorkers() {
     {
       key: 'ourBookings',
       label: 'Our Bookings',
+      sortable: true,
+    },
+    {
+      key: 'ourHours',
+      label: 'Our Hours',
       sortable: true,
     },
     {
@@ -152,9 +186,38 @@ export default function SelectWorkers() {
       ),
     },
     {
+      key: 'roleMatch',
+      label: 'Role Match',
+      sortable: true,
+      render: (worker: WorkerProfile) => (
+        <div className="flex items-center justify-center">
+          {worker.roleMatch ? (
+            <CheckCircle className="w-5 h-5 text-emerald-600" />
+          ) : (
+            <XCircle className="w-5 h-5 text-gray-400" />
+          )}
+        </div>
+      ),
+    },
+    {
       key: 'rating',
       label: 'Rating',
       sortable: true,
+      render: (worker: WorkerProfile) => (
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, index) => (
+            <Star
+              key={index}
+              className={`w-4 h-4 ${
+                index < Math.floor(worker.rating)
+                  ? 'fill-amber-400 text-amber-400'
+                  : 'text-gray-300'
+              }`}
+            />
+          ))}
+          <span className="ml-1 text-sm font-medium">{worker.rating.toFixed(1)}</span>
+        </div>
+      ),
     },
     {
       key: 'rank',
