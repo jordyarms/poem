@@ -442,8 +442,10 @@ export default function TransitionDashboard() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          {/* Left column: Gauges and Indicators */}
+          <div className="lg:col-span-2 space-y-4">
+            {/* Gauges */}
             <div className="grid grid-cols-3 gap-4">
               <SemicircularGauge
                 title="Reclamation Skills"
@@ -464,55 +466,53 @@ export default function TransitionDashboard() {
                 color="purple"
               />
             </div>
+
+            {/* Indicators - moved here */}
+            <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                Unpackaged Retail v. Conventional
+              </h3>
+              <div className="h-48 bg-gradient-to-br from-blue-900 to-indigo-900 rounded-lg flex items-center justify-center relative overflow-hidden">
+                {/* Wavy line chart placeholder */}
+                <svg width="100%" height="100%" className="absolute inset-0">
+                  <defs>
+                    <linearGradient
+                      id="wave-gradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.8" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M 0,120 Q 100,80 200,100 T 400,90 T 600,110 T 800,95 T 1000,105 T 1200,100"
+                    fill="none"
+                    stroke="url(#wave-gradient)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M 0,140 Q 100,130 200,135 T 400,130 T 600,140 T 800,135 T 1000,138 T 1200,140"
+                    fill="none"
+                    stroke="#94a3b8"
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <p className="text-white text-sm z-10 bg-black/30 px-3 py-1 rounded">
+                  Time series comparison chart
+                </p>
+              </div>
+            </div>
           </div>
 
+          {/* Right column: Map */}
           <div className="lg:col-span-3">
             <GeographicMap />
-          </div>
-        </div>
-      </div>
-
-      {/* Indicators Section */}
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Indicators</h2>
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">
-            Unpackaged Retail v. Conventional
-          </h3>
-          <div className="h-48 bg-gradient-to-br from-blue-900 to-indigo-900 rounded-lg flex items-center justify-center relative overflow-hidden">
-            {/* Wavy line chart placeholder */}
-            <svg width="100%" height="100%" className="absolute inset-0">
-              <defs>
-                <linearGradient
-                  id="wave-gradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.8" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M 0,120 Q 100,80 200,100 T 400,90 T 600,110 T 800,95 T 1000,105 T 1200,100"
-                fill="none"
-                stroke="url(#wave-gradient)"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 0,140 Q 100,130 200,135 T 400,130 T 600,140 T 800,135 T 1000,138 T 1200,140"
-                fill="none"
-                stroke="#94a3b8"
-                strokeWidth="2"
-                strokeDasharray="5,5"
-                strokeLinecap="round"
-              />
-            </svg>
-            <p className="text-white text-sm z-10 bg-black/30 px-3 py-1 rounded">
-              Time series comparison chart
-            </p>
           </div>
         </div>
       </div>
