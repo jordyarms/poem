@@ -16,12 +16,9 @@ interface FilterBarProps {
 
 function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
   return (
-    <div className="bg-purple-50 border-2 border-purple-200 rounded-lg p-4 mb-6 shadow-sm">
+    <div className="bg-purple-50 border-2 border-purple-300 rounded-lg p-4 mb-6">
       <div className="flex flex-wrap items-center gap-3 text-sm">
-        <span className="font-semibold text-purple-900 flex items-center gap-2">
-          <span className="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold">
-            FILTERS
-          </span>
+        <span className="font-semibold text-purple-900">
           Aggregate activity for
         </span>
 
