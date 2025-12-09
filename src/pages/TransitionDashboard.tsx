@@ -390,9 +390,9 @@ export default function TransitionDashboard() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Transition Dashboard
         </h1>
-        <p className="text-gray-600">
+        {/* <p className="text-gray-600">
           Economic performance analytics and market indicators
-        </p>
+        </p> */}
       </div>
 
       <AggregateFilterBar
@@ -401,10 +401,12 @@ export default function TransitionDashboard() {
       />
 
       {/* Microeconomic Performance */}
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-200 bg-blue-50 px-3 py-2 rounded">
-          Microeconomic Performance
-        </h2>
+      <div className="mb-4">
+        <div className="mb-2">
+          <h2 className="text-xl font-bold text-gray-900">
+            Microeconomic Performance
+          </h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {performanceMetrics.map((metric, idx) => (
             <PerformanceCard key={idx} metric={metric} />
@@ -413,7 +415,7 @@ export default function TransitionDashboard() {
       </div>
 
       {/* Constraints Section */}
-      <div className="mb-6">
+      <div className="mb-2">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900">Constraints</h2>
           <a
@@ -467,7 +469,11 @@ export default function TransitionDashboard() {
                       y2="0%"
                     >
                       <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.8" />
+                      <stop
+                        offset="100%"
+                        stopColor="#a78bfa"
+                        stopOpacity="0.8"
+                      />
                     </linearGradient>
                   </defs>
                   <path
