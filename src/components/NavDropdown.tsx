@@ -44,28 +44,30 @@ export default function NavDropdown({ label, icon: Icon, items, viewMode }: NavD
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1 w-48 bg-card border border-border rounded-md shadow-lg z-50 py-1">
-          {items.map((item) => {
-            const ItemIcon = item.icon;
-            const isActive = location.pathname === item.path;
+        <div className="absolute left-0 top-full pt-2 -mt-2">
+          <div className="w-48 bg-white border border-gray-200 rounded-md shadow-xl py-1">
+            {items.map((item) => {
+              const ItemIcon = item.icon;
+              const isActive = location.pathname === item.path;
 
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={cn(
-                  'flex items-center space-x-2 px-3 py-2 text-sm transition-colors',
-                  isActive && viewMode === 'worker' && 'bg-emerald-50 text-emerald-700',
-                  isActive && viewMode === 'business' && 'bg-blue-50 text-blue-700',
-                  isActive && viewMode === 'policy' && 'bg-purple-50 text-purple-700',
-                  !isActive && 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                )}
-              >
-                <ItemIcon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={cn(
+                    'flex items-center space-x-2 px-3 py-2 text-sm transition-colors',
+                    isActive && viewMode === 'worker' && 'bg-emerald-50 text-emerald-700 font-medium',
+                    isActive && viewMode === 'business' && 'bg-blue-50 text-blue-700 font-medium',
+                    isActive && viewMode === 'policy' && 'bg-purple-50 text-purple-700 font-medium',
+                    !isActive && 'text-gray-700 hover:bg-gray-100'
+                  )}
+                >
+                  <ItemIcon className="w-4 h-4" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
