@@ -94,12 +94,12 @@ export default function AvailabilityGrid({
     <div className={cn('w-full overflow-x-auto', className)}>
       <div className="min-w-[600px]">
         {/* Header with dates */}
-        <div className="grid gap-1 mb-2" style={{ gridTemplateColumns: `100px repeat(${dateRange.length}, 1fr)` }}>
-          <div className="text-sm font-medium text-muted-foreground"></div>
+        <div className="grid gap-1 mb-1.5" style={{ gridTemplateColumns: `80px repeat(${dateRange.length}, 1fr)` }}>
+          <div className="text-xs font-medium text-muted-foreground"></div>
           {dateRange.map((date, idx) => (
             <div
               key={idx}
-              className="text-center text-xs font-semibold text-foreground p-2 bg-muted rounded-md"
+              className="text-center text-xs font-semibold text-foreground py-1 px-1 bg-muted rounded"
             >
               {formatDate(date)}
             </div>
@@ -110,18 +110,18 @@ export default function AvailabilityGrid({
         {hours.map((hour, hourIdx) => (
           <div
             key={hourIdx}
-            className="grid gap-1 mb-1"
-            style={{ gridTemplateColumns: `100px repeat(${dateRange.length}, 1fr)` }}
+            className="grid gap-1 mb-0.5"
+            style={{ gridTemplateColumns: `80px repeat(${dateRange.length}, 1fr)` }}
           >
             {/* Time label */}
-            <div className="text-sm font-medium text-muted-foreground flex items-center pr-2">
+            <div className="text-xs font-medium text-muted-foreground flex items-center pr-2">
               {formatTime(hour)}
             </div>
 
             {/* Day slots */}
             {dateRange.map((_, dayIdx) => {
               const slot = data[dayIdx]?.[hourIdx];
-              if (!slot) return <div key={dayIdx} className="h-12" />;
+              if (!slot) return <div key={dayIdx} className="h-8" />;
 
               const colorClass = getSlotColor(slot, mode);
               const label = getSlotLabel(slot, mode, showNumbers);
@@ -135,7 +135,7 @@ export default function AvailabilityGrid({
                   onClick={() => handleSlotClick(dayIdx, hourIdx)}
                   disabled={disabled || mode === 'display'}
                   className={cn(
-                    'h-12 border-2 rounded-md transition-colors text-xs font-semibold',
+                    'h-8 border rounded transition-colors text-xs font-semibold',
                     'flex items-center justify-center',
                     colorClass,
                     isClickable ? 'cursor-pointer' : 'cursor-default'
@@ -150,7 +150,7 @@ export default function AvailabilityGrid({
       </div>
 
       {/* Legend */}
-      <div className="mt-4 flex items-center gap-4 text-xs">
+      <div className="mt-3 flex items-center gap-4 text-xs">
         {mode === 'select' && (
           <>
             <div className="flex items-center gap-2">
