@@ -1,6 +1,6 @@
 import { TrendingUp, DollarSign, Droplets, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface MetricCardProps {
   title: string;
@@ -184,45 +184,50 @@ function ReturnsTrackingChart() {
     { day: 'Sun', open: 3.12, high: 3.20, low: 3.10, close: 3.15 },
   ];
 
-  // Custom candlestick rendering
-  const renderCandlestick = (props: any) => {
+  // Custom candlestick shape renderer
+  const CandlestickShape = (props: any) => {
     const { x, width, payload } = props;
     const { open, close, high, low } = payload;
 
-    const isGreen = close > open;
+    // Determine if bullish (green) or bearish (red)
+    const isGreen = close >= open;
     const color = isGreen ? '#059669' : '#dc2626';
-    const candleWidth = 20;
-    const candleX = x + (width - candleWidth) / 2;
 
-    // Scale factor (approximate based on domain [2.5, 3.5] and height 180)
-    const scale = 180 / 1.0; // (3.5 - 2.5 = 1.0 range)
-    const yOffset = 20; // Top padding
+    // Calculate Y positions using the chart's coordinate system
+    // The y and height props give us the bar position, but we need to recalculate for OHLC
+    const chartHeight = 180 - 40; // Total height minus padding
+    const yScale = chartHeight / (3.5 - 2.5); // pixels per dollar
+    const chartBottom = 180 - 20; // Bottom of chart area
 
-    const highY = yOffset + (3.5 - high) * scale;
-    const lowY = yOffset + (3.5 - low) * scale;
-    const openY = yOffset + (3.5 - open) * scale;
-    const closeY = yOffset + (3.5 - close) * scale;
+    // Calculate pixel positions from bottom
+    const highY = chartBottom - (high - 2.5) * yScale;
+    const lowY = chartBottom - (low - 2.5) * yScale;
+    const openY = chartBottom - (open - 2.5) * yScale;
+    const closeY = chartBottom - (close - 2.5) * yScale;
 
-    const candleTop = Math.min(openY, closeY);
-    const candleHeight = Math.abs(openY - closeY) || 1;
+    // Candle body
+    const bodyTop = Math.min(openY, closeY);
+    const bodyHeight = Math.max(Math.abs(openY - closeY), 2); // Minimum 2px height
+    const candleWidth = Math.min(width * 0.6, 24); // Max 24px wide
+    const centerX = x + width / 2;
 
     return (
       <g>
-        {/* Wick line */}
+        {/* Wick (high-low line) */}
         <line
-          x1={candleX + candleWidth / 2}
+          x1={centerX}
           y1={highY}
-          x2={candleX + candleWidth / 2}
+          x2={centerX}
           y2={lowY}
           stroke={color}
-          strokeWidth={1}
+          strokeWidth={2}
         />
         {/* Candle body */}
         <rect
-          x={candleX}
-          y={candleTop}
+          x={centerX - candleWidth / 2}
+          y={bodyTop}
           width={candleWidth}
-          height={candleHeight}
+          height={bodyHeight}
           fill={color}
           stroke={color}
           strokeWidth={1}
@@ -240,7 +245,7 @@ function ReturnsTrackingChart() {
     >
       <h3 className="text-base font-semibold text-gray-900 mb-3">Returns Tracking (last 7 days)</h3>
       <ResponsiveContainer width="100%" height={180}>
-        <LineChart data={data}>
+        <ComposedChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis
             dataKey="day"
@@ -255,17 +260,10 @@ function ReturnsTrackingChart() {
           />
           <Tooltip
             contentStyle={{ fontSize: 11, borderRadius: 8 }}
-            formatter={(value: number, name: string) => {
-              if (name === 'open') return [`$${value.toFixed(2)}`, 'Open'];
-              if (name === 'high') return [`$${value.toFixed(2)}`, 'High'];
-              if (name === 'low') return [`$${value.toFixed(2)}`, 'Low'];
-              if (name === 'close') return [`$${value.toFixed(2)}`, 'Close'];
-              return [`$${value.toFixed(2)}`, name];
-            }}
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 const data = payload[0].payload;
-                const isGreen = data.close > data.open;
+                const isGreen = data.close >= data.open;
                 return (
                   <div className="bg-white border border-gray-200 rounded p-2 shadow-lg text-xs">
                     <p className="font-semibold mb-1">{data.day}</p>
@@ -281,13 +279,12 @@ function ReturnsTrackingChart() {
               return null;
             }}
           />
-          <Line
+          <Bar
             dataKey="close"
-            stroke="transparent"
+            shape={<CandlestickShape />}
             isAnimationActive={false}
-            dot={renderCandlestick}
           />
-        </LineChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </motion.div>
   );
