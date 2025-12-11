@@ -25,28 +25,30 @@ function MetricCard({ title, value, change, link, icon: Icon, color = 'purple' }
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className={`p-2 rounded-lg ${colorClasses[color as keyof typeof colorClasses]}`}>
+      <div className="flex items-start gap-3">
+        <div className={`p-2 rounded-lg ${colorClasses[color as keyof typeof colorClasses]} flex-shrink-0`}>
           <Icon className="w-5 h-5" />
         </div>
-      </div>
 
-      <h3 className="text-xs font-medium text-gray-600 mb-1">{title}</h3>
-      <div className="flex items-baseline gap-2">
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
-        {change && (
-          <span className={`text-xs font-medium ${change.positive ? 'text-emerald-600' : 'text-red-600'}`}>
-            {change.positive ? '↑' : '↓'} {change.value}
-          </span>
-        )}
-      </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xs font-medium text-gray-600 mb-1">{title}</h3>
+          <div className="flex items-baseline gap-2">
+            <p className="text-2xl font-bold text-gray-900">{value}</p>
+            {change && (
+              <span className={`text-xs font-medium ${change.positive ? 'text-emerald-600' : 'text-red-600'}`}>
+                {change.positive ? '↑' : '↓'} {change.value}
+              </span>
+            )}
+          </div>
 
-      {link && (
-        <a href="#" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-flex items-center gap-1">
-          {link}
-          <ArrowUpRight className="w-3 h-3" />
-        </a>
-      )}
+          {link && (
+            <a href="#" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-flex items-center gap-1">
+              {link}
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 }
@@ -65,29 +67,31 @@ function LiquidityCard({ title, periods, link }: LiquidityCardProps) {
       transition={{ delay: 0.1 }}
       className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="p-2 rounded-lg bg-blue-50 text-blue-600 border-blue-200">
+      <div className="flex items-start gap-3">
+        <div className="p-2 rounded-lg bg-blue-50 text-blue-600 border-blue-200 flex-shrink-0">
           <Droplets className="w-5 h-5" />
         </div>
-      </div>
 
-      <h3 className="text-xs font-medium text-gray-600 mb-3">{title}</h3>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xs font-medium text-gray-600 mb-3">{title}</h3>
 
-      <div className="grid grid-cols-3 gap-3">
-        {periods.map((period) => (
-          <div key={period.label}>
-            <p className="text-xs text-gray-500 mb-1">{period.label}</p>
-            <p className="text-xl font-bold text-gray-900">{period.value}</p>
+          <div className="grid grid-cols-3 gap-3">
+            {periods.map((period) => (
+              <div key={period.label}>
+                <p className="text-xs text-gray-500 mb-1">{period.label}</p>
+                <p className="text-xl font-bold text-gray-900">{period.value}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {link && (
-        <a href="#" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-flex items-center gap-1">
-          {link}
-          <ArrowUpRight className="w-3 h-3" />
-        </a>
-      )}
+          {link && (
+            <a href="#" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-flex items-center gap-1">
+              {link}
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 }
