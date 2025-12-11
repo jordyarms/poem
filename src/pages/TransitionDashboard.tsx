@@ -190,62 +190,66 @@ function SemicircularGauge({
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col items-center"
+      className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-between h-full"
     >
-      <h4 className="text-xs font-semibold text-gray-900 text-center mb-1.5">
+      <h4 className="text-xs font-semibold text-gray-900 text-center mb-2 min-h-[32px] flex items-center">
         {title}
       </h4>
 
-      <div className="relative" style={{ width: radius * 2, height: radius }}>
-        <svg height={radius} width={radius * 2} className="transform -rotate-0">
-          {/* Background arc */}
-          <path
-            d={`M ${
-              strokeWidth / 2
-            } ${radius} A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${
-              radius * 2 - strokeWidth / 2
-            } ${radius}`}
-            fill="none"
-            stroke="#e5e7eb"
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-          />
-          {/* Foreground arc */}
-          <path
-            d={`M ${
-              strokeWidth / 2
-            } ${radius} A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${
-              radius * 2 - strokeWidth / 2
-            } ${radius}`}
-            fill="none"
-            stroke={strokeColors[color as keyof typeof strokeColors]}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeDasharray={`${circumference} ${circumference}`}
-            strokeDashoffset={strokeDashoffset}
-            className="transition-all duration-1000 ease-out"
-          />
-        </svg>
-        <div className="absolute inset-0 flex items-end justify-center pb-1">
-          <span
-            className={cn(
-              "text-xl font-bold",
-              colorClasses[color as keyof typeof colorClasses]
-            )}
-          >
-            {percentage}%
-          </span>
+      <div className="flex-1 flex items-center justify-center">
+        <div className="relative" style={{ width: radius * 2, height: radius }}>
+          <svg height={radius} width={radius * 2} className="transform -rotate-0">
+            {/* Background arc */}
+            <path
+              d={`M ${
+                strokeWidth / 2
+              } ${radius} A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${
+                radius * 2 - strokeWidth / 2
+              } ${radius}`}
+              fill="none"
+              stroke="#e5e7eb"
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+            />
+            {/* Foreground arc */}
+            <path
+              d={`M ${
+                strokeWidth / 2
+              } ${radius} A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${
+                radius * 2 - strokeWidth / 2
+              } ${radius}`}
+              fill="none"
+              stroke={strokeColors[color as keyof typeof strokeColors]}
+              strokeWidth={strokeWidth}
+              strokeLinecap="round"
+              strokeDasharray={`${circumference} ${circumference}`}
+              strokeDashoffset={strokeDashoffset}
+              className="transition-all duration-1000 ease-out"
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-end justify-center pb-1">
+            <span
+              className={cn(
+                "text-xl font-bold",
+                colorClasses[color as keyof typeof colorClasses]
+              )}
+            >
+              {percentage}%
+            </span>
+          </div>
         </div>
       </div>
 
-      <p className="text-xs text-gray-600 text-center mt-1.5">{subtitle}</p>
-      <a
-        href="#"
-        className="text-xs text-purple-600 hover:text-purple-700 mt-1.5 flex items-center gap-0.5"
-      >
-        Analysis
-        <ArrowUpRight className="w-3 h-3" />
-      </a>
+      <div className="w-full space-y-1.5 mt-2">
+        <p className="text-xs text-gray-600 text-center min-h-[28px] flex items-center justify-center">{subtitle}</p>
+        <a
+          href="#"
+          className="text-xs text-purple-600 hover:text-purple-700 flex items-center justify-center gap-0.5"
+        >
+          Analysis
+          <ArrowUpRight className="w-3 h-3" />
+        </a>
+      </div>
     </motion.div>
   );
 }
