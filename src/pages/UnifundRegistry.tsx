@@ -201,9 +201,9 @@ function ReturnsChart() {
   ];
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
+    <div>
       <h3 className="text-base font-semibold text-gray-900 mb-3">Returns against all unifunds</h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis
@@ -435,8 +435,7 @@ export default function UnifundRegistry() {
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Unifund Registry</h1>
-        <p className="text-sm text-gray-600">Search and discover investment funds across the network</p>
+        <h1 className="text-2xl font-bold text-gray-900">Unifund Registry</h1>
       </div>
 
       <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
