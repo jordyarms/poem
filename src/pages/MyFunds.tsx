@@ -173,16 +173,63 @@ interface FundsTableProps {
 }
 
 function ReturnsTrackingChart() {
-  // Dummy data for the last 7 days showing daily returns
+  // Dummy candlestick data for the last 7 days showing open, high, low, close
   const data = [
-    { day: 'Mon', returns: 2.85 },
-    { day: 'Tue', returns: 2.92 },
-    { day: 'Wed', returns: 2.88 },
-    { day: 'Thu', returns: 3.01 },
-    { day: 'Fri', returns: 3.08 },
-    { day: 'Sat', returns: 3.12 },
-    { day: 'Sun', returns: 3.15 },
+    { day: 'Mon', open: 2.82, high: 2.90, low: 2.78, close: 2.85 },
+    { day: 'Tue', open: 2.85, high: 2.96, low: 2.84, close: 2.92 },
+    { day: 'Wed', open: 2.92, high: 2.94, low: 2.85, close: 2.88 },
+    { day: 'Thu', open: 2.88, high: 3.05, low: 2.87, close: 3.01 },
+    { day: 'Fri', open: 3.01, high: 3.12, low: 3.00, close: 3.08 },
+    { day: 'Sat', open: 3.08, high: 3.18, low: 3.06, close: 3.12 },
+    { day: 'Sun', open: 3.12, high: 3.20, low: 3.10, close: 3.15 },
   ];
+
+  // Custom candlestick rendering
+  const renderCandlestick = (props: any) => {
+    const { x, width, payload } = props;
+    const { open, close, high, low } = payload;
+
+    const isGreen = close > open;
+    const color = isGreen ? '#059669' : '#dc2626';
+    const candleWidth = 20;
+    const candleX = x + (width - candleWidth) / 2;
+
+    // Scale factor (approximate based on domain [2.5, 3.5] and height 180)
+    const scale = 180 / 1.0; // (3.5 - 2.5 = 1.0 range)
+    const yOffset = 20; // Top padding
+
+    const highY = yOffset + (3.5 - high) * scale;
+    const lowY = yOffset + (3.5 - low) * scale;
+    const openY = yOffset + (3.5 - open) * scale;
+    const closeY = yOffset + (3.5 - close) * scale;
+
+    const candleTop = Math.min(openY, closeY);
+    const candleHeight = Math.abs(openY - closeY) || 1;
+
+    return (
+      <g>
+        {/* Wick line */}
+        <line
+          x1={candleX + candleWidth / 2}
+          y1={highY}
+          x2={candleX + candleWidth / 2}
+          y2={lowY}
+          stroke={color}
+          strokeWidth={1}
+        />
+        {/* Candle body */}
+        <rect
+          x={candleX}
+          y={candleTop}
+          width={candleWidth}
+          height={candleHeight}
+          fill={color}
+          stroke={color}
+          strokeWidth={1}
+        />
+      </g>
+    );
+  };
 
   return (
     <motion.div
@@ -208,14 +255,37 @@ function ReturnsTrackingChart() {
           />
           <Tooltip
             contentStyle={{ fontSize: 11, borderRadius: 8 }}
-            formatter={(value: number) => [`$${value.toFixed(2)}`, 'Returns']}
+            formatter={(value: number, name: string) => {
+              if (name === 'open') return [`$${value.toFixed(2)}`, 'Open'];
+              if (name === 'high') return [`$${value.toFixed(2)}`, 'High'];
+              if (name === 'low') return [`$${value.toFixed(2)}`, 'Low'];
+              if (name === 'close') return [`$${value.toFixed(2)}`, 'Close'];
+              return [`$${value.toFixed(2)}`, name];
+            }}
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                const data = payload[0].payload;
+                const isGreen = data.close > data.open;
+                return (
+                  <div className="bg-white border border-gray-200 rounded p-2 shadow-lg text-xs">
+                    <p className="font-semibold mb-1">{data.day}</p>
+                    <p>Open: ${data.open.toFixed(2)}</p>
+                    <p>High: ${data.high.toFixed(2)}</p>
+                    <p>Low: ${data.low.toFixed(2)}</p>
+                    <p className={isGreen ? 'text-emerald-600' : 'text-red-600'}>
+                      Close: ${data.close.toFixed(2)}
+                    </p>
+                  </div>
+                );
+              }
+              return null;
+            }}
           />
           <Line
-            type="monotone"
-            dataKey="returns"
-            stroke="#059669"
-            strokeWidth={2}
-            dot={{ r: 3, fill: '#059669' }}
+            dataKey="close"
+            stroke="transparent"
+            isAnimationActive={false}
+            dot={renderCandlestick}
           />
         </LineChart>
       </ResponsiveContainer>
