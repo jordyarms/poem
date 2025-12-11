@@ -2,6 +2,9 @@ import { Search, TrendingUp, TrendingDown, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface SearchFilters {
   status: string;
@@ -40,111 +43,113 @@ function SearchFilterBar({ filters, onFilterChange }: {
   onFilterChange: (key: keyof SearchFilters, value: string) => void;
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Search className="w-5 h-5 text-purple-600" />
-        <h2 className="text-lg font-semibold text-gray-900">Search unifunds</h2>
+    <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4">
+      <div className="flex items-center gap-2 mb-3">
+        <Search className="w-4 h-4 text-purple-600" />
+        <h2 className="text-base font-semibold text-gray-900">Search unifunds</h2>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div>
           <label className="text-xs text-gray-600 block mb-1">Status:</label>
-          <select
-            value={filters.status}
-            onChange={(e) => onFilterChange('status', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="protected">Protected</option>
-            <option value="currently-active">Currently Active</option>
-            <option value="all">All</option>
-          </select>
+          <Select value={filters.status} onValueChange={(value) => onFilterChange('status', value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="protected">Protected</SelectItem>
+              <SelectItem value="currently-active">Currently Active</SelectItem>
+              <SelectItem value="all">All</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">Activity:</label>
-          <select
-            value={filters.activity}
-            onChange={(e) => onFilterChange('activity', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="insurance">Insurance</option>
-            <option value="investment">Investment</option>
-            <option value="lending">Lending</option>
-            <option value="fund-of-funds">Fund-of-Funds</option>
-          </select>
+          <Select value={filters.activity} onValueChange={(value) => onFilterChange('activity', value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="insurance">Insurance</SelectItem>
+              <SelectItem value="investment">Investment</SelectItem>
+              <SelectItem value="lending">Lending</SelectItem>
+              <SelectItem value="fund-of-funds">Fund-of-Funds</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">Category:</label>
-          <select
-            value={filters.category}
-            onChange={(e) => onFilterChange('category', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="item-rental">Item rental</option>
-            <option value="services">Services</option>
-            <option value="labor">Labor</option>
-            <option value="equipment">Equipment</option>
-          </select>
+          <Select value={filters.category} onValueChange={(value) => onFilterChange('category', value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="item-rental">Item rental</SelectItem>
+              <SelectItem value="services">Services</SelectItem>
+              <SelectItem value="labor">Labor</SelectItem>
+              <SelectItem value="equipment">Equipment</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">For:</label>
-          <select
-            value={filters.forCondition}
-            onChange={(e) => onFilterChange('forCondition', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="while-rented">While rented</option>
-            <option value="while-owned">While owned</option>
-            <option value="during-use">During use</option>
-          </select>
+          <Select value={filters.forCondition} onValueChange={(value) => onFilterChange('forCondition', value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="while-rented">While rented</SelectItem>
+              <SelectItem value="while-owned">While owned</SelectItem>
+              <SelectItem value="during-use">During use</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">Item:</label>
-          <input
+          <Input
             type="text"
             value={filters.item}
             onChange={(e) => onFilterChange('item', e.target.value)}
             placeholder="e.g., bicycles"
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">Specific filters:</label>
-          <input
+          <Input
             type="text"
             value={filters.specificFilters}
             onChange={(e) => onFilterChange('specificFilters', e.target.value)}
             placeholder="Nonstandard Text"
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">Geographic focus includes:</label>
-          <input
+          <Input
             type="number"
             value={filters.geoDistance}
             onChange={(e) => onFilterChange('geoDistance', e.target.value)}
             placeholder="25"
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">from:</label>
-          <select
-            value={filters.geoFrom}
-            onChange={(e) => onFilterChange('geoFrom', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="my-home">My home</option>
-            <option value="my-office">My office</option>
-            <option value="current-location">Current location</option>
-          </select>
+          <Select value={filters.geoFrom} onValueChange={(value) => onFilterChange('geoFrom', value)}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="my-home">My home</SelectItem>
+              <SelectItem value="my-office">My office</SelectItem>
+              <SelectItem value="current-location">Current location</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
@@ -158,27 +163,86 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-lg p-4"
+      className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <h3 className="text-xs font-medium text-gray-600 mb-2">{metric.label}</h3>
-      <div className="flex items-baseline gap-2 mb-2">
-        <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
-        {metric.unit && <span className="text-sm text-gray-500">{metric.unit}</span>}
+      <h3 className="text-xs font-medium text-gray-600 mb-1.5">{metric.label}</h3>
+      <div className="flex items-baseline gap-2 mb-1.5">
+        <span className="text-xl font-bold text-gray-900">{metric.value}</span>
+        {metric.unit && <span className="text-xs text-gray-500">{metric.unit}</span>}
       </div>
       <div className="flex items-center justify-between">
         <div className={cn(
-          "flex items-center gap-1 text-sm font-medium",
+          "flex items-center gap-1 text-xs font-medium",
           metric.change.positive ? "text-emerald-600" : "text-red-600"
         )}>
-          <Icon className="w-4 h-4" />
+          <Icon className="w-3 h-3" />
           {metric.change.value}
         </div>
-        <a href="#" className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1">
-          View graph
+        <a href="#" className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-0.5">
+          View
           <ArrowUpRight className="w-3 h-3" />
         </a>
       </div>
     </motion.div>
+  );
+}
+
+function ReturnsChart() {
+  // Dummy data for the line chart
+  const data = [
+    { month: 'Jan', yourFunds: 5.2, allFunds: 4.8 },
+    { month: 'Feb', yourFunds: 5.8, allFunds: 5.1 },
+    { month: 'Mar', yourFunds: 6.1, allFunds: 5.3 },
+    { month: 'Apr', yourFunds: 7.2, allFunds: 5.9 },
+    { month: 'May', yourFunds: 8.1, allFunds: 6.4 },
+    { month: 'Jun', yourFunds: 8.9, allFunds: 6.8 },
+    { month: 'Jul', yourFunds: 9.5, allFunds: 7.2 },
+    { month: 'Aug', yourFunds: 10.2, allFunds: 7.5 },
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <h3 className="text-base font-semibold text-gray-900 mb-3">Returns against all unifunds</h3>
+      <ResponsiveContainer width="100%" height={280}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis
+            dataKey="month"
+            tick={{ fontSize: 12 }}
+            stroke="#6b7280"
+          />
+          <YAxis
+            tick={{ fontSize: 12 }}
+            stroke="#6b7280"
+            label={{ value: 'Return %', angle: -90, position: 'insideLeft', style: { fontSize: 12 } }}
+          />
+          <Tooltip
+            contentStyle={{ fontSize: 12, borderRadius: 8 }}
+            formatter={(value: number) => `${value}%`}
+          />
+          <Legend
+            wrapperStyle={{ fontSize: 12 }}
+            iconType="line"
+          />
+          <Line
+            type="monotone"
+            dataKey="yourFunds"
+            stroke="#7c3aed"
+            strokeWidth={2}
+            name="Your Funds"
+            dot={{ r: 3 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="allFunds"
+            stroke="#94a3b8"
+            strokeWidth={2}
+            name="All Unifunds (Avg)"
+            dot={{ r: 3 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
@@ -189,38 +253,38 @@ function FundsTable({ funds }: { funds: UnifundEntry[] }) {
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Lifespan</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Fund Name (abbreviated)</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Capital Deployed</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Capital Ratio</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Current Deposits</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Current Depositors</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Growth Rate</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">CpDpH</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Hire Periods</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Coverage Range</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Fund No.</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Lifespan</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Fund Name (abbreviated)</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Capital Deployed</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Capital Ratio</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Current Deposits</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Current Depositors</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Growth Rate</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">CpDpH</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Hire Periods</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Coverage Range</th>
+              <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">Fund No.</th>
             </tr>
           </thead>
           <tbody>
             {funds.map((fund, idx) => (
               <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="py-3 px-4 text-gray-700">{fund.lifespan}</td>
-                <td className="py-3 px-4 text-gray-900 font-medium">{fund.fundName}</td>
-                <td className="py-3 px-4 text-gray-700">{fund.capitalDeployed}</td>
-                <td className="py-3 px-4 text-gray-700">{fund.capitalRatio}</td>
-                <td className="py-3 px-4 text-gray-900 font-medium">{fund.currentDeposits}</td>
-                <td className="py-3 px-4 text-gray-700">{fund.depositors}</td>
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.lifespan}</td>
+                <td className="py-2 px-3 text-gray-900 font-medium text-xs">{fund.fundName}</td>
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.capitalDeployed}</td>
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.capitalRatio}</td>
+                <td className="py-2 px-3 text-gray-900 font-medium text-xs">{fund.currentDeposits}</td>
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.depositors}</td>
                 <td className={cn(
-                  "py-3 px-4 font-medium",
+                  "py-2 px-3 font-medium text-xs",
                   fund.growthRate.startsWith('-') ? "text-red-600" : "text-emerald-600"
                 )}>
                   {fund.growthRate}
                 </td>
-                <td className="py-3 px-4 text-gray-700">{fund.cpdph}</td>
-                <td className="py-3 px-4 text-gray-700">{fund.hirePeriods}</td>
-                <td className="py-3 px-4 text-gray-700">{fund.coverageRange}</td>
-                <td className="py-3 px-4">
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.cpdph}</td>
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.hirePeriods}</td>
+                <td className="py-2 px-3 text-gray-700 text-xs">{fund.coverageRange}</td>
+                <td className="py-2 px-3 text-xs">
                   <a href="#" className="text-purple-600 hover:text-purple-700 font-medium">
                     {fund.fundNo}
                   </a>
@@ -369,43 +433,43 @@ export default function UnifundRegistry() {
   ];
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Unifund Registry</h1>
-        <p className="text-gray-600">Search and discover investment funds across the network</p>
+    <div className="container mx-auto p-4 max-w-7xl">
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-900 mb-1">Unifund Registry</h1>
+        <p className="text-sm text-gray-600">Search and discover investment funds across the network</p>
       </div>
 
       <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
 
-      <p className="text-sm text-gray-700 mb-6">
+      <p className="text-sm text-gray-700 mb-4">
         Your search returned <strong>{resultCount} unifunds</strong>
       </p>
 
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Averages of these funds <span className="text-sm text-gray-500">(last 7 days <a href="#" className="text-purple-600 hover:text-purple-700">change</a>)</span>
-          </h2>
+      {/* Desktop: Side by side layout for Averages and Returns */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+        {/* Averages Section - 3x2 grid */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold text-gray-900">
+              Averages of these funds <span className="text-xs text-gray-500">(last 7 days <a href="#" className="text-purple-600 hover:text-purple-700">change</a>)</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {averages.map((metric, idx) => (
+              <AverageMetricCard key={idx} metric={metric} />
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
-          {averages.map((metric, idx) => (
-            <AverageMetricCard key={idx} metric={metric} />
-          ))}
-        </div>
-      </div>
-
-      {/* Returns Comparison Chart */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Returns against all unifunds</h3>
-        <div className="h-64 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500 text-sm">Comparison chart placeholder - line graph showing performance vs. market</p>
+        {/* Returns Chart Section */}
+        <div>
+          <ReturnsChart />
         </div>
       </div>
 
       {/* Funds Table */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Funds returned by your search</h2>
+      <div className="mb-4">
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Funds returned by your search</h2>
         <FundsTable funds={mockFunds} />
       </div>
     </div>
