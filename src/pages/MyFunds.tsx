@@ -1,5 +1,6 @@
 import { TrendingUp, DollarSign, Droplets, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface MetricCardProps {
   title: string;
@@ -21,26 +22,26 @@ function MetricCard({ title, value, change, link, icon: Icon, color = 'purple' }
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-lg p-6"
+      className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <div className="flex items-start justify-between mb-4">
-        <div className={`p-3 rounded-lg ${colorClasses[color as keyof typeof colorClasses]}`}>
-          <Icon className="w-6 h-6" />
+      <div className="flex items-start justify-between mb-3">
+        <div className={`p-2 rounded-lg ${colorClasses[color as keyof typeof colorClasses]}`}>
+          <Icon className="w-5 h-5" />
         </div>
       </div>
 
-      <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
-      <div className="flex items-baseline gap-3">
-        <p className="text-3xl font-bold text-gray-900">{value}</p>
+      <h3 className="text-xs font-medium text-gray-600 mb-1">{title}</h3>
+      <div className="flex items-baseline gap-2">
+        <p className="text-2xl font-bold text-gray-900">{value}</p>
         {change && (
-          <span className={`text-sm font-medium ${change.positive ? 'text-emerald-600' : 'text-red-600'}`}>
+          <span className={`text-xs font-medium ${change.positive ? 'text-emerald-600' : 'text-red-600'}`}>
             {change.positive ? '↑' : '↓'} {change.value}
           </span>
         )}
       </div>
 
       {link && (
-        <a href="#" className="text-sm text-purple-600 hover:text-purple-700 mt-3 inline-flex items-center gap-1">
+        <a href="#" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-flex items-center gap-1">
           {link}
           <ArrowUpRight className="w-3 h-3" />
         </a>
@@ -61,27 +62,27 @@ function LiquidityCard({ title, periods, link }: LiquidityCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="bg-white border border-gray-200 rounded-lg p-6"
+      className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <div className="flex items-start justify-between mb-4">
-        <div className="p-3 rounded-lg bg-blue-50 text-blue-600 border-blue-200">
-          <Droplets className="w-6 h-6" />
+      <div className="flex items-start justify-between mb-3">
+        <div className="p-2 rounded-lg bg-blue-50 text-blue-600 border-blue-200">
+          <Droplets className="w-5 h-5" />
         </div>
       </div>
 
-      <h3 className="text-sm font-medium text-gray-600 mb-4">{title}</h3>
+      <h3 className="text-xs font-medium text-gray-600 mb-3">{title}</h3>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-3">
         {periods.map((period) => (
           <div key={period.label}>
             <p className="text-xs text-gray-500 mb-1">{period.label}</p>
-            <p className="text-2xl font-bold text-gray-900">{period.value}</p>
+            <p className="text-xl font-bold text-gray-900">{period.value}</p>
           </div>
         ))}
       </div>
 
       {link && (
-        <a href="#" className="text-sm text-purple-600 hover:text-purple-700 mt-4 inline-flex items-center gap-1">
+        <a href="#" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-flex items-center gap-1">
           {link}
           <ArrowUpRight className="w-3 h-3" />
         </a>
@@ -103,53 +104,53 @@ function AccountInfo({ balance, autoPlaced, autoReturning, commitments }: Accoun
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-white border border-gray-200 rounded-lg p-6"
+      className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Account</h3>
+      <h3 className="text-base font-semibold text-gray-900 mb-3">Current Account</h3>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Balance:</span>
-          <span className="text-lg font-semibold text-gray-900">{balance}</span>
+          <span className="text-xs text-gray-600">Balance:</span>
+          <span className="text-sm font-semibold text-gray-900">{balance}</span>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Auto-placed:</span>
-          <span className="text-lg font-semibold text-gray-900">{autoPlaced}</span>
+          <span className="text-xs text-gray-600">Auto-placed:</span>
+          <span className="text-sm font-semibold text-gray-900">{autoPlaced}</span>
         </div>
 
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Auto-returning:</span>
-          <span className="text-lg font-medium text-gray-700">
+          <span className="text-xs text-gray-600">Auto-returning:</span>
+          <span className="text-sm font-medium text-gray-700">
             {autoReturning.amount}, {autoReturning.date}
           </span>
         </div>
 
-        <div className="pt-3 border-t border-gray-200">
-          <span className="text-sm text-gray-600 block mb-2">Commitments:</span>
+        <div className="pt-2 border-t border-gray-200">
+          <span className="text-xs text-gray-600 block mb-1.5">Commitments:</span>
           {commitments.map((commitment, idx) => (
-            <div key={idx} className="text-sm text-gray-700 mb-1">
+            <div key={idx} className="text-xs text-gray-700 mb-1">
               {commitment.date}, {commitment.description}, {commitment.amount}
             </div>
           ))}
         </div>
 
-        <div className="flex justify-between items-center pt-3 border-t border-gray-200">
-          <span className="text-sm text-gray-600">Alerts:</span>
-          <span className="text-sm text-gray-500">None</span>
+        <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+          <span className="text-xs text-gray-600">Alerts:</span>
+          <span className="text-xs text-gray-500">None</span>
         </div>
       </div>
 
-      <div className="flex gap-2 mt-6">
-        <a href="#" className="text-sm text-purple-600 hover:text-purple-700">
+      <div className="flex gap-2 mt-3">
+        <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
           Move money
         </a>
         <span className="text-gray-300">|</span>
-        <a href="#" className="text-sm text-purple-600 hover:text-purple-700">
+        <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
           Change settings
         </a>
         <span className="text-gray-300">|</span>
-        <a href="#" className="text-sm text-purple-600 hover:text-purple-700">
+        <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
           View transactions
         </a>
       </div>
@@ -171,37 +172,88 @@ interface FundsTableProps {
   funds: FundEntry[];
 }
 
+function ReturnsTrackingChart() {
+  // Dummy data for the last 7 days showing daily returns
+  const data = [
+    { day: 'Mon', returns: 2.85 },
+    { day: 'Tue', returns: 2.92 },
+    { day: 'Wed', returns: 2.88 },
+    { day: 'Thu', returns: 3.01 },
+    { day: 'Fri', returns: 3.08 },
+    { day: 'Sat', returns: 3.12 },
+    { day: 'Sun', returns: 3.15 },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="bg-white border border-gray-200 rounded-lg p-3"
+    >
+      <h3 className="text-base font-semibold text-gray-900 mb-3">Returns Tracking (last 7 days)</h3>
+      <ResponsiveContainer width="100%" height={180}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis
+            dataKey="day"
+            tick={{ fontSize: 11 }}
+            stroke="#6b7280"
+          />
+          <YAxis
+            tick={{ fontSize: 11 }}
+            stroke="#6b7280"
+            domain={[2.5, 3.5]}
+            tickFormatter={(value) => `$${value}`}
+          />
+          <Tooltip
+            contentStyle={{ fontSize: 11, borderRadius: 8 }}
+            formatter={(value: number) => [`$${value.toFixed(2)}`, 'Returns']}
+          />
+          <Line
+            type="monotone"
+            dataKey="returns"
+            stroke="#059669"
+            strokeWidth={2}
+            dot={{ r: 3, fill: '#059669' }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </motion.div>
+  );
+}
+
 function FundsTable({ funds }: FundsTableProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="bg-white border border-gray-200 rounded-lg p-6 mt-6"
+      className="bg-white border border-gray-200 rounded-lg p-3 mt-4"
     >
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Cash Deployed (8 unifunds)</h3>
+      <h3 className="text-base font-semibold text-gray-900 mb-3">Cash Deployed (8 unifunds)</h3>
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="text-left py-3 px-2 font-medium text-gray-600">Date</th>
-              <th className="text-left py-3 px-2 font-medium text-gray-600">Invested</th>
-              <th className="text-left py-3 px-2 font-medium text-gray-600">My Stake</th>
-              <th className="text-left py-3 px-2 font-medium text-gray-600">Fund Purpose</th>
-              <th className="text-left py-3 px-2 font-medium text-gray-600">Geography</th>
-              <th className="text-left py-3 px-2 font-medium text-gray-600">Fund No.</th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">Date</th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">Invested</th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">My Stake</th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">Fund Purpose</th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">Geography</th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">Fund No.</th>
             </tr>
           </thead>
           <tbody>
             {funds.map((fund, idx) => (
               <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="py-3 px-2 text-gray-700">{fund.date}</td>
-                <td className="py-3 px-2 text-gray-900 font-medium">{fund.invested}</td>
-                <td className="py-3 px-2 text-gray-700">{fund.stake}</td>
-                <td className="py-3 px-2 text-gray-700">{fund.fundPurpose.join(' ')}</td>
-                <td className="py-3 px-2 text-gray-700">{fund.geography}</td>
-                <td className="py-3 px-2">
+                <td className="py-2 px-2 text-gray-700 text-xs">{fund.date}</td>
+                <td className="py-2 px-2 text-gray-900 font-medium text-xs">{fund.invested}</td>
+                <td className="py-2 px-2 text-gray-700 text-xs">{fund.stake}</td>
+                <td className="py-2 px-2 text-gray-700 text-xs">{fund.fundPurpose.join(' ')}</td>
+                <td className="py-2 px-2 text-gray-700 text-xs">{fund.geography}</td>
+                <td className="py-2 px-2 text-xs">
                   <a href="#" className="text-purple-600 hover:text-purple-700">
                     {fund.fundNo}
                   </a>
@@ -256,14 +308,13 @@ export default function MyFunds() {
   ];
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Funds</h1>
-        <p className="text-gray-600">Track your investments and liquidity across all unifunds</p>
+    <div className="container mx-auto p-4 max-w-7xl">
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-900">My Funds</h1>
       </div>
 
       {/* Top Metrics Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
         <MetricCard
           title="Currently Invested"
           value="$1,653"
@@ -293,7 +344,7 @@ export default function MyFunds() {
       </div>
 
       {/* Account Info and Chart Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-4">
         <AccountInfo
           balance="$99.99"
           autoPlaced="$875"
@@ -303,18 +354,7 @@ export default function MyFunds() {
           ]}
         />
 
-        {/* Placeholder for Returns Tracking Chart */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white border border-gray-200 rounded-lg p-6"
-        >
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Returns Tracking (last 7 days)</h3>
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-            <p className="text-gray-500 text-sm">Chart placeholder - candlestick/line graph</p>
-          </div>
-        </motion.div>
+        <ReturnsTrackingChart />
       </div>
 
       {/* Funds Table */}
