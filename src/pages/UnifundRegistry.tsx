@@ -188,16 +188,20 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
 }
 
 function ReturnsChart() {
-  // Dummy data for the line chart
+  // Enhanced dummy data showing more interesting performance patterns
   const data = [
-    { month: 'Jan', yourFunds: 5.2, allFunds: 4.8 },
-    { month: 'Feb', yourFunds: 5.8, allFunds: 5.1 },
-    { month: 'Mar', yourFunds: 6.1, allFunds: 5.3 },
-    { month: 'Apr', yourFunds: 7.2, allFunds: 5.9 },
-    { month: 'May', yourFunds: 8.1, allFunds: 6.4 },
-    { month: 'Jun', yourFunds: 8.9, allFunds: 6.8 },
-    { month: 'Jul', yourFunds: 9.5, allFunds: 7.2 },
-    { month: 'Aug', yourFunds: 10.2, allFunds: 7.5 },
+    { month: 'Jan', yourFunds: 4.2, allFunds: 4.5 },
+    { month: 'Feb', yourFunds: 3.8, allFunds: 4.1 },
+    { month: 'Mar', yourFunds: 5.1, allFunds: 4.3 },
+    { month: 'Apr', yourFunds: 6.8, allFunds: 4.7 },
+    { month: 'May', yourFunds: 7.2, allFunds: 5.2 },
+    { month: 'Jun', yourFunds: 6.9, allFunds: 5.8 },
+    { month: 'Jul', yourFunds: 8.4, allFunds: 6.1 },
+    { month: 'Aug', yourFunds: 9.1, allFunds: 6.4 },
+    { month: 'Sep', yourFunds: 10.3, allFunds: 6.9 },
+    { month: 'Oct', yourFunds: 9.8, allFunds: 7.2 },
+    { month: 'Nov', yourFunds: 11.2, allFunds: 7.5 },
+    { month: 'Dec', yourFunds: 12.4, allFunds: 7.8 },
   ];
 
   return (
