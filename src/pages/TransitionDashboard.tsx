@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Map, { MapMarker } from "@/components/poems/Map";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface FilterBarProps {
   filters: {
@@ -17,7 +19,7 @@ interface FilterBarProps {
 
 function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
   return (
-    <div className="bg-purple-50 border-2 border-purple-400 rounded-lg p-4 mb-6">
+    <div className="bg-purple-50 border-2 border-purple-400 rounded-lg p-3 mb-4">
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <span className="font-semibold text-purple-900">
           Aggregate activity for
@@ -25,43 +27,46 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
 
         <div className="flex items-center gap-2">
           <label className="text-gray-600">Sectors:</label>
-          <select
-            value={filters.sectors}
-            onChange={(e) => onFilterChange("sectors", e.target.value)}
-            className="px-3 py-1.5 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="all">all</option>
-            <option value="agriculture">agriculture</option>
-            <option value="manufacturing">manufacturing</option>
-            <option value="services">services</option>
-          </select>
+          <Select value={filters.sectors} onValueChange={(value) => onFilterChange("sectors", value)}>
+            <SelectTrigger className="w-[140px] h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">all</SelectItem>
+              <SelectItem value="agriculture">agriculture</SelectItem>
+              <SelectItem value="manufacturing">manufacturing</SelectItem>
+              <SelectItem value="services">services</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex items-center gap-2">
           <label className="text-gray-600">geography category:</label>
-          <select
-            value={filters.geoCategory}
-            onChange={(e) => onFilterChange("geoCategory", e.target.value)}
-            className="px-3 py-1.5 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="bioregion">bioregion</option>
-            <option value="city">city</option>
-            <option value="county">county</option>
-            <option value="state">state</option>
-          </select>
+          <Select value={filters.geoCategory} onValueChange={(value) => onFilterChange("geoCategory", value)}>
+            <SelectTrigger className="w-[140px] h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="bioregion">bioregion</SelectItem>
+              <SelectItem value="city">city</SelectItem>
+              <SelectItem value="county">county</SelectItem>
+              <SelectItem value="state">state</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex items-center gap-2">
           <label className="text-gray-600">specific:</label>
-          <select
-            value={filters.geoSpecific}
-            onChange={(e) => onFilterChange("geoSpecific", e.target.value)}
-            className="px-3 py-1.5 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="Silverfen Basin">Silverfen Basin</option>
-            <option value="Oakridge Valley">Oakridge Valley</option>
-            <option value="Meadowbrook Region">Meadowbrook Region</option>
-          </select>
+          <Select value={filters.geoSpecific} onValueChange={(value) => onFilterChange("geoSpecific", value)}>
+            <SelectTrigger className="w-[160px] h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Silverfen Basin">Silverfen Basin</SelectItem>
+              <SelectItem value="Oakridge Valley">Oakridge Valley</SelectItem>
+              <SelectItem value="Meadowbrook Region">Meadowbrook Region</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="flex items-center gap-2">
@@ -71,14 +76,14 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => onFilterChange("dateFrom", e.target.value)}
-              className="px-3 py-1.5 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
             />
             <span className="text-gray-400">–</span>
             <input
               type="date"
               value={filters.dateTo}
               onChange={(e) => onFilterChange("dateTo", e.target.value)}
-              className="px-3 py-1.5 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
             />
           </div>
         </div>
@@ -103,31 +108,31 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-lg p-5"
+      className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <h3 className="text-sm font-semibold text-gray-900 mb-1">
+      <h3 className="text-xs font-semibold text-gray-900 mb-1">
         {metric.title}
       </h3>
       <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-3xl font-bold text-gray-900">{metric.value}</span>
+        <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
         <div
           className={cn(
-            "flex items-center gap-0.5 text-sm font-medium",
+            "flex items-center gap-0.5 text-xs font-medium",
             metric.change.positive ? "text-emerald-600" : "text-red-600"
           )}
         >
-          <Icon className="w-4 h-4" />
+          <Icon className="w-3 h-3" />
           {metric.change.value}
         </div>
       </div>
-      <p className="text-xs text-gray-600 mb-3">{metric.subtitle}</p>
+      <p className="text-xs text-gray-600 mb-2">{metric.subtitle}</p>
       <div className="flex gap-2 text-xs">
         {metric.link && (
           <a
             href="#"
             className="text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
           >
-            View graph
+            View
             <ArrowUpRight className="w-3 h-3" />
           </a>
         )}
@@ -161,8 +166,8 @@ function SemicircularGauge({
   subtitle,
   color = "purple",
 }: GaugeProps) {
-  const radius = 60;
-  const strokeWidth = 12;
+  const radius = 50;
+  const strokeWidth = 10;
   const normalizedRadius = radius - strokeWidth / 2;
   const circumference = normalizedRadius * Math.PI;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
@@ -185,9 +190,9 @@ function SemicircularGauge({
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white border border-gray-200 rounded-lg p-4 flex flex-col items-center"
+      className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col items-center"
     >
-      <h4 className="text-sm font-semibold text-gray-900 text-center mb-2">
+      <h4 className="text-xs font-semibold text-gray-900 text-center mb-1.5">
         {title}
       </h4>
 
@@ -221,10 +226,10 @@ function SemicircularGauge({
             className="transition-all duration-1000 ease-out"
           />
         </svg>
-        <div className="absolute inset-0 flex items-end justify-center pb-2">
+        <div className="absolute inset-0 flex items-end justify-center pb-1">
           <span
             className={cn(
-              "text-2xl font-bold",
+              "text-xl font-bold",
               colorClasses[color as keyof typeof colorClasses]
             )}
           >
@@ -233,15 +238,76 @@ function SemicircularGauge({
         </div>
       </div>
 
-      <p className="text-xs text-gray-600 text-center mt-2">{subtitle}</p>
+      <p className="text-xs text-gray-600 text-center mt-1.5">{subtitle}</p>
       <a
         href="#"
-        className="text-xs text-purple-600 hover:text-purple-700 mt-2 flex items-center gap-0.5"
+        className="text-xs text-purple-600 hover:text-purple-700 mt-1.5 flex items-center gap-0.5"
       >
         Analysis
         <ArrowUpRight className="w-3 h-3" />
       </a>
     </motion.div>
+  );
+}
+
+function UnpackagedRetailChart() {
+  // Dummy data showing unpackaged retail growth vs conventional retail
+  const data = [
+    { quarter: 'Q1', unpackaged: 12.5, conventional: 42.8 },
+    { quarter: 'Q2', unpackaged: 15.2, conventional: 41.5 },
+    { quarter: 'Q3', unpackaged: 18.7, conventional: 40.2 },
+    { quarter: 'Q4', unpackaged: 23.1, conventional: 38.9 },
+    { quarter: 'Q1', unpackaged: 27.8, conventional: 37.8 },
+    { quarter: 'Q2', unpackaged: 32.4, conventional: 36.2 },
+    { quarter: 'Q3', unpackaged: 36.9, conventional: 35.1 },
+    { quarter: 'Q4', unpackaged: 41.2, conventional: 34.5 },
+  ];
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-3">
+      <h3 className="text-xs font-semibold text-gray-900 mb-2">
+        Unpackaged Retail v. Conventional
+      </h3>
+      <ResponsiveContainer width="100%" height={180}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis
+            dataKey="quarter"
+            tick={{ fontSize: 11 }}
+            stroke="#6b7280"
+          />
+          <YAxis
+            tick={{ fontSize: 11 }}
+            stroke="#6b7280"
+            domain={[0, 50]}
+          />
+          <Tooltip
+            contentStyle={{ fontSize: 11, borderRadius: 8 }}
+            formatter={(value: number) => `${value}%`}
+          />
+          <Legend
+            wrapperStyle={{ fontSize: 11 }}
+            iconType="line"
+          />
+          <Line
+            type="monotone"
+            dataKey="unpackaged"
+            stroke="#7c3aed"
+            strokeWidth={2}
+            name="Unpackaged Retail"
+            dot={{ r: 2 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="conventional"
+            stroke="#94a3b8"
+            strokeWidth={2}
+            name="Conventional Retail"
+            dot={{ r: 2 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
@@ -338,14 +404,11 @@ export default function TransitionDashboard() {
   ];
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+    <div className="container mx-auto p-4 max-w-7xl">
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-900">
           Transition Dashboard
         </h1>
-        {/* <p className="text-gray-600">
-          Economic performance analytics and market indicators
-        </p> */}
       </div>
 
       <AggregateFilterBar
@@ -355,12 +418,12 @@ export default function TransitionDashboard() {
 
       {/* Microeconomic Performance */}
       <div className="mb-4">
-        <div className="mb-2">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="mb-3">
+          <h2 className="text-base font-bold text-gray-900">
             Microeconomic Performance
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
           {performanceMetrics.map((metric, idx) => (
             <PerformanceCard key={idx} metric={metric} />
           ))}
@@ -368,9 +431,9 @@ export default function TransitionDashboard() {
       </div>
 
       {/* Constraints Section */}
-      <div className="mb-2">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Constraints</h2>
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-bold text-gray-900">Constraints</h2>
           <a
             href="#"
             className="text-sm text-purple-600 hover:text-purple-700 flex items-center gap-1"
@@ -380,11 +443,11 @@ export default function TransitionDashboard() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-3">
           {/* Left column: Gauges and Indicators */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3">
             {/* Gauges */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3">
               <SemicircularGauge
                 title="Reclamation Skills"
                 percentage={28}
@@ -405,51 +468,8 @@ export default function TransitionDashboard() {
               />
             </div>
 
-            {/* Indicators - moved here */}
-            <div className="bg-white border border-gray-200 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">
-                Unpackaged Retail v. Conventional
-              </h3>
-              <div className="h-48 bg-gradient-to-br from-blue-900 to-indigo-900 rounded-lg flex items-center justify-center relative overflow-hidden">
-                {/* Wavy line chart placeholder */}
-                <svg width="100%" height="100%" className="absolute inset-0">
-                  <defs>
-                    <linearGradient
-                      id="wave-gradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.8" />
-                      <stop
-                        offset="100%"
-                        stopColor="#a78bfa"
-                        stopOpacity="0.8"
-                      />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d="M 0,120 Q 100,80 200,100 T 400,90 T 600,110 T 800,95 T 1000,105 T 1200,100"
-                    fill="none"
-                    stroke="url(#wave-gradient)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M 0,140 Q 100,130 200,135 T 400,130 T 600,140 T 800,135 T 1000,138 T 1200,140"
-                    fill="none"
-                    stroke="#94a3b8"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <p className="text-white text-sm z-10 bg-black/30 px-3 py-1 rounded">
-                  Time series comparison chart
-                </p>
-              </div>
-            </div>
+            {/* Unpackaged Retail Chart */}
+            <UnpackagedRetailChart />
           </div>
 
           {/* Right column: Map */}
