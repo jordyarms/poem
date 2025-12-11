@@ -3,6 +3,13 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import Map, { MapMarker, MapCircle } from '@/components/poems/Map';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface Route {
   id: string;
@@ -37,29 +44,31 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 text-sm">
         <div>
           <label className="text-xs text-gray-600 block mb-1">Show:</label>
-          <select
-            value={filters.showType}
-            onChange={(e) => onFilterChange('showType', e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="small">small</option>
-            <option value="medium">medium</option>
-            <option value="large">large</option>
-            <option value="all">all sizes</option>
-          </select>
+          <Select value={filters.showType} onValueChange={(value) => onFilterChange('showType', value)}>
+            <SelectTrigger className="w-full h-8 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="small">small</SelectItem>
+              <SelectItem value="medium">medium</SelectItem>
+              <SelectItem value="large">large</SelectItem>
+              <SelectItem value="all">all sizes</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">&nbsp;</label>
-          <select
-            value={filters.showVariant}
-            onChange={(e) => onFilterChange('showVariant', e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="non-express">non-express</option>
-            <option value="express">express</option>
-            <option value="all">all types</option>
-          </select>
+          <Select value={filters.showVariant} onValueChange={(value) => onFilterChange('showVariant', value)}>
+            <SelectTrigger className="w-full h-8 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="non-express">non-express</SelectItem>
+              <SelectItem value="express">express</SelectItem>
+              <SelectItem value="all">all types</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
@@ -74,15 +83,16 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">miles of:</label>
-          <select
-            value={filters.milesOf}
-            onChange={(e) => onFilterChange('milesOf', e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="home">home</option>
-            <option value="office">office</option>
-            <option value="current">current location</option>
-          </select>
+          <Select value={filters.milesOf} onValueChange={(value) => onFilterChange('milesOf', value)}>
+            <SelectTrigger className="w-full h-8 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="home">home</SelectItem>
+              <SelectItem value="office">office</SelectItem>
+              <SelectItem value="current">current location</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
@@ -107,15 +117,16 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
 
         <div>
           <label className="text-xs text-gray-600 block mb-1">on (date):</label>
-          <select
-            value={filters.onDate}
-            onChange={(e) => onFilterChange('onDate', e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-          >
-            <option value="today">today</option>
-            <option value="tomorrow">tomorrow</option>
-            <option value="this-week">this week</option>
-          </select>
+          <Select value={filters.onDate} onValueChange={(value) => onFilterChange('onDate', value)}>
+            <SelectTrigger className="w-full h-8 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="today">today</SelectItem>
+              <SelectItem value="tomorrow">tomorrow</SelectItem>
+              <SelectItem value="this-week">this week</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
