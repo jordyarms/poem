@@ -1,6 +1,7 @@
 import { TrendingUp, DollarSign, Droplets, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useEffect, useRef } from 'react';
+import { createChart, ColorType } from 'lightweight-charts';
 
 interface MetricCardProps {
   title: string;
@@ -173,68 +174,79 @@ interface FundsTableProps {
 }
 
 function ReturnsTrackingChart() {
-  // Dummy candlestick data for the last 7 days showing open, high, low, close
-  const data = [
-    { day: 'Mon', open: 2.82, high: 2.90, low: 2.78, close: 2.85 },
-    { day: 'Tue', open: 2.85, high: 2.96, low: 2.84, close: 2.92 },
-    { day: 'Wed', open: 2.92, high: 2.94, low: 2.85, close: 2.88 },
-    { day: 'Thu', open: 2.88, high: 3.05, low: 2.87, close: 3.01 },
-    { day: 'Fri', open: 3.01, high: 3.12, low: 3.00, close: 3.08 },
-    { day: 'Sat', open: 3.08, high: 3.18, low: 3.06, close: 3.12 },
-    { day: 'Sun', open: 3.12, high: 3.20, low: 3.10, close: 3.15 },
-  ];
+  const chartContainerRef = useRef<HTMLDivElement>(null);
 
-  // Custom candlestick shape renderer
-  const CandlestickShape = (props: any) => {
-    const { x, width, payload } = props;
-    const { open, close, high, low } = payload;
+  useEffect(() => {
+    if (!chartContainerRef.current) return;
 
-    // Determine if bullish (green) or bearish (red)
-    const isGreen = close >= open;
-    const color = isGreen ? '#059669' : '#dc2626';
+    // Create chart
+    const chart = createChart(chartContainerRef.current, {
+      layout: {
+        background: { type: ColorType.Solid, color: 'white' },
+        textColor: '#6b7280',
+        fontSize: 11,
+      },
+      width: chartContainerRef.current.clientWidth,
+      height: 180,
+      rightPriceScale: {
+        borderColor: '#e5e7eb',
+      },
+      timeScale: {
+        borderColor: '#e5e7eb',
+        timeVisible: false,
+        secondsVisible: false,
+      },
+      grid: {
+        vertLines: {
+          color: '#e5e7eb',
+        },
+        horzLines: {
+          color: '#e5e7eb',
+        },
+      },
+    });
 
-    // Calculate Y positions using the chart's coordinate system
-    // The y and height props give us the bar position, but we need to recalculate for OHLC
-    const chartHeight = 180 - 40; // Total height minus padding
-    const yScale = chartHeight / (3.5 - 2.5); // pixels per dollar
-    const chartBottom = 180 - 20; // Bottom of chart area
+    // Add candlestick series
+    const candlestickSeries = (chart as any).addCandlestickSeries({
+      upColor: '#059669',
+      downColor: '#dc2626',
+      borderVisible: false,
+      wickUpColor: '#059669',
+      wickDownColor: '#dc2626',
+    });
 
-    // Calculate pixel positions from bottom
-    const highY = chartBottom - (high - 2.5) * yScale;
-    const lowY = chartBottom - (low - 2.5) * yScale;
-    const openY = chartBottom - (open - 2.5) * yScale;
-    const closeY = chartBottom - (close - 2.5) * yScale;
+    // Dummy candlestick data for the last 7 days
+    // Using timestamps for Dec 5-11, 2025
+    const data = [
+      { time: '2025-12-05', open: 2.82, high: 2.90, low: 2.78, close: 2.85 },
+      { time: '2025-12-06', open: 2.85, high: 2.96, low: 2.84, close: 2.92 },
+      { time: '2025-12-07', open: 2.92, high: 2.94, low: 2.85, close: 2.88 },
+      { time: '2025-12-08', open: 2.88, high: 3.05, low: 2.87, close: 3.01 },
+      { time: '2025-12-09', open: 3.01, high: 3.12, low: 3.00, close: 3.08 },
+      { time: '2025-12-10', open: 3.08, high: 3.18, low: 3.06, close: 3.12 },
+      { time: '2025-12-11', open: 3.12, high: 3.20, low: 3.10, close: 3.15 },
+    ];
 
-    // Candle body
-    const bodyTop = Math.min(openY, closeY);
-    const bodyHeight = Math.max(Math.abs(openY - closeY), 2); // Minimum 2px height
-    const candleWidth = Math.min(width * 0.6, 24); // Max 24px wide
-    const centerX = x + width / 2;
+    candlestickSeries.setData(data);
 
-    return (
-      <g>
-        {/* Wick (high-low line) */}
-        <line
-          x1={centerX}
-          y1={highY}
-          x2={centerX}
-          y2={lowY}
-          stroke={color}
-          strokeWidth={2}
-        />
-        {/* Candle body */}
-        <rect
-          x={centerX - candleWidth / 2}
-          y={bodyTop}
-          width={candleWidth}
-          height={bodyHeight}
-          fill={color}
-          stroke={color}
-          strokeWidth={1}
-        />
-      </g>
-    );
-  };
+    // Fit content to view
+    chart.timeScale().fitContent();
+
+    // Handle resize
+    const handleResize = () => {
+      if (chartContainerRef.current) {
+        chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      chart.remove();
+    };
+  }, []);
 
   return (
     <motion.div
@@ -244,48 +256,7 @@ function ReturnsTrackingChart() {
       className="bg-white border border-gray-200 rounded-lg p-3"
     >
       <h3 className="text-base font-semibold text-gray-900 mb-3">Returns Tracking (last 7 days)</h3>
-      <ResponsiveContainer width="100%" height={180}>
-        <ComposedChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis
-            dataKey="day"
-            tick={{ fontSize: 11 }}
-            stroke="#6b7280"
-          />
-          <YAxis
-            tick={{ fontSize: 11 }}
-            stroke="#6b7280"
-            domain={[2.5, 3.5]}
-            tickFormatter={(value) => `$${value}`}
-          />
-          <Tooltip
-            contentStyle={{ fontSize: 11, borderRadius: 8 }}
-            content={({ active, payload }) => {
-              if (active && payload && payload.length) {
-                const data = payload[0].payload;
-                const isGreen = data.close >= data.open;
-                return (
-                  <div className="bg-white border border-gray-200 rounded p-2 shadow-lg text-xs">
-                    <p className="font-semibold mb-1">{data.day}</p>
-                    <p>Open: ${data.open.toFixed(2)}</p>
-                    <p>High: ${data.high.toFixed(2)}</p>
-                    <p>Low: ${data.low.toFixed(2)}</p>
-                    <p className={isGreen ? 'text-emerald-600' : 'text-red-600'}>
-                      Close: ${data.close.toFixed(2)}
-                    </p>
-                  </div>
-                );
-              }
-              return null;
-            }}
-          />
-          <Bar
-            dataKey="close"
-            shape={<CandlestickShape />}
-            isAnimationActive={false}
-          />
-        </ComposedChart>
-      </ResponsiveContainer>
+      <div ref={chartContainerRef} />
     </motion.div>
   );
 }
