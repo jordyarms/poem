@@ -207,7 +207,7 @@ function ReturnsTrackingChart() {
     });
 
     // Add candlestick series
-    const candlestickSeries = (chart as any).addCandlestickSeries({
+    const candlestickSeries = chart.addCandlestickSeries({
       upColor: '#059669',
       downColor: '#dc2626',
       borderVisible: false,
