@@ -215,13 +215,36 @@ function ReturnsTrackingChart() {
       wickDownColor: '#dc2626',
     });
 
-    // Dummy candlestick data for the last 7 days
-    // Using timestamps for Dec 5-11, 2025
+    // Dummy candlestick data for the last 30 days showing realistic volatility
+    // Using timestamps for Nov 12 - Dec 11, 2025
     const data = [
-      { time: '2025-12-05', open: 2.82, high: 2.90, low: 2.78, close: 2.85 },
-      { time: '2025-12-06', open: 2.85, high: 2.96, low: 2.84, close: 2.92 },
-      { time: '2025-12-07', open: 2.92, high: 2.94, low: 2.85, close: 2.88 },
-      { time: '2025-12-08', open: 2.88, high: 3.05, low: 2.87, close: 3.01 },
+      { time: '2025-11-12', open: 2.45, high: 2.52, low: 2.41, close: 2.48 },
+      { time: '2025-11-13', open: 2.48, high: 2.55, low: 2.46, close: 2.51 },
+      { time: '2025-11-14', open: 2.51, high: 2.54, low: 2.47, close: 2.49 },
+      { time: '2025-11-15', open: 2.49, high: 2.58, low: 2.48, close: 2.56 },
+      { time: '2025-11-16', open: 2.56, high: 2.62, low: 2.54, close: 2.59 },
+      { time: '2025-11-17', open: 2.59, high: 2.61, low: 2.52, close: 2.54 },
+      { time: '2025-11-18', open: 2.54, high: 2.60, low: 2.51, close: 2.58 },
+      { time: '2025-11-19', open: 2.58, high: 2.66, low: 2.57, close: 2.64 },
+      { time: '2025-11-20', open: 2.64, high: 2.68, low: 2.61, close: 2.62 },
+      { time: '2025-11-21', open: 2.62, high: 2.69, low: 2.60, close: 2.67 },
+      { time: '2025-11-22', open: 2.67, high: 2.73, low: 2.65, close: 2.71 },
+      { time: '2025-11-23', open: 2.71, high: 2.75, low: 2.68, close: 2.70 },
+      { time: '2025-11-24', open: 2.70, high: 2.72, low: 2.65, close: 2.66 },
+      { time: '2025-11-25', open: 2.66, high: 2.74, low: 2.65, close: 2.72 },
+      { time: '2025-11-26', open: 2.72, high: 2.79, low: 2.71, close: 2.77 },
+      { time: '2025-11-27', open: 2.77, high: 2.82, low: 2.75, close: 2.80 },
+      { time: '2025-11-28', open: 2.80, high: 2.84, low: 2.78, close: 2.81 },
+      { time: '2025-11-29', open: 2.81, high: 2.83, low: 2.76, close: 2.78 },
+      { time: '2025-11-30', open: 2.78, high: 2.85, low: 2.77, close: 2.83 },
+      { time: '2025-12-01', open: 2.83, high: 2.88, low: 2.81, close: 2.86 },
+      { time: '2025-12-02', open: 2.86, high: 2.91, low: 2.84, close: 2.89 },
+      { time: '2025-12-03', open: 2.89, high: 2.93, low: 2.85, close: 2.87 },
+      { time: '2025-12-04', open: 2.87, high: 2.90, low: 2.83, close: 2.85 },
+      { time: '2025-12-05', open: 2.85, high: 2.94, low: 2.84, close: 2.92 },
+      { time: '2025-12-06', open: 2.92, high: 2.98, low: 2.90, close: 2.96 },
+      { time: '2025-12-07', open: 2.96, high: 3.02, low: 2.94, close: 2.99 },
+      { time: '2025-12-08', open: 2.99, high: 3.05, low: 2.96, close: 3.01 },
       { time: '2025-12-09', open: 3.01, high: 3.12, low: 3.00, close: 3.08 },
       { time: '2025-12-10', open: 3.08, high: 3.18, low: 3.06, close: 3.12 },
       { time: '2025-12-11', open: 3.12, high: 3.20, low: 3.10, close: 3.15 },
@@ -255,7 +278,7 @@ function ReturnsTrackingChart() {
       transition={{ delay: 0.2 }}
       className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <h3 className="text-base font-semibold text-gray-900 mb-3">Returns Tracking (last 7 days)</h3>
+      <h3 className="text-base font-semibold text-gray-900 mb-3">Returns Tracking (last 30 days)</h3>
       <div ref={chartContainerRef} />
     </motion.div>
   );
