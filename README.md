@@ -35,6 +35,8 @@ npm run build
 npm run preview
 ```
 
+> **For AI Development**: See [CLAUDE.md](./CLAUDE.md) for detailed architecture guidance, development patterns, and important implementation notes when working with this codebase.
+
 ## Project Structure
 
 ```
