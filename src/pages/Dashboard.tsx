@@ -233,7 +233,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">£1,920</p>
+                        <p className="font-semibold">$1,920</p>
                         <p className="text-xs text-muted-foreground">Total cost</p>
                       </div>
                     </div>

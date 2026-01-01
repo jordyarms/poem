@@ -155,7 +155,7 @@ export default function CreateIntervention() {
       <FormSection title="Beneficiary Criteria" description="Filter workers by their current status" icon={Users}>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Min Pay Rate (£/hr)</label>
+            <label className="block text-sm font-medium mb-2">Min Pay Rate ($/hr)</label>
             <input
               type="number"
               value={payCriteria.min}
@@ -165,7 +165,7 @@ export default function CreateIntervention() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Max Pay Rate (£/hr)</label>
+            <label className="block text-sm font-medium mb-2">Max Pay Rate ($/hr)</label>
             <input
               type="number"
               value={payCriteria.max}

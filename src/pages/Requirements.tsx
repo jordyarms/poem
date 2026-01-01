@@ -156,7 +156,7 @@ export default function Requirements() {
                 <option value="">Select room...</option>
                 {roomOptions.map((room) => (
                   <option key={room.value} value={room.value}>
-                    {room.label} - £{room.price}
+                    {room.label} - ${room.price}
                   </option>
                 ))}
               </select>
@@ -178,7 +178,7 @@ export default function Requirements() {
                 <option value="">Select equipment...</option>
                 {equipmentOptions.map((equip) => (
                   <option key={equip.value} value={equip.value}>
-                    {equip.label} - £{equip.price}
+                    {equip.label} - ${equip.price}
                   </option>
                 ))}
               </select>
@@ -200,7 +200,7 @@ export default function Requirements() {
                 <option value="">Select catering...</option>
                 {cateringOptions.map((cater) => (
                   <option key={cater.value} value={cater.value}>
-                    {cater.label} - £{cater.pricePerPerson}/person
+                    {cater.label} - ${cater.pricePerPerson}/person
                   </option>
                 ))}
               </select>
@@ -232,7 +232,7 @@ export default function Requirements() {
                 <option value="">Select role...</option>
                 {staffRoleOptions.map((role) => (
                   <option key={role.value} value={role.value}>
-                    {role.label} - £{role.rate}/hr
+                    {role.label} - ${role.rate}/hr
                   </option>
                 ))}
               </select>
@@ -315,7 +315,7 @@ export default function Requirements() {
                 <option value="">Select transport...</option>
                 {transportOptions.map((transport) => (
                   <option key={transport.value} value={transport.value}>
-                    {transport.label} - £{transport.pricePerTrip}
+                    {transport.label} - ${transport.pricePerTrip}
                   </option>
                 ))}
               </select>

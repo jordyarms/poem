@@ -125,7 +125,7 @@ export default function Packages() {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <div className="text-sm font-medium text-blue-700 mb-1">Best Value</div>
             <div className="text-3xl font-bold text-blue-900">
-              £{Math.min(...completePackages.map((p) => p.totalPrice))}
+              ${Math.min(...completePackages.map((p) => p.totalPrice))}
             </div>
             <div className="text-xs text-blue-700 mt-1">Lowest complete package</div>
           </div>

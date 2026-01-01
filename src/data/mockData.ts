@@ -866,7 +866,7 @@ export const mockOpportunityFeed: import('@/types').OpportunityFeedItem[] = [
     description: 'Protection against claims of professional negligence or errors.',
     image: 'https://images.unsplash.com/photo-1554224311-beee449f5952?w=400',
     primaryMetric: { label: 'From', value: '$8/mo' },
-    secondaryMetric: { label: 'Cover', value: '£500k' },
+    secondaryMetric: { label: 'Cover', value: '$500k' },
   },
   {
     id: 'opp-soc-1',

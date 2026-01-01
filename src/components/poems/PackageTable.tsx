@@ -25,7 +25,7 @@ export default function PackageTable({ packages, onBuy, onEdit }: PackageTablePr
     }
 
     const isBundled = component.bundled || component.bundledWithRoom;
-    const displayPrice = isBundled ? 'BUNDLED' : `£${component.price}`;
+    const displayPrice = isBundled ? 'BUNDLED' : `$${component.price}`;
 
     return (
       <div className="text-center py-3">
@@ -104,7 +104,7 @@ export default function PackageTable({ packages, onBuy, onEdit }: PackageTablePr
 
               {/* Total */}
               <td className="p-3 border-l border-border text-center">
-                <div className="text-lg font-bold text-blue-900">£{pkg.totalPrice}</div>
+                <div className="text-lg font-bold text-blue-900">${pkg.totalPrice}</div>
               </td>
 
               {/* Actions */}
