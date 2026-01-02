@@ -144,7 +144,7 @@ function InterventionCandlestickChart({ data }: { data: any[] }) {
         textColor: "#6b7280",
       },
       width: chartContainerRef.current.clientWidth,
-      height: 200,
+      height: 160,
       grid: {
         vertLines: { color: "#f3f4f6" },
         horzLines: { color: "#f3f4f6" },
@@ -219,9 +219,9 @@ function MetricScoreCard({ metric }: { metric: InterventionMetric }) {
 
 function InterventionRow({ intervention }: { intervention: Intervention }) {
   const actionStyles = {
-    Invest: "text-emerald-700",
-    Donate: "text-blue-700",
-    "Closed fund": "text-gray-600",
+    Invest: "text-emerald-700 hover:text-emerald-800",
+    Donate: "text-blue-700 hover:text-blue-800",
+    "Closed fund": "text-gray-600 hover:text-gray-700",
   };
 
   return (
@@ -233,20 +233,21 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Left column: Title, action button, and metrics (2/3 width) */}
         <div>
-          {/* Title and action text */}
+          {/* Title and action link */}
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-base font-semibold text-gray-900">
               <span className="text-purple-700">{intervention.category}:</span>{" "}
               {intervention.title}
             </h3>
-            <span
+            <a
+              href="#"
               className={cn(
-                "text-sm font-medium whitespace-nowrap",
+                "text-sm font-medium whitespace-nowrap underline",
                 actionStyles[intervention.action]
               )}
             >
               {intervention.action}
-            </span>
+            </a>
           </div>
 
           {/* Metrics Grid */}
@@ -282,48 +283,48 @@ export default function SelectInterventions() {
 
   // Generate varied candlestick data for each intervention
   const employmentData = [
-    { time: "2025-11-18", open: 2.05, high: 2.12, low: 2.02, close: 2.10 },
-    { time: "2025-11-19", open: 2.10, high: 2.18, low: 2.08, close: 2.15 },
+    { time: "2025-11-18", open: 2.05, high: 2.12, low: 2.02, close: 2.1 },
+    { time: "2025-11-19", open: 2.1, high: 2.18, low: 2.08, close: 2.15 },
     { time: "2025-11-20", open: 2.15, high: 2.22, low: 2.12, close: 2.18 },
     { time: "2025-11-21", open: 2.18, high: 2.25, low: 2.15, close: 2.22 },
-    { time: "2025-11-22", open: 2.22, high: 2.28, low: 2.19, close: 2.20 },
-    { time: "2025-11-25", open: 2.20, high: 2.30, low: 2.18, close: 2.28 },
+    { time: "2025-11-22", open: 2.22, high: 2.28, low: 2.19, close: 2.2 },
+    { time: "2025-11-25", open: 2.2, high: 2.3, low: 2.18, close: 2.28 },
     { time: "2025-11-26", open: 2.28, high: 2.35, low: 2.25, close: 2.32 },
-    { time: "2025-11-27", open: 2.32, high: 2.38, low: 2.28, close: 2.30 },
-    { time: "2025-11-28", open: 2.30, high: 2.40, low: 2.28, close: 2.38 },
+    { time: "2025-11-27", open: 2.32, high: 2.38, low: 2.28, close: 2.3 },
+    { time: "2025-11-28", open: 2.3, high: 2.4, low: 2.28, close: 2.38 },
     { time: "2025-11-29", open: 2.38, high: 2.45, low: 2.35, close: 2.42 },
-    { time: "2025-12-02", open: 2.42, high: 2.50, low: 2.40, close: 2.48 },
+    { time: "2025-12-02", open: 2.42, high: 2.5, low: 2.4, close: 2.48 },
     { time: "2025-12-03", open: 2.48, high: 2.55, low: 2.45, close: 2.52 },
   ];
 
   const materialsData = [
-    { time: "2025-11-18", open: 2.15, high: 2.25, low: 2.10, close: 2.20 },
-    { time: "2025-11-19", open: 2.20, high: 2.28, low: 2.15, close: 2.18 },
-    { time: "2025-11-20", open: 2.18, high: 2.22, low: 2.10, close: 2.12 },
-    { time: "2025-11-21", open: 2.12, high: 2.20, low: 2.08, close: 2.18 },
-    { time: "2025-11-22", open: 2.18, high: 2.30, low: 2.15, close: 2.25 },
-    { time: "2025-11-25", open: 2.25, high: 2.35, low: 2.20, close: 2.22 },
-    { time: "2025-11-26", open: 2.22, high: 2.28, low: 2.18, close: 2.20 },
-    { time: "2025-11-27", open: 2.20, high: 2.32, low: 2.18, close: 2.30 },
-    { time: "2025-11-28", open: 2.30, high: 2.42, low: 2.28, close: 2.38 },
-    { time: "2025-11-29", open: 2.38, high: 2.48, low: 2.35, close: 2.40 },
-    { time: "2025-12-02", open: 2.40, high: 2.50, low: 2.38, close: 2.48 },
+    { time: "2025-11-18", open: 2.15, high: 2.25, low: 2.1, close: 2.2 },
+    { time: "2025-11-19", open: 2.2, high: 2.28, low: 2.15, close: 2.18 },
+    { time: "2025-11-20", open: 2.18, high: 2.22, low: 2.1, close: 2.12 },
+    { time: "2025-11-21", open: 2.12, high: 2.2, low: 2.08, close: 2.18 },
+    { time: "2025-11-22", open: 2.18, high: 2.3, low: 2.15, close: 2.25 },
+    { time: "2025-11-25", open: 2.25, high: 2.35, low: 2.2, close: 2.22 },
+    { time: "2025-11-26", open: 2.22, high: 2.28, low: 2.18, close: 2.2 },
+    { time: "2025-11-27", open: 2.2, high: 2.32, low: 2.18, close: 2.3 },
+    { time: "2025-11-28", open: 2.3, high: 2.42, low: 2.28, close: 2.38 },
+    { time: "2025-11-29", open: 2.38, high: 2.48, low: 2.35, close: 2.4 },
+    { time: "2025-12-02", open: 2.4, high: 2.5, low: 2.38, close: 2.48 },
     { time: "2025-12-03", open: 2.48, high: 2.58, low: 2.45, close: 2.52 },
   ];
 
   const energyData = [
-    { time: "2025-11-18", open: 2.35, high: 2.42, low: 2.30, close: 2.38 },
-    { time: "2025-11-19", open: 2.38, high: 2.45, low: 2.35, close: 2.40 },
-    { time: "2025-11-20", open: 2.40, high: 2.48, low: 2.38, close: 2.45 },
+    { time: "2025-11-18", open: 2.35, high: 2.42, low: 2.3, close: 2.38 },
+    { time: "2025-11-19", open: 2.38, high: 2.45, low: 2.35, close: 2.4 },
+    { time: "2025-11-20", open: 2.4, high: 2.48, low: 2.38, close: 2.45 },
     { time: "2025-11-21", open: 2.45, high: 2.52, low: 2.42, close: 2.48 },
-    { time: "2025-11-22", open: 2.48, high: 2.55, low: 2.45, close: 2.50 },
-    { time: "2025-11-25", open: 2.50, high: 2.58, low: 2.48, close: 2.55 },
+    { time: "2025-11-22", open: 2.48, high: 2.55, low: 2.45, close: 2.5 },
+    { time: "2025-11-25", open: 2.5, high: 2.58, low: 2.48, close: 2.55 },
     { time: "2025-11-26", open: 2.55, high: 2.62, low: 2.52, close: 2.58 },
-    { time: "2025-11-27", open: 2.58, high: 2.65, low: 2.55, close: 2.60 },
-    { time: "2025-11-28", open: 2.60, high: 2.68, low: 2.58, close: 2.65 },
+    { time: "2025-11-27", open: 2.58, high: 2.65, low: 2.55, close: 2.6 },
+    { time: "2025-11-28", open: 2.6, high: 2.68, low: 2.58, close: 2.65 },
     { time: "2025-11-29", open: 2.65, high: 2.72, low: 2.62, close: 2.68 },
-    { time: "2025-12-02", open: 2.68, high: 2.75, low: 2.65, close: 2.70 },
-    { time: "2025-12-03", open: 2.70, high: 2.78, low: 2.68, close: 2.75 },
+    { time: "2025-12-02", open: 2.68, high: 2.75, low: 2.65, close: 2.7 },
+    { time: "2025-12-03", open: 2.7, high: 2.78, low: 2.68, close: 2.75 },
   ];
 
   const interventions: Intervention[] = [
@@ -428,7 +429,10 @@ export default function SelectInterventions() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 mb-4">
-        <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
+        <SearchFilterBar
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
 
         <div className="flex flex-col gap-2 lg:min-w-[200px]">
           <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
