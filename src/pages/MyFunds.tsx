@@ -347,7 +347,7 @@ function ReturnsTrackingChart() {
       className="bg-white border border-gray-200 rounded-lg p-3"
     >
       <h3 className="text-base font-semibold text-gray-900 mb-3">
-        Returns Tracking (last 30 days)
+        Aggregate Portfolio Performance (last 30 days)
       </h3>
       <div ref={chartContainerRef} />
     </motion.div>
