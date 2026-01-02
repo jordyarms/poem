@@ -34,6 +34,7 @@ interface Intervention {
     velocity: InterventionMetric;
   };
   showChart: boolean;
+  chartData?: any[];
 }
 
 function SearchFilterBar({
@@ -131,7 +132,7 @@ function SearchFilterBar({
   );
 }
 
-function InterventionCandlestickChart() {
+function InterventionCandlestickChart({ data }: { data: any[] }) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -166,20 +167,6 @@ function InterventionCandlestickChart() {
       wickDownColor: "#dc2626",
     });
 
-    // Generate dummy candlestick data for the last 14 days
-    const data = [
-      { time: "2025-11-28", open: 2.1, high: 2.25, low: 2.05, close: 2.2 },
-      { time: "2025-11-29", open: 2.2, high: 2.3, low: 2.15, close: 2.18 },
-      { time: "2025-12-02", open: 2.18, high: 2.28, low: 2.12, close: 2.25 },
-      { time: "2025-12-03", open: 2.25, high: 2.35, low: 2.22, close: 2.32 },
-      { time: "2025-12-04", open: 2.32, high: 2.38, low: 2.28, close: 2.3 },
-      { time: "2025-12-05", open: 2.3, high: 2.42, low: 2.28, close: 2.38 },
-      { time: "2025-12-06", open: 2.38, high: 2.45, low: 2.35, close: 2.4 },
-      { time: "2025-12-09", open: 2.4, high: 2.48, low: 2.36, close: 2.44 },
-      { time: "2025-12-10", open: 2.44, high: 2.5, low: 2.4, close: 2.46 },
-      { time: "2025-12-11", open: 2.46, high: 2.55, low: 2.43, close: 2.52 },
-    ];
-
     candlestickSeries.setData(data);
     chart.timeScale().fitContent();
 
@@ -197,7 +184,7 @@ function InterventionCandlestickChart() {
       window.removeEventListener("resize", handleResize);
       chart.remove();
     };
-  }, []);
+  }, [data]);
 
   return <div ref={chartContainerRef} className="w-full" />;
 }
@@ -241,14 +228,22 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-lg p-4 mb-3"
+      className="mb-6"
     >
-      {/* Header with title */}
-      <div className="mb-4">
+      {/* Header with title and action button */}
+      <div className="flex items-center justify-between mb-3">
         <h3 className="text-base font-semibold text-gray-900">
           <span className="text-purple-700">{intervention.category}:</span>{" "}
           {intervention.title}
         </h3>
+        <span
+          className={cn(
+            "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
+            actionStyles[intervention.action]
+          )}
+        >
+          {intervention.action}
+        </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -259,34 +254,10 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
           <MetricScoreCard metric={intervention.metrics.velocity} />
         </div>
 
-        {/* Right side: Action button and Candlestick Chart */}
-        {intervention.showChart && (
-          <div className="flex items-stretch gap-3">
-            <div className="flex items-center">
-              <span
-                className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
-                  actionStyles[intervention.action]
-                )}
-              >
-                {intervention.action}
-              </span>
-            </div>
-            <div className="flex-1 flex items-center">
-              <InterventionCandlestickChart />
-            </div>
-          </div>
-        )}
-        {!intervention.showChart && (
-          <div className="flex items-center justify-center">
-            <span
-              className={cn(
-                "px-4 py-2 text-sm font-medium rounded-md",
-                actionStyles[intervention.action]
-              )}
-            >
-              {intervention.action}
-            </span>
+        {/* Right side: Candlestick Chart */}
+        {intervention.showChart && intervention.chartData && (
+          <div className="flex items-center">
+            <InterventionCandlestickChart data={intervention.chartData} />
           </div>
         )}
       </div>
@@ -305,6 +276,52 @@ export default function SelectInterventions() {
   const handleFilterChange = (key: keyof SearchFilters, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
+
+  // Generate varied candlestick data for each intervention
+  const employmentData = [
+    { time: "2025-11-18", open: 2.05, high: 2.12, low: 2.02, close: 2.10 },
+    { time: "2025-11-19", open: 2.10, high: 2.18, low: 2.08, close: 2.15 },
+    { time: "2025-11-20", open: 2.15, high: 2.22, low: 2.12, close: 2.18 },
+    { time: "2025-11-21", open: 2.18, high: 2.25, low: 2.15, close: 2.22 },
+    { time: "2025-11-22", open: 2.22, high: 2.28, low: 2.19, close: 2.20 },
+    { time: "2025-11-25", open: 2.20, high: 2.30, low: 2.18, close: 2.28 },
+    { time: "2025-11-26", open: 2.28, high: 2.35, low: 2.25, close: 2.32 },
+    { time: "2025-11-27", open: 2.32, high: 2.38, low: 2.28, close: 2.30 },
+    { time: "2025-11-28", open: 2.30, high: 2.40, low: 2.28, close: 2.38 },
+    { time: "2025-11-29", open: 2.38, high: 2.45, low: 2.35, close: 2.42 },
+    { time: "2025-12-02", open: 2.42, high: 2.50, low: 2.40, close: 2.48 },
+    { time: "2025-12-03", open: 2.48, high: 2.55, low: 2.45, close: 2.52 },
+  ];
+
+  const materialsData = [
+    { time: "2025-11-18", open: 2.15, high: 2.25, low: 2.10, close: 2.20 },
+    { time: "2025-11-19", open: 2.20, high: 2.28, low: 2.15, close: 2.18 },
+    { time: "2025-11-20", open: 2.18, high: 2.22, low: 2.10, close: 2.12 },
+    { time: "2025-11-21", open: 2.12, high: 2.20, low: 2.08, close: 2.18 },
+    { time: "2025-11-22", open: 2.18, high: 2.30, low: 2.15, close: 2.25 },
+    { time: "2025-11-25", open: 2.25, high: 2.35, low: 2.20, close: 2.22 },
+    { time: "2025-11-26", open: 2.22, high: 2.28, low: 2.18, close: 2.20 },
+    { time: "2025-11-27", open: 2.20, high: 2.32, low: 2.18, close: 2.30 },
+    { time: "2025-11-28", open: 2.30, high: 2.42, low: 2.28, close: 2.38 },
+    { time: "2025-11-29", open: 2.38, high: 2.48, low: 2.35, close: 2.40 },
+    { time: "2025-12-02", open: 2.40, high: 2.50, low: 2.38, close: 2.48 },
+    { time: "2025-12-03", open: 2.48, high: 2.58, low: 2.45, close: 2.52 },
+  ];
+
+  const energyData = [
+    { time: "2025-11-18", open: 2.35, high: 2.42, low: 2.30, close: 2.38 },
+    { time: "2025-11-19", open: 2.38, high: 2.45, low: 2.35, close: 2.40 },
+    { time: "2025-11-20", open: 2.40, high: 2.48, low: 2.38, close: 2.45 },
+    { time: "2025-11-21", open: 2.45, high: 2.52, low: 2.42, close: 2.48 },
+    { time: "2025-11-22", open: 2.48, high: 2.55, low: 2.45, close: 2.50 },
+    { time: "2025-11-25", open: 2.50, high: 2.58, low: 2.48, close: 2.55 },
+    { time: "2025-11-26", open: 2.55, high: 2.62, low: 2.52, close: 2.58 },
+    { time: "2025-11-27", open: 2.58, high: 2.65, low: 2.55, close: 2.60 },
+    { time: "2025-11-28", open: 2.60, high: 2.68, low: 2.58, close: 2.65 },
+    { time: "2025-11-29", open: 2.65, high: 2.72, low: 2.62, close: 2.68 },
+    { time: "2025-12-02", open: 2.68, high: 2.75, low: 2.65, close: 2.70 },
+    { time: "2025-12-03", open: 2.70, high: 2.78, low: 2.68, close: 2.75 },
+  ];
 
   const interventions: Intervention[] = [
     {
@@ -329,6 +346,7 @@ export default function SelectInterventions() {
         },
       },
       showChart: true,
+      chartData: employmentData,
     },
     {
       category: "MATERIALS",
@@ -350,6 +368,7 @@ export default function SelectInterventions() {
         },
       },
       showChart: true,
+      chartData: materialsData,
     },
     {
       category: "ENERGY",
@@ -373,6 +392,7 @@ export default function SelectInterventions() {
         },
       },
       showChart: true,
+      chartData: energyData,
     },
     {
       category: "SKILLING",
