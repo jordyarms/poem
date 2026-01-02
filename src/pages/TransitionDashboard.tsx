@@ -287,16 +287,16 @@ function SemicircularGauge({
 }
 
 function UnpackagedRetailChart() {
-  // Dummy data showing unpackaged retail growth vs conventional retail
+  // Dummy data showing unpackaged retail growth vs conventional retail (weekly)
   const data = [
-    { quarter: "Q1", unpackaged: 12.5, conventional: 42.8 },
-    { quarter: "Q2", unpackaged: 15.2, conventional: 41.5 },
-    { quarter: "Q3", unpackaged: 18.7, conventional: 40.2 },
-    { quarter: "Q4", unpackaged: 23.1, conventional: 38.9 },
-    { quarter: "Q1", unpackaged: 27.8, conventional: 37.8 },
-    { quarter: "Q2", unpackaged: 32.4, conventional: 36.2 },
-    { quarter: "Q3", unpackaged: 36.9, conventional: 35.1 },
-    { quarter: "Q4", unpackaged: 41.2, conventional: 34.5 },
+    { week: "W1", unpackaged: 12.5, conventional: 42.8 },
+    { week: "W2", unpackaged: 15.2, conventional: 41.5 },
+    { week: "W3", unpackaged: 18.7, conventional: 40.2 },
+    { week: "W4", unpackaged: 23.1, conventional: 38.9 },
+    { week: "W5", unpackaged: 27.8, conventional: 37.8 },
+    { week: "W6", unpackaged: 32.4, conventional: 36.2 },
+    { week: "W7", unpackaged: 36.9, conventional: 35.1 },
+    { week: "W8", unpackaged: 41.2, conventional: 34.5 },
   ];
 
   return (
@@ -307,7 +307,7 @@ function UnpackagedRetailChart() {
       <ResponsiveContainer width="100%" height={180}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis dataKey="quarter" tick={{ fontSize: 11 }} stroke="#6b7280" />
+          <XAxis dataKey="week" tick={{ fontSize: 11 }} stroke="#6b7280" />
           <YAxis tick={{ fontSize: 11 }} stroke="#6b7280" domain={[0, 50]} />
           <Tooltip
             contentStyle={{ fontSize: 11, borderRadius: 8 }}
