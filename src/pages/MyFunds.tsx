@@ -380,13 +380,13 @@ function FundsTable({ funds }: FundsTableProps) {
                 My Stake
               </th>
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
+                Trend
+              </th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
                 Fund Category
               </th>
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
                 Fund Purpose
-              </th>
-              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
-                Trend
               </th>
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
                 Geography
@@ -409,14 +409,14 @@ function FundsTable({ funds }: FundsTableProps) {
                 <td className="py-2 px-2 text-gray-700 text-xs">
                   {fund.stake}
                 </td>
+                <td className="py-2 px-2">
+                  <Sparkline data={fund.sparklineData} />
+                </td>
                 <td className="py-2 px-2 text-gray-700 text-xs">
                   {fund.fundCategory}
                 </td>
                 <td className="py-2 px-2 text-gray-700 text-xs">
                   {fund.fundPurpose.join(", ")}
-                </td>
-                <td className="py-2 px-2">
-                  <Sparkline data={fund.sparklineData} />
                 </td>
                 <td className="py-2 px-2 text-gray-700 text-xs">
                   {fund.geography}
@@ -443,7 +443,7 @@ export default function MyFunds() {
       stake: "12%",
       fundCategory: "Investment",
       fundPurpose: ["Worker development", "Upskilling", "Recycling Industries"],
-      sparklineData: [2.1, 2.3, 2.2, 2.5, 2.7, 2.6, 2.9, 3.1, 3.0, 3.3],
+      sparklineData: [2.1, 2.3, 2.4, 2.5, 2.7, 2.8, 2.9, 3.1, 3.2, 3.3],
       geography: "10 miles home",
       fundNo: "1245269",
     },
@@ -453,7 +453,7 @@ export default function MyFunds() {
       stake: "100%",
       fundCategory: "Insurance",
       fundPurpose: ["Parametric", "Weather", "Events"],
-      sparklineData: [1.8, 1.9, 1.7, 1.9, 2.0, 2.1, 2.0, 2.2, 2.3, 2.4],
+      sparklineData: [1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7],
       geography: "Countywide",
       fundNo: "137669",
     },
@@ -467,7 +467,7 @@ export default function MyFunds() {
         "Services for pet owners",
         "Min return: 4%",
       ],
-      sparklineData: [3.2, 3.0, 2.9, 2.8, 2.7, 2.6, 2.5, 2.4, 2.3, 2.2],
+      sparklineData: [2.2, 2.2, 2.3, 2.3, 2.4, 2.4, 2.5, 2.5, 2.6, 2.6],
       geography: "Nationwide",
       fundNo: "1205056",
     },
@@ -481,7 +481,7 @@ export default function MyFunds() {
         "Max loan: $80",
         "Min. Reliability: Level 3",
       ],
-      sparklineData: [1.5, 1.6, 1.7, 1.6, 1.8, 1.9, 1.8, 2.0, 2.1, 2.2],
+      sparklineData: [1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4],
       geography: "5 miles radius",
       fundNo: "879",
     },
