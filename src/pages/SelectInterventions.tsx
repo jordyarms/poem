@@ -230,31 +230,34 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
       animate={{ opacity: 1, y: 0 }}
       className="mb-6"
     >
-      {/* Header with title and action button */}
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-base font-semibold text-gray-900">
-          <span className="text-purple-700">{intervention.category}:</span>{" "}
-          {intervention.title}
-        </h3>
-        <span
-          className={cn(
-            "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
-            actionStyles[intervention.action]
-          )}
-        >
-          {intervention.action}
-        </span>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left side: Metrics Grid */}
-        <div className="grid grid-cols-3 gap-3">
-          <MetricScoreCard metric={intervention.metrics.returnOnCapital} />
-          <MetricScoreCard metric={intervention.metrics.fundSize} />
-          <MetricScoreCard metric={intervention.metrics.velocity} />
+        {/* Left column: Title, action button, and metrics */}
+        <div>
+          {/* Title and action button */}
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base font-semibold text-gray-900">
+              <span className="text-purple-700">{intervention.category}:</span>{" "}
+              {intervention.title}
+            </h3>
+            <span
+              className={cn(
+                "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
+                actionStyles[intervention.action]
+              )}
+            >
+              {intervention.action}
+            </span>
+          </div>
+
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-3 gap-3">
+            <MetricScoreCard metric={intervention.metrics.returnOnCapital} />
+            <MetricScoreCard metric={intervention.metrics.fundSize} />
+            <MetricScoreCard metric={intervention.metrics.velocity} />
+          </div>
         </div>
 
-        {/* Right side: Candlestick Chart */}
+        {/* Right column: Candlestick Chart */}
         {intervention.showChart && intervention.chartData && (
           <div className="flex items-center">
             <InterventionCandlestickChart data={intervention.chartData} />
