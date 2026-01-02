@@ -167,7 +167,7 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
     >
       <h3 className="text-xs font-medium text-gray-600 mb-1.5">{metric.label}</h3>
       <div className="flex items-baseline gap-2 mb-1.5">
-        <span className="text-xl font-bold text-gray-900">{metric.value}</span>
+        <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
         {metric.unit && <span className="text-xs text-gray-500">{metric.unit}</span>}
       </div>
       <div className="flex items-center justify-between">
@@ -187,7 +187,7 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
   );
 }
 
-function ReturnsChart() {
+function ReturnsChart({ coloredTitle = false }: { coloredTitle?: boolean }) {
   // Enhanced dummy data showing more interesting performance patterns
   const data = [
     { month: 'Jan', yourFunds: 4.2, allFunds: 4.5 },
@@ -205,54 +205,71 @@ function ReturnsChart() {
   ];
 
   return (
-    <div>
-      <h3 className="text-base font-semibold text-gray-900 mb-3">Returns against all unifunds</h3>
-      <ResponsiveContainer width="100%" height={220}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis
-            dataKey="month"
-            tick={{ fontSize: 12 }}
-            stroke="#6b7280"
-          />
-          <YAxis
-            tick={{ fontSize: 12 }}
-            stroke="#6b7280"
-            label={{ value: 'Return %', angle: -90, position: 'insideLeft', style: { fontSize: 12 } }}
-          />
-          <Tooltip
-            contentStyle={{ fontSize: 12, borderRadius: 8 }}
-            formatter={(value: number) => `${value}%`}
-          />
-          <Legend
-            wrapperStyle={{ fontSize: 12 }}
-            iconType="line"
-          />
-          <Line
-            type="monotone"
-            dataKey="yourFunds"
-            stroke="#7c3aed"
-            strokeWidth={2}
-            name="Your Funds"
-            dot={{ r: 3 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="allFunds"
-            stroke="#94a3b8"
-            strokeWidth={2}
-            name="All Unifunds (Avg)"
-            dot={{ r: 3 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <h3 className={cn(
+        "text-base font-semibold px-3 py-2.5",
+        coloredTitle
+          ? "bg-emerald-50 text-emerald-900 border-b border-emerald-100"
+          : "text-gray-900 pt-3"
+      )}>
+        Returns against all unifunds
+      </h3>
+      <div className={coloredTitle ? "px-3 pb-3 pt-3" : ""}>
+        <ResponsiveContainer width="100%" height={220}>
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis
+              dataKey="month"
+              tick={{ fontSize: 12 }}
+              stroke="#6b7280"
+            />
+            <YAxis
+              tick={{ fontSize: 12 }}
+              stroke="#6b7280"
+              label={{ value: 'Return %', angle: -90, position: 'insideLeft', style: { fontSize: 12 } }}
+            />
+            <Tooltip
+              contentStyle={{ fontSize: 12, borderRadius: 8 }}
+              formatter={(value: number) => `${value}%`}
+            />
+            <Legend
+              wrapperStyle={{ fontSize: 12 }}
+              iconType="line"
+            />
+            <Line
+              type="monotone"
+              dataKey="yourFunds"
+              stroke="#7c3aed"
+              strokeWidth={2}
+              name="Your Funds"
+              dot={{ r: 3 }}
+            />
+            <Line
+              type="monotone"
+              dataKey="allFunds"
+              stroke="#94a3b8"
+              strokeWidth={2}
+              name="All Unifunds (Avg)"
+              dot={{ r: 3 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
 
-function FundsTable({ funds }: { funds: UnifundEntry[] }) {
+function FundsTable({ funds, coloredTitle = false }: { funds: UnifundEntry[]; coloredTitle?: boolean }) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <h2 className={cn(
+        "text-base font-semibold px-3 py-2.5",
+        coloredTitle
+          ? "bg-blue-50 text-blue-900 border-b border-blue-100"
+          : "text-gray-900 border-b border-gray-200"
+      )}>
+        Funds returned by your search
+      </h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-200">
@@ -451,29 +468,28 @@ export default function UnifundRegistry() {
       {/* Desktop: Side by side layout for Averages and Returns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         {/* Averages Section - 3x2 grid */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold text-gray-900">
-              Averages of these funds <span className="text-xs text-gray-500">(last 7 days <a href="#" className="text-purple-600 hover:text-purple-700">change</a>)</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {averages.map((metric, idx) => (
-              <AverageMetricCard key={idx} metric={metric} />
-            ))}
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b border-purple-100">
+            Averages of these funds <span className="text-xs text-purple-700">(last 7 days <a href="#" className="text-purple-600 hover:text-purple-700 underline">change</a>)</span>
+          </h2>
+          <div className="p-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {averages.map((metric, idx) => (
+                <AverageMetricCard key={idx} metric={metric} />
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Returns Chart Section */}
         <div>
-          <ReturnsChart />
+          <ReturnsChart coloredTitle={true} />
         </div>
       </div>
 
       {/* Funds Table */}
       <div className="mb-4">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Funds returned by your search</h2>
-        <FundsTable funds={mockFunds} />
+        <FundsTable funds={mockFunds} coloredTitle={true} />
       </div>
     </div>
   );
