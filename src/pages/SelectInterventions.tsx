@@ -221,8 +221,10 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
   const actionStyles = {
     Invest: "text-emerald-700 hover:text-emerald-800",
     Donate: "text-blue-700 hover:text-blue-800",
-    "Closed fund": "text-gray-600 hover:text-gray-700",
+    "Closed fund": "text-gray-600",
   };
+
+  const isClosedFund = intervention.action === "Closed fund";
 
   return (
     <motion.div
@@ -233,21 +235,32 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Left column: Title, action button, and metrics (2/3 width) */}
         <div>
-          {/* Title and action link */}
+          {/* Title and action link/text */}
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-base font-semibold text-gray-900">
               <span className="text-purple-700">{intervention.category}:</span>{" "}
               {intervention.title}
             </h3>
-            <a
-              href="#"
-              className={cn(
-                "text-sm font-medium whitespace-nowrap underline",
-                actionStyles[intervention.action]
-              )}
-            >
-              {intervention.action}
-            </a>
+            {isClosedFund ? (
+              <span
+                className={cn(
+                  "text-sm font-medium whitespace-nowrap",
+                  actionStyles[intervention.action]
+                )}
+              >
+                {intervention.action}
+              </span>
+            ) : (
+              <a
+                href="#"
+                className={cn(
+                  "text-sm font-medium whitespace-nowrap underline",
+                  actionStyles[intervention.action]
+                )}
+              >
+                {intervention.action}
+              </a>
+            )}
           </div>
 
           {/* Metrics Grid */}
