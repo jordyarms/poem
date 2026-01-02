@@ -2,6 +2,7 @@ import { TrendingUp, DollarSign, Droplets, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { createChart, ColorType } from "lightweight-charts";
+import { LineChart, Line, ResponsiveContainer } from "recharts";
 
 interface MetricCardProps {
   title: string;
@@ -38,7 +39,7 @@ function MetricCard({
             colorClasses[color as keyof typeof colorClasses]
           } flex-shrink-0`}
         >
-          <Icon className="w-5 h-5" />
+          <Icon className="w-8 h-8" />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -89,11 +90,11 @@ function LiquidityCard({ title, periods, link }: LiquidityCardProps) {
     >
       <div className="flex items-start gap-3">
         <div className="p-2 rounded-lg bg-blue-50 text-blue-600 border-blue-200 flex-shrink-0">
-          <Droplets className="w-5 h-5" />
+          <Droplets className="w-8 h-8" />
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">{title}</h3>
+          <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
 
           <div className="grid grid-cols-3 gap-3">
             {periods.map((period) => (
@@ -118,6 +119,32 @@ function LiquidityCard({ title, periods, link }: LiquidityCardProps) {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+interface SparklineProps {
+  data: number[];
+}
+
+function Sparkline({ data }: SparklineProps) {
+  // Transform data for recharts
+  const chartData = data.map((value, index) => ({ value, index }));
+
+  // Determine if trend is positive or negative
+  const isPositive = data[data.length - 1] >= data[0];
+
+  return (
+    <ResponsiveContainer width={80} height={30}>
+      <LineChart data={chartData}>
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke={isPositive ? "#059669" : "#dc2626"}
+          strokeWidth={1.5}
+          dot={false}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -205,6 +232,7 @@ interface FundEntry {
   stake: string;
   fundCategory: string;
   fundPurpose: string[];
+  sparklineData: number[];
   geography: string;
   fundNo: string;
 }
@@ -227,7 +255,7 @@ function ReturnsTrackingChart() {
         fontSize: 11,
       },
       width: chartContainerRef.current.clientWidth,
-      height: 180,
+      height: 240,
       rightPriceScale: {
         borderColor: "#e5e7eb",
       },
@@ -352,6 +380,12 @@ function FundsTable({ funds }: FundsTableProps) {
                 My Stake
               </th>
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
+                Trend
+              </th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
+                Fund Category
+              </th>
+              <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
                 Fund Purpose
               </th>
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
@@ -375,8 +409,14 @@ function FundsTable({ funds }: FundsTableProps) {
                 <td className="py-2 px-2 text-gray-700 text-xs">
                   {fund.stake}
                 </td>
+                <td className="py-2 px-2">
+                  <Sparkline data={fund.sparklineData} />
+                </td>
                 <td className="py-2 px-2 text-gray-700 text-xs">
-                  {fund.fundPurpose.join(" ")}
+                  {fund.fundCategory}
+                </td>
+                <td className="py-2 px-2 text-gray-700 text-xs">
+                  {fund.fundPurpose.join(", ")}
                 </td>
                 <td className="py-2 px-2 text-gray-700 text-xs">
                   {fund.geography}
@@ -403,6 +443,7 @@ export default function MyFunds() {
       stake: "12%",
       fundCategory: "Investment",
       fundPurpose: ["Worker development", "Upskilling", "Recycling Industries"],
+      sparklineData: [2.1, 2.3, 1.2, 1.6, 2.7, 2.5, 2.9, 3.1, 3.2, 3.1],
       geography: "10 miles home",
       fundNo: "1245269",
     },
@@ -412,6 +453,7 @@ export default function MyFunds() {
       stake: "100%",
       fundCategory: "Insurance",
       fundPurpose: ["Parametric", "Weather", "Events"],
+      sparklineData: [1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7],
       geography: "Countywide",
       fundNo: "137669",
     },
@@ -425,6 +467,7 @@ export default function MyFunds() {
         "Services for pet owners",
         "Min return: 4%",
       ],
+      sparklineData: [2.2, 2.2, 2.3, 2.3, 2.4, 2.4, 2.5, 2.5, 2.6, 2.6],
       geography: "Nationwide",
       fundNo: "1205056",
     },
@@ -438,6 +481,7 @@ export default function MyFunds() {
         "Max loan: $80",
         "Min. Reliability: Level 3",
       ],
+      sparklineData: [1.5, 1.1, 1.3, 1.1, 1.5, 2.0, 2.4, 2.2, 2.3, 2.4],
       geography: "5 miles radius",
       fundNo: "879",
     },
