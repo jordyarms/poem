@@ -219,9 +219,9 @@ function MetricScoreCard({ metric }: { metric: InterventionMetric }) {
 
 function InterventionRow({ intervention }: { intervention: Intervention }) {
   const actionStyles = {
-    Invest: "text-emerald-700 bg-emerald-50 border border-emerald-200",
-    Donate: "text-blue-700 bg-blue-50 border border-blue-200",
-    "Closed fund": "text-gray-700 bg-gray-100 border border-gray-300",
+    Invest: "text-emerald-700",
+    Donate: "text-blue-700",
+    "Closed fund": "text-gray-600",
   };
 
   return (
@@ -233,7 +233,7 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Left column: Title, action button, and metrics (2/3 width) */}
         <div>
-          {/* Title and action button */}
+          {/* Title and action text */}
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-base font-semibold text-gray-900">
               <span className="text-purple-700">{intervention.category}:</span>{" "}
@@ -241,7 +241,7 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
             </h3>
             <span
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
+                "text-sm font-medium whitespace-nowrap",
                 actionStyles[intervention.action]
               )}
             >
