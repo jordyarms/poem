@@ -3,8 +3,23 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Map, { MapMarker } from "@/components/poems/Map";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface FilterBarProps {
   filters: {
@@ -27,7 +42,10 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
 
         <div className="flex items-center gap-2">
           <label className="text-gray-600">Sectors:</label>
-          <Select value={filters.sectors} onValueChange={(value) => onFilterChange("sectors", value)}>
+          <Select
+            value={filters.sectors}
+            onValueChange={(value) => onFilterChange("sectors", value)}
+          >
             <SelectTrigger className="w-[140px] h-8">
               <SelectValue />
             </SelectTrigger>
@@ -42,7 +60,10 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
 
         <div className="flex items-center gap-2">
           <label className="text-gray-600">geography category:</label>
-          <Select value={filters.geoCategory} onValueChange={(value) => onFilterChange("geoCategory", value)}>
+          <Select
+            value={filters.geoCategory}
+            onValueChange={(value) => onFilterChange("geoCategory", value)}
+          >
             <SelectTrigger className="w-[140px] h-8">
               <SelectValue />
             </SelectTrigger>
@@ -57,14 +78,19 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
 
         <div className="flex items-center gap-2">
           <label className="text-gray-600">specific:</label>
-          <Select value={filters.geoSpecific} onValueChange={(value) => onFilterChange("geoSpecific", value)}>
+          <Select
+            value={filters.geoSpecific}
+            onValueChange={(value) => onFilterChange("geoSpecific", value)}
+          >
             <SelectTrigger className="w-[160px] h-8">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Silverfen Basin">Silverfen Basin</SelectItem>
               <SelectItem value="Oakridge Valley">Oakridge Valley</SelectItem>
-              <SelectItem value="Meadowbrook Region">Meadowbrook Region</SelectItem>
+              <SelectItem value="Meadowbrook Region">
+                Meadowbrook Region
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -114,7 +140,7 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
         {metric.title}
       </h3>
       <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
+        <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
         <div
           className={cn(
             "flex items-center gap-0.5 text-xs font-medium",
@@ -198,7 +224,11 @@ function SemicircularGauge({
 
       <div className="flex-1 flex items-center justify-center">
         <div className="relative" style={{ width: radius * 2, height: radius }}>
-          <svg height={radius} width={radius * 2} className="transform -rotate-0">
+          <svg
+            height={radius}
+            width={radius * 2}
+            className="transform -rotate-0"
+          >
             {/* Background arc */}
             <path
               d={`M ${
@@ -241,7 +271,9 @@ function SemicircularGauge({
       </div>
 
       <div className="w-full space-y-1.5 mt-2">
-        <p className="text-xs text-gray-600 text-center min-h-[28px] flex items-center justify-center">{subtitle}</p>
+        <p className="text-xs text-gray-600 text-center min-h-[28px] flex items-center justify-center">
+          {subtitle}
+        </p>
         <a
           href="#"
           className="text-xs text-purple-600 hover:text-purple-700 flex items-center justify-center gap-0.5"
@@ -255,16 +287,16 @@ function SemicircularGauge({
 }
 
 function UnpackagedRetailChart() {
-  // Dummy data showing unpackaged retail growth vs conventional retail
+  // Dummy data showing unpackaged retail growth vs conventional retail (weekly)
   const data = [
-    { quarter: 'Q1', unpackaged: 12.5, conventional: 42.8 },
-    { quarter: 'Q2', unpackaged: 15.2, conventional: 41.5 },
-    { quarter: 'Q3', unpackaged: 18.7, conventional: 40.2 },
-    { quarter: 'Q4', unpackaged: 23.1, conventional: 38.9 },
-    { quarter: 'Q1', unpackaged: 27.8, conventional: 37.8 },
-    { quarter: 'Q2', unpackaged: 32.4, conventional: 36.2 },
-    { quarter: 'Q3', unpackaged: 36.9, conventional: 35.1 },
-    { quarter: 'Q4', unpackaged: 41.2, conventional: 34.5 },
+    { week: "W1", unpackaged: 12.5, conventional: 42.8 },
+    { week: "W2", unpackaged: 15.2, conventional: 41.5 },
+    { week: "W3", unpackaged: 18.7, conventional: 40.2 },
+    { week: "W4", unpackaged: 23.1, conventional: 38.9 },
+    { week: "W5", unpackaged: 27.8, conventional: 37.8 },
+    { week: "W6", unpackaged: 32.4, conventional: 36.2 },
+    { week: "W7", unpackaged: 36.9, conventional: 35.1 },
+    { week: "W8", unpackaged: 41.2, conventional: 34.5 },
   ];
 
   return (
@@ -275,24 +307,13 @@ function UnpackagedRetailChart() {
       <ResponsiveContainer width="100%" height={180}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-          <XAxis
-            dataKey="quarter"
-            tick={{ fontSize: 11 }}
-            stroke="#6b7280"
-          />
-          <YAxis
-            tick={{ fontSize: 11 }}
-            stroke="#6b7280"
-            domain={[0, 50]}
-          />
+          <XAxis dataKey="week" tick={{ fontSize: 11 }} stroke="#6b7280" />
+          <YAxis tick={{ fontSize: 11 }} stroke="#6b7280" domain={[0, 50]} />
           <Tooltip
             contentStyle={{ fontSize: 11, borderRadius: 8 }}
             formatter={(value: number) => `${value}%`}
           />
-          <Legend
-            wrapperStyle={{ fontSize: 11 }}
-            iconType="line"
-          />
+          <Legend wrapperStyle={{ fontSize: 11 }} iconType="line" />
           <Line
             type="monotone"
             dataKey="unpackaged"
@@ -319,39 +340,42 @@ function GeographicMap() {
   // Availability markers for different locations in the city
   const markers: MapMarker[] = [
     {
-      id: 'east-city',
+      id: "east-city",
       position: [40.7589, -73.9851], // East side
-      title: 'Holder Availability: East City',
-      description: '7PM – 11PM weekdays',
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
     },
     {
-      id: 'downtown',
+      id: "downtown",
       position: [40.7489, -73.9851], // Downtown
-      title: 'Holder Availability: Downtown',
-      description: '6AM – 9AM weekdays',
+      title: "Holder Availability: Downtown",
+      description: "6AM – 9AM weekdays",
     },
     {
-      id: 'west-district',
+      id: "west-district",
       position: [40.7539, -74.0051], // West district
-      title: 'Holder Availability: West District',
-      description: '12PM – 3PM daily',
+      title: "Holder Availability: West District",
+      description: "12PM – 3PM daily",
     },
     {
-      id: 'north-quarter',
+      id: "north-quarter",
       position: [40.7689, -73.9851], // North quarter
-      title: 'Holder Availability: North Quarter',
-      description: '5PM – 8PM weekends',
+      title: "Holder Availability: North Quarter",
+      description: "5PM – 8PM weekends",
     },
     {
-      id: 'south-zone',
+      id: "south-zone",
       position: [40.7389, -73.9851], // South zone
-      title: 'Holder Availability: South Zone',
-      description: '10AM – 2PM weekdays',
+      title: "Holder Availability: South Zone",
+      description: "10AM – 2PM weekdays",
     },
   ];
 
   return (
-    <div className="rounded-lg border-2 border-gray-300 overflow-hidden" style={{ height: '350px' }}>
+    <div
+      className="rounded-lg border-2 border-gray-300 overflow-hidden"
+      style={{ height: "350px" }}
+    >
       <Map
         center={[40.7539, -73.9851]}
         zoom={13}
