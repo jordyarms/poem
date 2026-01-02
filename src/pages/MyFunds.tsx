@@ -153,6 +153,7 @@ interface AccountInfoProps {
   autoPlaced: string;
   autoReturning: { amount: string; date: string };
   commitments: { date: string; description: string; amount: string }[];
+  coloredTitle?: boolean;
 }
 
 function AccountInfo({
@@ -160,17 +161,24 @@ function AccountInfo({
   autoPlaced,
   autoReturning,
   commitments,
+  coloredTitle = false,
 }: AccountInfoProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-white border border-gray-200 rounded-lg p-3"
+      className="bg-white border border-gray-200 rounded-lg overflow-hidden"
     >
-      <h3 className="text-base font-semibold text-gray-900 mb-3">
+      <h3 className={`text-base font-semibold mb-3 ${
+        coloredTitle
+          ? "bg-purple-50 text-purple-900 px-3 py-2.5 border-b border-purple-100"
+          : "text-gray-900 px-3 pt-3"
+      }`}>
         Current Account
       </h3>
+
+      <div className="px-3 pb-3">
 
       <div className="space-y-2">
         <div className="flex justify-between items-center">
@@ -222,6 +230,7 @@ function AccountInfo({
           View transactions
         </a>
       </div>
+      </div>
     </motion.div>
   );
 }
@@ -239,9 +248,14 @@ interface FundEntry {
 
 interface FundsTableProps {
   funds: FundEntry[];
+  coloredTitle?: boolean;
 }
 
-function ReturnsTrackingChart() {
+interface ReturnsTrackingChartProps {
+  coloredTitle?: boolean;
+}
+
+function ReturnsTrackingChart({ coloredTitle = false }: ReturnsTrackingChartProps = {}) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -344,29 +358,37 @@ function ReturnsTrackingChart() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-white border border-gray-200 rounded-lg p-3"
+      className="bg-white border border-gray-200 rounded-lg overflow-hidden"
     >
-      <h3 className="text-base font-semibold text-gray-900 mb-3">
+      <h3 className={`text-base font-semibold mb-3 ${
+        coloredTitle
+          ? "bg-emerald-50 text-emerald-900 px-3 py-2.5 border-b border-emerald-100"
+          : "text-gray-900 px-3 pt-3"
+      }`}>
         Aggregate Portfolio Performance (last 30 days)
       </h3>
-      <div ref={chartContainerRef} />
+      <div className={coloredTitle ? "px-3 pb-3" : ""} ref={chartContainerRef} />
     </motion.div>
   );
 }
 
-function FundsTable({ funds }: FundsTableProps) {
+function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="bg-white border border-gray-200 rounded-lg p-3 mt-4"
+      className="bg-white border border-gray-200 rounded-lg overflow-hidden mt-4"
     >
-      <h3 className="text-base font-semibold text-gray-900 mb-3">
+      <h3 className={`text-base font-semibold mb-3 ${
+        coloredTitle
+          ? "bg-blue-50 text-blue-900 px-3 py-2.5 border-b border-blue-100"
+          : "text-gray-900 px-3 pt-3"
+      }`}>
         Cash Deployed (8 unifunds)
       </h3>
 
-      <div className="overflow-x-auto">
+      <div className={`overflow-x-auto ${coloredTitle ? "px-3 pb-3" : ""}`}>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-200">
@@ -532,13 +554,14 @@ export default function MyFunds() {
           commitments={[
             { date: "May 28", description: "Rent", amount: "$780" },
           ]}
+          coloredTitle={true}
         />
 
-        <ReturnsTrackingChart />
+        <ReturnsTrackingChart coloredTitle={true} />
       </div>
 
       {/* Funds Table */}
-      <FundsTable funds={mockFunds} />
+      <FundsTable funds={mockFunds} coloredTitle={true} />
     </div>
   );
 }

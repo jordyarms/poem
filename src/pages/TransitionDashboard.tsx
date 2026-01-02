@@ -136,7 +136,7 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-200 rounded-lg p-3"
     >
-      <h3 className="text-xs font-semibold text-gray-900 mb-1">
+      <h3 className="text-sm font-semibold text-gray-900 mb-1">
         {metric.title}
       </h3>
       <div className="flex items-baseline gap-2 mb-1">
@@ -218,7 +218,7 @@ function SemicircularGauge({
       animate={{ opacity: 1, scale: 1 }}
       className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-between h-full"
     >
-      <h4 className="text-xs font-semibold text-gray-900 text-center mb-2 min-h-[32px] flex items-center">
+      <h4 className="text-sm font-semibold text-gray-900 text-center mb-2 min-h-[32px] flex items-center">
         {title}
       </h4>
 
@@ -301,7 +301,7 @@ function UnpackagedRetailChart() {
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-3">
-      <h3 className="text-xs font-semibold text-gray-900 mb-2">
+      <h3 className="text-sm font-semibold text-gray-900 mb-2">
         Unpackaged Retail v. Conventional
       </h3>
       <ResponsiveContainer width="100%" height={180}>
