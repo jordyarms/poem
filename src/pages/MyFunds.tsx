@@ -39,7 +39,7 @@ function MetricCard({
             colorClasses[color as keyof typeof colorClasses]
           } flex-shrink-0`}
         >
-          <Icon className="w-5 h-5" />
+          <Icon className="w-8 h-8" />
         </div>
 
         <div className="flex-1 min-w-0">
@@ -90,11 +90,11 @@ function LiquidityCard({ title, periods, link }: LiquidityCardProps) {
     >
       <div className="flex items-start gap-3">
         <div className="p-2 rounded-lg bg-blue-50 text-blue-600 border-blue-200 flex-shrink-0">
-          <Droplets className="w-5 h-5" />
+          <Droplets className="w-8 h-8" />
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-medium text-gray-600 mb-3">{title}</h3>
+          <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
 
           <div className="grid grid-cols-3 gap-3">
             {periods.map((period) => (
@@ -255,7 +255,7 @@ function ReturnsTrackingChart() {
         fontSize: 11,
       },
       width: chartContainerRef.current.clientWidth,
-      height: 180,
+      height: 240,
       rightPriceScale: {
         borderColor: "#e5e7eb",
       },
@@ -443,7 +443,7 @@ export default function MyFunds() {
       stake: "12%",
       fundCategory: "Investment",
       fundPurpose: ["Worker development", "Upskilling", "Recycling Industries"],
-      sparklineData: [2.1, 2.3, 2.4, 2.5, 2.7, 2.8, 2.9, 3.1, 3.2, 3.3],
+      sparklineData: [2.1, 2.3, 1.2, 1.6, 2.7, 2.5, 2.9, 3.1, 3.2, 3.1],
       geography: "10 miles home",
       fundNo: "1245269",
     },
@@ -481,7 +481,7 @@ export default function MyFunds() {
         "Max loan: $80",
         "Min. Reliability: Level 3",
       ],
-      sparklineData: [1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4],
+      sparklineData: [1.5, 1.1, 1.3, 1.1, 1.5, 2.0, 2.4, 2.2, 2.3, 2.4],
       geography: "5 miles radius",
       fundNo: "879",
     },
