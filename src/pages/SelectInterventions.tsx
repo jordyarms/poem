@@ -143,7 +143,7 @@ function InterventionCandlestickChart() {
         textColor: "#6b7280",
       },
       width: chartContainerRef.current.clientWidth,
-      height: 120,
+      height: 200,
       grid: {
         vertLines: { color: "#f3f4f6" },
         horzLines: { color: "#f3f4f6" },
@@ -202,6 +202,34 @@ function InterventionCandlestickChart() {
   return <div ref={chartContainerRef} className="w-full" />;
 }
 
+function MetricScoreCard({ metric }: { metric: InterventionMetric }) {
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-3">
+      <h4 className="text-xs font-medium text-gray-600 mb-1.5">
+        {metric.label}
+      </h4>
+      <div className="flex items-baseline gap-2 mb-1">
+        <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
+      </div>
+      {metric.change && (
+        <div
+          className={cn(
+            "flex items-center gap-1 text-xs font-medium",
+            metric.change.positive ? "text-emerald-600" : "text-red-600"
+          )}
+        >
+          {metric.change.positive ? (
+            <TrendingUp className="w-3 h-3" />
+          ) : (
+            <TrendingDown className="w-3 h-3" />
+          )}
+          {metric.change.value}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function InterventionRow({ intervention }: { intervention: Intervention }) {
   const actionStyles = {
     Invest: "text-emerald-700 bg-emerald-50 border border-emerald-200",
@@ -215,111 +243,50 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-200 rounded-lg p-4 mb-3"
     >
-      {/* Header with title and action */}
-      <div className="flex items-center justify-between mb-4">
+      {/* Header with title */}
+      <div className="mb-4">
         <h3 className="text-base font-semibold text-gray-900">
           <span className="text-purple-700">{intervention.category}:</span>{" "}
           {intervention.title}
         </h3>
-        <span
-          className={cn(
-            "px-3 py-1 text-sm font-medium rounded-md",
-            actionStyles[intervention.action]
-          )}
-        >
-          {intervention.action}
-        </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-3 gap-4">
-          {/* Return on Capital */}
-          <div>
-            <p className="text-xs text-gray-600 mb-1">
-              {intervention.metrics.returnOnCapital.label}
-            </p>
-            <p className="text-lg font-bold text-gray-900">
-              {intervention.metrics.returnOnCapital.value}
-            </p>
-            {intervention.metrics.returnOnCapital.change && (
-              <div
-                className={cn(
-                  "flex items-center gap-0.5 text-xs font-medium",
-                  intervention.metrics.returnOnCapital.change.positive
-                    ? "text-emerald-600"
-                    : "text-red-600"
-                )}
-              >
-                {intervention.metrics.returnOnCapital.change.positive ? (
-                  <TrendingUp className="w-3 h-3" />
-                ) : (
-                  <TrendingDown className="w-3 h-3" />
-                )}
-                {intervention.metrics.returnOnCapital.change.value}
-              </div>
-            )}
-          </div>
-
-          {/* Fund Size */}
-          <div>
-            <p className="text-xs text-gray-600 mb-1">
-              {intervention.metrics.fundSize.label}
-            </p>
-            <p className="text-lg font-bold text-gray-900">
-              {intervention.metrics.fundSize.value}
-            </p>
-            {intervention.metrics.fundSize.change && (
-              <div
-                className={cn(
-                  "flex items-center gap-0.5 text-xs font-medium",
-                  intervention.metrics.fundSize.change.positive
-                    ? "text-emerald-600"
-                    : "text-red-600"
-                )}
-              >
-                {intervention.metrics.fundSize.change.positive ? (
-                  <TrendingUp className="w-3 h-3" />
-                ) : (
-                  <TrendingDown className="w-3 h-3" />
-                )}
-                {intervention.metrics.fundSize.change.value}
-              </div>
-            )}
-          </div>
-
-          {/* Velocity */}
-          <div>
-            <p className="text-xs text-gray-600 mb-1">
-              {intervention.metrics.velocity.label}
-            </p>
-            <p className="text-lg font-bold text-gray-900">
-              {intervention.metrics.velocity.value}
-            </p>
-            {intervention.metrics.velocity.change && (
-              <div
-                className={cn(
-                  "flex items-center gap-0.5 text-xs font-medium",
-                  intervention.metrics.velocity.change.positive
-                    ? "text-emerald-600"
-                    : "text-red-600"
-                )}
-              >
-                {intervention.metrics.velocity.change.positive ? (
-                  <TrendingUp className="w-3 h-3" />
-                ) : (
-                  <TrendingDown className="w-3 h-3" />
-                )}
-                {intervention.metrics.velocity.change.value}
-              </div>
-            )}
-          </div>
+        {/* Left side: Metrics Grid */}
+        <div className="grid grid-cols-3 gap-3">
+          <MetricScoreCard metric={intervention.metrics.returnOnCapital} />
+          <MetricScoreCard metric={intervention.metrics.fundSize} />
+          <MetricScoreCard metric={intervention.metrics.velocity} />
         </div>
 
-        {/* Candlestick Chart */}
+        {/* Right side: Action button and Candlestick Chart */}
         {intervention.showChart && (
-          <div className="flex items-center">
-            <InterventionCandlestickChart />
+          <div className="flex items-stretch gap-3">
+            <div className="flex items-center">
+              <span
+                className={cn(
+                  "px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap",
+                  actionStyles[intervention.action]
+                )}
+              >
+                {intervention.action}
+              </span>
+            </div>
+            <div className="flex-1 flex items-center">
+              <InterventionCandlestickChart />
+            </div>
+          </div>
+        )}
+        {!intervention.showChart && (
+          <div className="flex items-center justify-center">
+            <span
+              className={cn(
+                "px-4 py-2 text-sm font-medium rounded-md",
+                actionStyles[intervention.action]
+              )}
+            >
+              {intervention.action}
+            </span>
           </div>
         )}
       </div>
