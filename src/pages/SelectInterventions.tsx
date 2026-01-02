@@ -189,9 +189,9 @@ function InterventionCandlestickChart({ data }: { data: any[] }) {
   return <div ref={chartContainerRef} className="w-full" />;
 }
 
-function MetricScoreCard({ metric }: { metric: InterventionMetric }) {
+function MetricScoreCard({ metric, isVelocity = false }: { metric: InterventionMetric; isVelocity?: boolean }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-3">
+    <div className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col">
       <h4 className="text-xs font-medium text-gray-600 mb-1.5">
         {metric.label}
       </h4>
@@ -201,7 +201,7 @@ function MetricScoreCard({ metric }: { metric: InterventionMetric }) {
       {metric.change && (
         <div
           className={cn(
-            "flex items-center gap-1 text-xs font-medium",
+            "flex items-center gap-1 text-xs font-medium mb-2",
             metric.change.positive ? "text-emerald-600" : "text-red-600"
           )}
         >
@@ -213,6 +213,16 @@ function MetricScoreCard({ metric }: { metric: InterventionMetric }) {
           {metric.change.value}
         </div>
       )}
+      <div className="flex items-center justify-between mt-auto pt-2">
+        <a href="#" className="text-[10px] text-purple-600 hover:text-purple-700 underline">
+          View graph
+        </a>
+        {isVelocity && (
+          <span className="text-[10px] text-gray-500">
+            Velocity in annualized
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -267,7 +277,7 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
           <div className="grid grid-cols-3 gap-3">
             <MetricScoreCard metric={intervention.metrics.returnOnCapital} />
             <MetricScoreCard metric={intervention.metrics.fundSize} />
-            <MetricScoreCard metric={intervention.metrics.velocity} />
+            <MetricScoreCard metric={intervention.metrics.velocity} isVelocity={true} />
           </div>
         </div>
 
