@@ -230,8 +230,8 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-200 rounded-lg p-4 mb-4"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left column: Title, action button, and metrics */}
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
+        {/* Left column: Title, action button, and metrics (2/3 width) */}
         <div>
           {/* Title and action button */}
           <div className="flex items-center justify-between mb-3">
@@ -257,7 +257,7 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
           </div>
         </div>
 
-        {/* Right column: Candlestick Chart */}
+        {/* Right column: Candlestick Chart (1/3 width) */}
         {intervention.showChart && intervention.chartData && (
           <div className="flex items-center">
             <InterventionCandlestickChart data={intervention.chartData} />
