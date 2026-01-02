@@ -22,6 +22,7 @@ import ThisMorningsRoutes from './pages/ThisMorningsRoutes';
 import UnifundRegistry from './pages/UnifundRegistry';
 import TransitionDashboard from './pages/TransitionDashboard';
 import MyChecks from './pages/MyChecks';
+import SelectInterventions from './pages/SelectInterventions';
 
 export const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ export const router = createBrowserRouter([
       {
         path: 'my-checks',
         element: <MyChecks />,
+      },
+      {
+        path: 'select-interventions',
+        element: <SelectInterventions />,
       },
     ],
   },
