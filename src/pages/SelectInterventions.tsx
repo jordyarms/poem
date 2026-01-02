@@ -45,7 +45,7 @@ function SearchFilterBar({
   onFilterChange: (key: keyof SearchFilters, value: string) => void;
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4">
+    <div className="bg-white border border-gray-200 rounded-lg p-4">
       <div className="flex items-center gap-2 mb-3">
         <Search className="w-4 h-4 text-purple-600" />
         <h2 className="text-base font-semibold text-gray-900">
@@ -427,9 +427,23 @@ export default function SelectInterventions() {
         </h1>
       </div>
 
-      <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 mb-4">
+        <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
 
-      <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col gap-2 lg:min-w-[200px]">
+          <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+            Add filters
+          </button>
+          <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+            Apply carbon estimates
+          </button>
+          <button className="px-3 py-2 text-sm font-medium text-white bg-purple-600 border border-purple-600 rounded-md hover:bg-purple-700">
+            Create new intervention
+          </button>
+        </div>
+      </div>
+
+      <div className="mb-4">
         <p className="text-sm text-gray-700">
           <strong>76 interventions found</strong> (showing data from last 7 days{" "}
           <a href="#" className="text-purple-600 hover:text-purple-700">
@@ -437,18 +451,6 @@ export default function SelectInterventions() {
           </a>
           )
         </p>
-
-        <div className="flex gap-2">
-          <button className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-            Add filters
-          </button>
-          <button className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-            Apply carbon estimates
-          </button>
-          <button className="px-3 py-1.5 text-sm font-medium text-white bg-purple-600 border border-purple-600 rounded-md hover:bg-purple-700">
-            Create new intervention
-          </button>
-        </div>
       </div>
 
       {/* Intervention Results */}
