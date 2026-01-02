@@ -289,14 +289,14 @@ function SemicircularGauge({
 function UnpackagedRetailChart() {
   // Dummy data showing unpackaged retail growth vs conventional retail (weekly)
   const data = [
-    { week: "Week 1", unpackaged: 12.5, conventional: 42.8 },
-    { week: "Week 2", unpackaged: 15.2, conventional: 41.5 },
-    { week: "Week 3", unpackaged: 18.7, conventional: 40.2 },
-    { week: "Week 4", unpackaged: 23.1, conventional: 38.9 },
-    { week: "Week 5", unpackaged: 27.8, conventional: 37.8 },
-    { week: "Week 6", unpackaged: 32.4, conventional: 36.2 },
-    { week: "Week 7", unpackaged: 36.9, conventional: 35.1 },
-    { week: "Week 8", unpackaged: 41.2, conventional: 34.5 },
+    { week: "W1", unpackaged: 12.5, conventional: 42.8 },
+    { week: "W2", unpackaged: 15.2, conventional: 41.5 },
+    { week: "W3", unpackaged: 18.7, conventional: 40.2 },
+    { week: "W4", unpackaged: 23.1, conventional: 38.9 },
+    { week: "W5", unpackaged: 27.8, conventional: 37.8 },
+    { week: "W6", unpackaged: 32.4, conventional: 36.2 },
+    { week: "W7", unpackaged: 36.9, conventional: 35.1 },
+    { week: "W8", unpackaged: 41.2, conventional: 34.5 },
   ];
 
   return (
