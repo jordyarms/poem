@@ -468,16 +468,16 @@ export default function UnifundRegistry() {
       {/* Desktop: Side by side layout for Averages and Returns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         {/* Averages Section - 3x2 grid */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-semibold text-gray-900">
-              Averages of these funds <span className="text-xs text-gray-500">(last 7 days <a href="#" className="text-purple-600 hover:text-purple-700">change</a>)</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {averages.map((metric, idx) => (
-              <AverageMetricCard key={idx} metric={metric} />
-            ))}
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b border-purple-100">
+            Averages of these funds <span className="text-xs text-purple-700">(last 7 days <a href="#" className="text-purple-600 hover:text-purple-700 underline">change</a>)</span>
+          </h2>
+          <div className="p-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {averages.map((metric, idx) => (
+                <AverageMetricCard key={idx} metric={metric} />
+              ))}
+            </div>
           </div>
         </div>
 
