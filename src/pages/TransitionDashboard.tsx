@@ -458,6 +458,79 @@ function GeographicMap() {
       title: "Holder Availability: Northeast District",
       description: "8AM – 12PM weekdays",
     },
+    // Additional scattered markers across the area
+    {
+      id: "northwest-1",
+      position: [33.9833, -117.4262],
+      title: "Holder Availability: Northwest Zone",
+      description: "9AM – 1PM weekdays",
+    },
+    {
+      id: "northwest-2",
+      position: [33.9933, -117.4412],
+      title: "Holder Availability: Northwest Zone",
+      description: "9AM – 1PM weekdays",
+    },
+    {
+      id: "southeast-1",
+      position: [33.9133, -117.3662],
+      title: "Holder Availability: Southeast Area",
+      description: "3PM – 7PM daily",
+    },
+    {
+      id: "southeast-2",
+      position: [33.9033, -117.3562],
+      title: "Holder Availability: Southeast Area",
+      description: "3PM – 7PM daily",
+    },
+    {
+      id: "far-west",
+      position: [33.9533, -117.4562],
+      title: "Holder Availability: West End",
+      description: "10AM – 2PM weekdays",
+    },
+    {
+      id: "far-east",
+      position: [33.9633, -117.3362],
+      title: "Holder Availability: East End",
+      description: "1PM – 5PM daily",
+    },
+    {
+      id: "far-north",
+      position: [34.0133, -117.3862],
+      title: "Holder Availability: North End",
+      description: "7AM – 11AM weekdays",
+    },
+    {
+      id: "far-south",
+      position: [33.8933, -117.3962],
+      title: "Holder Availability: South End",
+      description: "4PM – 8PM weekends",
+    },
+    {
+      id: "central-west",
+      position: [33.9633, -117.4362],
+      title: "Holder Availability: Central West",
+      description: "11AM – 3PM daily",
+    },
+    {
+      id: "central-east",
+      position: [33.9433, -117.3562],
+      title: "Holder Availability: Central East",
+      description: "2PM – 6PM weekdays",
+    },
+    {
+      id: "southwest",
+      position: [33.9233, -117.4262],
+      title: "Holder Availability: Southwest",
+      description: "8AM – 12PM weekends",
+    },
+    {
+      id: "midtown",
+      position: [33.9683, -117.3962],
+      title: "Holder Availability: Midtown",
+      description: "10AM – 2PM daily",
+    },
   ];
 
   return (
