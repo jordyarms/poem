@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Map, { Marker, NavigationControl, Source, Layer } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -64,6 +64,31 @@ export default function MapboxMap({
     zoom: zoom,
   });
 
+  const onMapLoad = useCallback((event: any) => {
+    const map = event.target;
+
+    // Hide university, airport, and park labels by filtering POI layers
+    const layersToFilter = [
+      'poi-label',
+      'transit-label',
+    ];
+
+    layersToFilter.forEach((layerId: string) => {
+      if (map.getLayer(layerId)) {
+        // Filter out universities, airports, parks, and nature reserves
+        map.setFilter(layerId, [
+          'all',
+          ['!=', ['get', 'class'], 'park'],
+          ['!=', ['get', 'class'], 'park_like'],
+          ['!=', ['get', 'class'], 'airport'],
+          ['!=', ['get', 'class'], 'school'],
+          ['!=', ['get', 'type'], 'University'],
+          ['!=', ['get', 'type'], 'Park'],
+        ]);
+      }
+    });
+  }, []);
+
   return (
     <div className={`relative ${className}`} style={{ height, width: '100%' }}>
       <style>{`
@@ -75,6 +100,7 @@ export default function MapboxMap({
       <Map
         {...viewState}
         onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
+        onLoad={onMapLoad}
         mapStyle="mapbox://styles/mapbox/streets-v12"
         mapboxAccessToken={MAPBOX_TOKEN}
         style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
