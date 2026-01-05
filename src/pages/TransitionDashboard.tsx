@@ -2,7 +2,7 @@ import { TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import Map, { MapMarker } from "@/components/poems/Map";
+import MapboxMap, { MapMarker } from "@/components/poems/MapboxMap";
 import {
   Select,
   SelectContent,
@@ -336,37 +336,70 @@ function UnpackagedRetailChart() {
 }
 
 function GeographicMap() {
-  // Availability markers for different locations in the city
+  // Markers for Riverside, California showing density disparity
+  // Dense cluster in East City, scattered markers elsewhere
   const markers: MapMarker[] = [
+    // Dense cluster in East City (Downtown Riverside)
     {
-      id: "east-city",
-      position: [40.7589, -73.9851], // East side
+      id: "east-city-1",
+      position: [33.9533, -117.3962],
       title: "Holder Availability: East City",
       description: "7PM – 11PM weekdays",
     },
     {
-      id: "downtown",
-      position: [40.7489, -73.9851], // Downtown
-      title: "Holder Availability: Downtown",
+      id: "east-city-2",
+      position: [33.9543, -117.3952],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-3",
+      position: [33.9523, -117.3972],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-4",
+      position: [33.9553, -117.3942],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-5",
+      position: [33.9513, -117.3982],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-6",
+      position: [33.9563, -117.3932],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-7",
+      position: [33.9503, -117.3992],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    // Scattered markers in other areas
+    {
+      id: "north-area",
+      position: [33.9733, -117.3862],
+      title: "Holder Availability: North Area",
       description: "6AM – 9AM weekdays",
     },
     {
       id: "west-district",
-      position: [40.7539, -74.0051], // West district
+      position: [33.9433, -117.4162],
       title: "Holder Availability: West District",
       description: "12PM – 3PM daily",
     },
     {
-      id: "north-quarter",
-      position: [40.7689, -73.9851], // North quarter
-      title: "Holder Availability: North Quarter",
-      description: "5PM – 8PM weekends",
-    },
-    {
       id: "south-zone",
-      position: [40.7389, -73.9851], // South zone
+      position: [33.9233, -117.3862],
       title: "Holder Availability: South Zone",
-      description: "10AM – 2PM weekdays",
+      description: "5PM – 8PM weekends",
     },
   ];
 
@@ -375,11 +408,16 @@ function GeographicMap() {
       className="rounded-lg border-2 border-gray-300 overflow-hidden"
       style={{ height: "350px" }}
     >
-      <Map
-        center={[40.7539, -73.9851]}
-        zoom={13}
+      <MapboxMap
+        center={[33.9533, -117.3962]} // Riverside, California
+        zoom={12}
         markers={markers}
         height="350px"
+        overlayText={{
+          title: "Holder Availability: East City",
+          subtitle: "7PM-11PM weekdays",
+          link: { text: "Analysis", href: "#" },
+        }}
       />
     </div>
   );
