@@ -401,18 +401,55 @@ function GeographicMap() {
       title: "Holder Availability: South Zone",
       description: "5PM – 8PM weekends",
     },
+    // Additional markers in Northeast area
+    {
+      id: "northeast-1",
+      position: [33.9833, -117.3662],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-2",
+      position: [33.9883, -117.3612],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-3",
+      position: [33.9933, -117.3562],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-4",
+      position: [33.9783, -117.3712],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-5",
+      position: [33.9983, -117.3512],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-6",
+      position: [33.9733, -117.3762],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
   ];
 
   return (
     <div
       className="rounded-lg border-2 border-gray-300 overflow-hidden"
-      style={{ height: "350px" }}
+      style={{ height: "550px" }}
     >
       <MapboxMap
         center={[33.9533, -117.3962]} // Riverside, California
         zoom={12}
         markers={markers}
-        height="350px"
+        height="550px"
         overlayText={{
           title: "Holder Availability: East City",
           subtitle: "7PM-11PM weekdays",

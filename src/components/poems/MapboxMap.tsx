@@ -48,6 +48,12 @@ export default function MapboxMap({
 
   return (
     <div className={`relative ${className}`} style={{ height, width: '100%' }}>
+      <style>{`
+        .mapboxgl-ctrl-attrib,
+        .mapboxgl-ctrl-logo {
+          display: none !important;
+        }
+      `}</style>
       <Map
         {...viewState}
         onMove={(evt: ViewStateChangeEvent) => setViewState(evt.viewState)}
