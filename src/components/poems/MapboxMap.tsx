@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Map, { Marker, NavigationControl } from 'react-map-gl/mapbox';
+import Map, { Marker, NavigationControl, Source, Layer } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 type ViewStateChangeEvent = {
@@ -19,10 +19,24 @@ export interface MapMarker {
   description?: string;
 }
 
+export interface MapPolygon {
+  id: string;
+  coordinates: number[][][];
+  fillColor: string;
+  fillOpacity?: number;
+  strokeColor?: string;
+  strokeWidth?: number;
+  label?: {
+    text: string;
+    position: [number, number];
+  };
+}
+
 interface MapboxMapProps {
   center: [number, number];
   zoom?: number;
   markers?: MapMarker[];
+  polygons?: MapPolygon[];
   height?: string;
   className?: string;
   overlayText?: {
@@ -36,6 +50,7 @@ export default function MapboxMap({
   center,
   zoom = 13,
   markers = [],
+  polygons = [],
   height = '400px',
   className = '',
   overlayText,
@@ -63,6 +78,39 @@ export default function MapboxMap({
       >
         <NavigationControl position="top-right" />
 
+        {polygons.map((polygon) => (
+          <Source
+            key={polygon.id}
+            id={polygon.id}
+            type="geojson"
+            data={{
+              type: 'Feature',
+              geometry: {
+                type: 'Polygon',
+                coordinates: polygon.coordinates,
+              },
+              properties: {},
+            }}
+          >
+            <Layer
+              id={`${polygon.id}-fill`}
+              type="fill"
+              paint={{
+                'fill-color': polygon.fillColor,
+                'fill-opacity': polygon.fillOpacity ?? 0.4,
+              }}
+            />
+            <Layer
+              id={`${polygon.id}-outline`}
+              type="line"
+              paint={{
+                'line-color': polygon.strokeColor ?? polygon.fillColor,
+                'line-width': polygon.strokeWidth ?? 2,
+              }}
+            />
+          </Source>
+        ))}
+
         {markers.map((marker) => (
           <Marker
             key={marker.id}
@@ -74,6 +122,29 @@ export default function MapboxMap({
           </Marker>
         ))}
       </Map>
+
+      {polygons.map(
+        (polygon) =>
+          polygon.label && (
+            <div
+              key={`label-${polygon.id}`}
+              className="absolute bg-white/95 backdrop-blur-sm border border-gray-300 rounded-lg px-3 py-2 shadow-lg pointer-events-none"
+              style={{
+                left: '50%',
+                top: '50%',
+                transform: `translate(${
+                  ((polygon.label.position[1] - viewState.longitude) * 10000) / Math.pow(2, 13 - viewState.zoom)
+                }px, ${
+                  ((viewState.latitude - polygon.label.position[0]) * 10000) / Math.pow(2, 13 - viewState.zoom)
+                }px) translate(-50%, -50%)`,
+              }}
+            >
+              <div className="text-xs font-semibold text-gray-900 whitespace-pre-line">
+                {polygon.label.text}
+              </div>
+            </div>
+          )
+      )}
 
       {overlayText && (
         <div className="absolute top-4 left-4 bg-white border border-gray-200 rounded-lg p-3 shadow-lg">

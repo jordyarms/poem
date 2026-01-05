@@ -1,8 +1,6 @@
 import { Filter } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import Map, { MapMarker, MapCircle } from '@/components/poems/Map';
+import MapboxMap, { MapPolygon } from '@/components/poems/MapboxMap';
 import {
   Select,
   SelectContent,
@@ -134,51 +132,102 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
 }
 
 function RouteMap({ routes }: { routes: Route[] }) {
-  const hubCenter: [number, number] = [40.7539, -73.9851];
+  const center: [number, number] = [33.9533, -117.3962]; // Riverside, California
 
-  // Hub marker
-  const hubMarker: MapMarker = {
-    id: 'hub',
-    position: hubCenter,
-    title: 'Underpass Warehouse',
-    description: '456 Freeway Street - Distribution Hub',
-  };
+  // Define polygon areas for each route
+  const routePolygons: MapPolygon[] = routes.map((route) => {
+    let coordinates: number[][][];
+    let labelPosition: [number, number];
 
-  // Convert routes to circles distributed around the hub
-  const routeCircles: MapCircle[] = routes.map((route, index) => {
-    // Distribute routes in a circle around the hub
-    const angle = (index / routes.length) * 2 * Math.PI;
-    const distance = 0.03; // Distance from hub in degrees (~3km)
-    const lat = hubCenter[0] + distance * Math.cos(angle);
-    const lng = hubCenter[1] + distance * Math.sin(angle);
-
-    // Circle radius based on number of drops (larger routes = larger circles)
-    const radius = route.drops * 15; // meters
+    // Define specific geographic areas for each route
+    switch (route.id) {
+      case 'a': // Northeast area
+        coordinates = [
+          [
+            [-117.37, 33.97],
+            [-117.35, 33.97],
+            [-117.35, 33.99],
+            [-117.37, 33.99],
+            [-117.37, 33.97],
+          ],
+        ];
+        labelPosition = [33.98, -117.36];
+        break;
+      case 'b': // Northwest area
+        coordinates = [
+          [
+            [-117.43, 33.97],
+            [-117.41, 33.97],
+            [-117.41, 33.99],
+            [-117.43, 33.99],
+            [-117.43, 33.97],
+          ],
+        ];
+        labelPosition = [33.98, -117.42];
+        break;
+      case 'c': // Southwest area
+        coordinates = [
+          [
+            [-117.43, 33.92],
+            [-117.41, 33.92],
+            [-117.41, 33.94],
+            [-117.43, 33.94],
+            [-117.43, 33.92],
+          ],
+        ];
+        labelPosition = [33.93, -117.42];
+        break;
+      case 'd': // Southeast area (smaller, denser)
+        coordinates = [
+          [
+            [-117.37, 33.92],
+            [-117.35, 33.92],
+            [-117.35, 33.94],
+            [-117.37, 33.94],
+            [-117.37, 33.92],
+          ],
+        ];
+        labelPosition = [33.93, -117.36];
+        break;
+      case 'e': // Far east area (larger)
+        coordinates = [
+          [
+            [-117.35, 33.95],
+            [-117.32, 33.95],
+            [-117.32, 33.98],
+            [-117.35, 33.98],
+            [-117.35, 33.95],
+          ],
+        ];
+        labelPosition = [33.965, -117.335];
+        break;
+      default:
+        coordinates = [[[]]];
+        labelPosition = [0, 0];
+    }
 
     // Color based on status: blue for assigned, green for open
-    const color = route.status === 'assigned' ? '#2563eb' : '#059669';
+    const fillColor = route.status === 'assigned' ? '#2563eb' : '#059669';
 
     return {
       id: route.id,
-      center: [lat, lng],
-      radius: radius,
-      color: color,
-      fillColor: color,
-      label: `${route.label}: ${route.drops} drops, ${route.miles} miles${
-        route.status === 'open' && route.openTime ? ` - Open to ${route.openTime}` : ''
-      }`,
+      coordinates,
+      fillColor,
+      fillOpacity: 0.35,
+      strokeColor: fillColor,
+      strokeWidth: 2,
+      label: {
+        text: `${route.label}\n${route.drops} drops\n${route.miles} miles\n${
+          route.status === 'assigned' ? 'Assigned' : `Open to ${route.openTime}`
+        }`,
+        position: labelPosition,
+      },
     };
   });
 
   return (
     <div className="rounded-lg border-2 border-gray-300 overflow-hidden" style={{ height: '500px' }}>
-      <Map
-        center={hubCenter}
-        zoom={12}
-        markers={[hubMarker]}
-        circles={routeCircles}
-        height="500px"
-      />
+      <MapboxMap center={center} zoom={12} polygons={routePolygons} height="500px" />
     </div>
   );
 }
@@ -253,29 +302,6 @@ export default function ThisMorningsRoutes() {
       <FilterBar filters={filters} onFilterChange={handleFilterChange} />
 
       <RouteMap routes={routes} />
-
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
-        {routes.map((route) => (
-          <motion.div
-            key={route.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white border border-gray-200 rounded-lg p-4 text-center"
-          >
-            <div className="font-bold text-gray-900 mb-1">{route.label}</div>
-            <div className="text-sm text-gray-600">{route.drops} drops</div>
-            <div className="text-sm text-gray-600">{route.miles} miles</div>
-            <div
-              className={cn(
-                'mt-2 text-xs font-semibold px-2 py-1 rounded',
-                route.status === 'assigned' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'
-              )}
-            >
-              {route.status === 'assigned' ? 'Assigned' : route.openTime ? `Open to ${route.openTime}` : 'Open'}
-            </div>
-          </motion.div>
-        ))}
-      </div>
     </div>
   );
 }
