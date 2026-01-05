@@ -443,13 +443,13 @@ function GeographicMap() {
   return (
     <div
       className="rounded-lg border-2 border-gray-300 overflow-hidden"
-      style={{ height: "550px" }}
+      style={{ height: "434px" }}
     >
       <MapboxMap
         center={[33.9533, -117.3962]} // Riverside, California
         zoom={12}
         markers={markers}
-        height="550px"
+        height="434px"
         overlayText={{
           title: "Holder Availability: East City",
           subtitle: "7PM-11PM weekdays",
