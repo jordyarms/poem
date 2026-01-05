@@ -2,7 +2,7 @@ import { TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import Map, { MapMarker } from "@/components/poems/Map";
+import MapboxMap, { MapMarker } from "@/components/poems/MapboxMap";
 import {
   Select,
   SelectContent,
@@ -28,6 +28,7 @@ interface FilterBarProps {
     geoSpecific: string;
     dateFrom: string;
     dateTo: string;
+    year: string;
   };
   onFilterChange: (key: string, value: string) => void;
 }
@@ -98,19 +99,38 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
           <label className="text-gray-600">date range:</label>
           <div className="flex items-center gap-2">
             <input
-              type="date"
+              type="text"
               value={filters.dateFrom}
               onChange={(e) => onFilterChange("dateFrom", e.target.value)}
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+              placeholder="MM-DD"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
             <span className="text-gray-400">–</span>
             <input
-              type="date"
+              type="text"
               value={filters.dateTo}
               onChange={(e) => onFilterChange("dateTo", e.target.value)}
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+              placeholder="MM-DD"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
           </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-gray-600">in year:</label>
+          <Select
+            value={filters.year}
+            onValueChange={(value) => onFilterChange("year", value)}
+          >
+            <SelectTrigger className="w-[100px] h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="this year">this year</SelectItem>
+              <SelectItem value="2024">2024</SelectItem>
+              <SelectItem value="2023">2023</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
@@ -142,11 +162,11 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
         <div
           className={cn(
-            "flex items-center gap-0.5 text-xs font-medium",
+            "flex items-center gap-0.5 text-sm font-medium",
             metric.change.positive ? "text-emerald-600" : "text-red-600"
           )}
         >
-          <Icon className="w-3 h-3" />
+          <Icon className="w-4 h-4" />
           {metric.change.value}
         </div>
       </div>
@@ -336,50 +356,198 @@ function UnpackagedRetailChart() {
 }
 
 function GeographicMap() {
-  // Availability markers for different locations in the city
+  // Markers for Riverside, California showing density disparity
+  // Dense cluster in East City, scattered markers elsewhere
   const markers: MapMarker[] = [
+    // Dense cluster in East City (Downtown Riverside)
     {
-      id: "east-city",
-      position: [40.7589, -73.9851], // East side
+      id: "east-city-1",
+      position: [33.9533, -117.3962],
       title: "Holder Availability: East City",
       description: "7PM – 11PM weekdays",
     },
     {
-      id: "downtown",
-      position: [40.7489, -73.9851], // Downtown
-      title: "Holder Availability: Downtown",
+      id: "east-city-2",
+      position: [33.9543, -117.3952],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-3",
+      position: [33.9523, -117.3972],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-4",
+      position: [33.9553, -117.3942],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-5",
+      position: [33.9513, -117.3982],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-6",
+      position: [33.9563, -117.3932],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    {
+      id: "east-city-7",
+      position: [33.9503, -117.3992],
+      title: "Holder Availability: East City",
+      description: "7PM – 11PM weekdays",
+    },
+    // Scattered markers in other areas
+    {
+      id: "north-area",
+      position: [33.9733, -117.3862],
+      title: "Holder Availability: North Area",
       description: "6AM – 9AM weekdays",
     },
     {
       id: "west-district",
-      position: [40.7539, -74.0051], // West district
+      position: [33.9433, -117.4162],
       title: "Holder Availability: West District",
       description: "12PM – 3PM daily",
     },
     {
-      id: "north-quarter",
-      position: [40.7689, -73.9851], // North quarter
-      title: "Holder Availability: North Quarter",
+      id: "south-zone",
+      position: [33.9233, -117.3862],
+      title: "Holder Availability: South Zone",
       description: "5PM – 8PM weekends",
     },
+    // Additional markers in Northeast area
     {
-      id: "south-zone",
-      position: [40.7389, -73.9851], // South zone
-      title: "Holder Availability: South Zone",
+      id: "northeast-1",
+      position: [33.9833, -117.3662],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-2",
+      position: [33.9883, -117.3612],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-3",
+      position: [33.9933, -117.3562],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-4",
+      position: [33.9783, -117.3712],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-5",
+      position: [33.9983, -117.3512],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    {
+      id: "northeast-6",
+      position: [33.9733, -117.3762],
+      title: "Holder Availability: Northeast District",
+      description: "8AM – 12PM weekdays",
+    },
+    // Additional scattered markers across the area
+    {
+      id: "northwest-1",
+      position: [33.9833, -117.4262],
+      title: "Holder Availability: Northwest Zone",
+      description: "9AM – 1PM weekdays",
+    },
+    {
+      id: "northwest-2",
+      position: [33.9933, -117.4412],
+      title: "Holder Availability: Northwest Zone",
+      description: "9AM – 1PM weekdays",
+    },
+    {
+      id: "southeast-1",
+      position: [33.9133, -117.3662],
+      title: "Holder Availability: Southeast Area",
+      description: "3PM – 7PM daily",
+    },
+    {
+      id: "southeast-2",
+      position: [33.9033, -117.3562],
+      title: "Holder Availability: Southeast Area",
+      description: "3PM – 7PM daily",
+    },
+    {
+      id: "far-west",
+      position: [33.9533, -117.4562],
+      title: "Holder Availability: West End",
       description: "10AM – 2PM weekdays",
+    },
+    {
+      id: "far-east",
+      position: [33.9633, -117.3362],
+      title: "Holder Availability: East End",
+      description: "1PM – 5PM daily",
+    },
+    {
+      id: "far-north",
+      position: [34.0133, -117.3862],
+      title: "Holder Availability: North End",
+      description: "7AM – 11AM weekdays",
+    },
+    {
+      id: "far-south",
+      position: [33.8933, -117.3962],
+      title: "Holder Availability: South End",
+      description: "4PM – 8PM weekends",
+    },
+    {
+      id: "central-west",
+      position: [33.9633, -117.4362],
+      title: "Holder Availability: Central West",
+      description: "11AM – 3PM daily",
+    },
+    {
+      id: "central-east",
+      position: [33.9433, -117.3562],
+      title: "Holder Availability: Central East",
+      description: "2PM – 6PM weekdays",
+    },
+    {
+      id: "southwest",
+      position: [33.9233, -117.4262],
+      title: "Holder Availability: Southwest",
+      description: "8AM – 12PM weekends",
+    },
+    {
+      id: "midtown",
+      position: [33.9683, -117.3962],
+      title: "Holder Availability: Midtown",
+      description: "10AM – 2PM daily",
     },
   ];
 
   return (
     <div
       className="rounded-lg border-2 border-gray-300 overflow-hidden"
-      style={{ height: "350px" }}
+      style={{ height: "432px" }}
     >
-      <Map
-        center={[40.7539, -73.9851]}
-        zoom={13}
+      <MapboxMap
+        center={[33.9533, -117.3962]} // Riverside, California
+        zoom={12}
         markers={markers}
-        height="350px"
+        height="432px"
+        overlayText={{
+          title: "Holder Availability: East City",
+          subtitle: "7PM-11PM weekdays",
+          link: { text: "Analysis", href: "#" },
+        }}
       />
     </div>
   );
@@ -390,8 +558,9 @@ export default function TransitionDashboard() {
     sectors: "all",
     geoCategory: "bioregion",
     geoSpecific: "Silverfen Basin",
-    dateFrom: "2024-05-01",
-    dateTo: "2024-05-07",
+    dateFrom: "05-01",
+    dateTo: "05-07",
+    year: "this year",
   });
 
   const handleFilterChange = (key: string, value: string) => {

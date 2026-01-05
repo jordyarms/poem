@@ -189,19 +189,23 @@ function InterventionCandlestickChart({ data }: { data: any[] }) {
   return <div ref={chartContainerRef} className="w-full" />;
 }
 
-function MetricScoreCard({ metric, isVelocity = false }: { metric: InterventionMetric; isVelocity?: boolean }) {
+function MetricScoreCard({
+  metric,
+  isVelocity = false,
+}: {
+  metric: InterventionMetric;
+  isVelocity?: boolean;
+}) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col">
-      <h4 className="text-xs font-medium text-gray-600 mb-1.5">
-        {metric.label}
-      </h4>
-      <div className="flex items-baseline gap-2 mb-1">
+      <h4 className="text-sm font-medium text-gray-600 mb-0">{metric.label}</h4>
+      <div className="flex items-baseline gap-2 mb-0">
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
       </div>
       {metric.change && (
         <div
           className={cn(
-            "flex items-center gap-1 text-xs font-medium mb-2",
+            "flex items-center gap-1 text-xs font-medium mb-0",
             metric.change.positive ? "text-emerald-600" : "text-red-600"
           )}
         >
@@ -214,7 +218,10 @@ function MetricScoreCard({ metric, isVelocity = false }: { metric: InterventionM
         </div>
       )}
       <div className="flex items-center justify-between mt-auto pt-2">
-        <a href="#" className="text-[10px] text-purple-600 hover:text-purple-700 underline">
+        <a
+          href="#"
+          className="text-[10px] text-purple-600 hover:text-purple-700 underline"
+        >
           View graph
         </a>
         {isVelocity && (
@@ -277,7 +284,10 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
           <div className="grid grid-cols-3 gap-3">
             <MetricScoreCard metric={intervention.metrics.returnOnCapital} />
             <MetricScoreCard metric={intervention.metrics.fundSize} />
-            <MetricScoreCard metric={intervention.metrics.velocity} isVelocity={true} />
+            <MetricScoreCard
+              metric={intervention.metrics.velocity}
+              isVelocity={true}
+            />
           </div>
         </div>
 
@@ -306,48 +316,120 @@ export default function SelectInterventions() {
 
   // Generate varied candlestick data for each intervention
   const employmentData = [
-    { time: "2025-11-18", open: 2.05, high: 2.12, low: 2.02, close: 2.1 },
-    { time: "2025-11-19", open: 2.1, high: 2.18, low: 2.08, close: 2.15 },
-    { time: "2025-11-20", open: 2.15, high: 2.22, low: 2.12, close: 2.18 },
-    { time: "2025-11-21", open: 2.18, high: 2.25, low: 2.15, close: 2.22 },
-    { time: "2025-11-22", open: 2.22, high: 2.28, low: 2.19, close: 2.2 },
-    { time: "2025-11-25", open: 2.2, high: 2.3, low: 2.18, close: 2.28 },
-    { time: "2025-11-26", open: 2.28, high: 2.35, low: 2.25, close: 2.32 },
-    { time: "2025-11-27", open: 2.32, high: 2.38, low: 2.28, close: 2.3 },
-    { time: "2025-11-28", open: 2.3, high: 2.4, low: 2.28, close: 2.38 },
-    { time: "2025-11-29", open: 2.38, high: 2.45, low: 2.35, close: 2.42 },
-    { time: "2025-12-02", open: 2.42, high: 2.5, low: 2.4, close: 2.48 },
-    { time: "2025-12-03", open: 2.48, high: 2.55, low: 2.45, close: 2.52 },
+    { time: "2025-05-01", open: 2.05, high: 2.12, low: 2.02, close: 2.1 },
+    { time: "2025-05-02", open: 2.1, high: 2.18, low: 2.08, close: 2.15 },
+    { time: "2025-05-05", open: 2.15, high: 2.22, low: 2.12, close: 2.18 },
+    { time: "2025-05-06", open: 2.18, high: 2.25, low: 2.15, close: 2.22 },
+    { time: "2025-05-07", open: 2.22, high: 2.28, low: 2.19, close: 2.2 },
+    { time: "2025-05-08", open: 2.2, high: 2.3, low: 2.18, close: 2.28 },
+    { time: "2025-05-09", open: 2.28, high: 2.35, low: 2.25, close: 2.32 },
+    { time: "2025-05-12", open: 2.32, high: 2.38, low: 2.28, close: 2.3 },
+    { time: "2025-05-13", open: 2.3, high: 2.4, low: 2.28, close: 2.38 },
+    { time: "2025-05-14", open: 2.38, high: 2.45, low: 2.35, close: 2.42 },
+    { time: "2025-05-15", open: 2.42, high: 2.5, low: 2.4, close: 2.48 },
+    { time: "2025-05-16", open: 2.48, high: 2.55, low: 2.45, close: 2.52 },
+    { time: "2025-05-19", open: 2.52, high: 2.58, low: 2.48, close: 2.5 },
+    { time: "2025-05-20", open: 2.5, high: 2.56, low: 2.47, close: 2.54 },
+    { time: "2025-05-21", open: 2.54, high: 2.62, low: 2.52, close: 2.58 },
+    { time: "2025-05-22", open: 2.58, high: 2.65, low: 2.55, close: 2.6 },
+    { time: "2025-05-23", open: 2.6, high: 2.68, low: 2.58, close: 2.65 },
+    { time: "2025-05-27", open: 2.65, high: 2.7, low: 2.62, close: 2.67 },
+    { time: "2025-05-28", open: 2.67, high: 2.75, low: 2.65, close: 2.72 },
+    { time: "2025-05-29", open: 2.72, high: 2.78, low: 2.68, close: 2.7 },
+    { time: "2025-05-30", open: 2.7, high: 2.8, low: 2.68, close: 2.78 },
+    // { time: "2025-06-02", open: 2.78, high: 2.85, low: 2.75, close: 2.82 },
+    // { time: "2025-06-03", open: 2.82, high: 2.88, low: 2.78, close: 2.8 },
+    // { time: "2025-06-04", open: 2.8, high: 2.9, low: 2.78, close: 2.88 },
+    // { time: "2025-06-05", open: 2.88, high: 2.95, low: 2.85, close: 2.92 },
+    // { time: "2025-06-06", open: 2.92, high: 3.0, low: 2.88, close: 2.95 },
+    // { time: "2025-06-09", open: 2.95, high: 3.05, low: 2.92, close: 3.0 },
+    // { time: "2025-06-10", open: 3.0, high: 3.08, low: 2.98, close: 3.05 },
+    // { time: "2025-06-11", open: 3.05, high: 3.12, low: 3.02, close: 3.08 },
+    // { time: "2025-06-12", open: 3.08, high: 3.15, low: 3.05, close: 3.1 },
+    // { time: "2025-06-13", open: 3.1, high: 3.18, low: 3.08, close: 3.15 },
+    // { time: "2025-06-16", open: 3.15, high: 3.22, low: 3.12, close: 3.18 },
+    // { time: "2025-06-17", open: 3.18, high: 3.25, low: 3.15, close: 3.22 },
+    // { time: "2025-06-18", open: 3.22, high: 3.28, low: 3.18, close: 3.2 },
+    // { time: "2025-06-19", open: 3.2, high: 3.3, low: 3.18, close: 3.28 },
+    // { time: "2025-06-20", open: 3.28, high: 3.35, low: 3.25, close: 3.32 },
   ];
 
   const materialsData = [
-    { time: "2025-11-18", open: 2.15, high: 2.25, low: 2.1, close: 2.2 },
-    { time: "2025-11-19", open: 2.2, high: 2.28, low: 2.15, close: 2.18 },
-    { time: "2025-11-20", open: 2.18, high: 2.22, low: 2.1, close: 2.12 },
-    { time: "2025-11-21", open: 2.12, high: 2.2, low: 2.08, close: 2.18 },
-    { time: "2025-11-22", open: 2.18, high: 2.3, low: 2.15, close: 2.25 },
-    { time: "2025-11-25", open: 2.25, high: 2.35, low: 2.2, close: 2.22 },
-    { time: "2025-11-26", open: 2.22, high: 2.28, low: 2.18, close: 2.2 },
-    { time: "2025-11-27", open: 2.2, high: 2.32, low: 2.18, close: 2.3 },
-    { time: "2025-11-28", open: 2.3, high: 2.42, low: 2.28, close: 2.38 },
-    { time: "2025-11-29", open: 2.38, high: 2.48, low: 2.35, close: 2.4 },
-    { time: "2025-12-02", open: 2.4, high: 2.5, low: 2.38, close: 2.48 },
-    { time: "2025-12-03", open: 2.48, high: 2.58, low: 2.45, close: 2.52 },
+    { time: "2025-05-01", open: 2.15, high: 2.25, low: 2.1, close: 2.2 },
+    { time: "2025-05-02", open: 2.2, high: 2.28, low: 2.15, close: 2.18 },
+    { time: "2025-05-05", open: 2.18, high: 2.22, low: 2.1, close: 2.12 },
+    { time: "2025-05-06", open: 2.12, high: 2.2, low: 2.08, close: 2.18 },
+    { time: "2025-05-07", open: 2.18, high: 2.3, low: 2.15, close: 2.25 },
+    { time: "2025-05-08", open: 2.25, high: 2.35, low: 2.2, close: 2.22 },
+    { time: "2025-05-09", open: 2.22, high: 2.28, low: 2.18, close: 2.2 },
+    { time: "2025-05-12", open: 2.2, high: 2.32, low: 2.18, close: 2.3 },
+    { time: "2025-05-13", open: 2.3, high: 2.42, low: 2.28, close: 2.38 },
+    { time: "2025-05-14", open: 2.38, high: 2.48, low: 2.35, close: 2.4 },
+    { time: "2025-05-15", open: 2.4, high: 2.5, low: 2.38, close: 2.48 },
+    { time: "2025-05-16", open: 2.48, high: 2.58, low: 2.45, close: 2.52 },
+    { time: "2025-05-19", open: 2.52, high: 2.6, low: 2.48, close: 2.55 },
+    { time: "2025-05-20", open: 2.55, high: 2.62, low: 2.5, close: 2.52 },
+    { time: "2025-05-21", open: 2.52, high: 2.58, low: 2.45, close: 2.48 },
+    { time: "2025-05-22", open: 2.48, high: 2.55, low: 2.42, close: 2.5 },
+    { time: "2025-05-23", open: 2.5, high: 2.6, low: 2.48, close: 2.58 },
+    { time: "2025-05-27", open: 2.58, high: 2.68, low: 2.55, close: 2.62 },
+    { time: "2025-05-28", open: 2.62, high: 2.7, low: 2.58, close: 2.65 },
+    { time: "2025-05-29", open: 2.65, high: 2.75, low: 2.62, close: 2.72 },
+    { time: "2025-05-30", open: 2.72, high: 2.82, low: 2.7, close: 2.78 },
+    // { time: "2025-06-02", open: 2.78, high: 2.85, low: 2.75, close: 2.8 },
+    // { time: "2025-06-03", open: 2.8, high: 2.88, low: 2.78, close: 2.85 },
+    // { time: "2025-06-04", open: 2.85, high: 2.92, low: 2.82, close: 2.88 },
+    // { time: "2025-06-05", open: 2.88, high: 2.95, low: 2.85, close: 2.9 },
+    // { time: "2025-06-06", open: 2.9, high: 2.98, low: 2.88, close: 2.95 },
+    // { time: "2025-06-09", open: 2.95, high: 3.02, low: 2.9, close: 2.92 },
+    // { time: "2025-06-10", open: 2.92, high: 2.98, low: 2.88, close: 2.9 },
+    // { time: "2025-06-11", open: 2.9, high: 3.0, low: 2.88, close: 2.98 },
+    // { time: "2025-06-12", open: 2.98, high: 3.08, low: 2.95, close: 3.05 },
+    // { time: "2025-06-13", open: 3.05, high: 3.12, low: 3.0, close: 3.08 },
+    // { time: "2025-06-16", open: 3.08, high: 3.18, low: 3.05, close: 3.15 },
+    // { time: "2025-06-17", open: 3.15, high: 3.22, low: 3.12, close: 3.18 },
+    // { time: "2025-06-18", open: 3.18, high: 3.25, low: 3.15, close: 3.2 },
+    // { time: "2025-06-19", open: 3.2, high: 3.3, low: 3.18, close: 3.28 },
+    // { time: "2025-06-20", open: 3.28, high: 3.38, low: 3.25, close: 3.32 },
   ];
 
   const energyData = [
-    { time: "2025-11-18", open: 2.35, high: 2.42, low: 2.3, close: 2.38 },
-    { time: "2025-11-19", open: 2.38, high: 2.45, low: 2.35, close: 2.4 },
-    { time: "2025-11-20", open: 2.4, high: 2.48, low: 2.38, close: 2.45 },
-    { time: "2025-11-21", open: 2.45, high: 2.52, low: 2.42, close: 2.48 },
-    { time: "2025-11-22", open: 2.48, high: 2.55, low: 2.45, close: 2.5 },
-    { time: "2025-11-25", open: 2.5, high: 2.58, low: 2.48, close: 2.55 },
-    { time: "2025-11-26", open: 2.55, high: 2.62, low: 2.52, close: 2.58 },
-    { time: "2025-11-27", open: 2.58, high: 2.65, low: 2.55, close: 2.6 },
-    { time: "2025-11-28", open: 2.6, high: 2.68, low: 2.58, close: 2.65 },
-    { time: "2025-11-29", open: 2.65, high: 2.72, low: 2.62, close: 2.68 },
-    { time: "2025-12-02", open: 2.68, high: 2.75, low: 2.65, close: 2.7 },
-    { time: "2025-12-03", open: 2.7, high: 2.78, low: 2.68, close: 2.75 },
+    { time: "2025-05-01", open: 2.35, high: 2.42, low: 2.3, close: 2.38 },
+    { time: "2025-05-02", open: 2.38, high: 2.45, low: 2.35, close: 2.4 },
+    { time: "2025-05-05", open: 2.4, high: 2.48, low: 2.38, close: 2.45 },
+    { time: "2025-05-06", open: 2.45, high: 2.52, low: 2.42, close: 2.48 },
+    { time: "2025-05-07", open: 2.48, high: 2.55, low: 2.45, close: 2.5 },
+    { time: "2025-05-08", open: 2.5, high: 2.58, low: 2.48, close: 2.55 },
+    { time: "2025-05-09", open: 2.55, high: 2.62, low: 2.52, close: 2.58 },
+    { time: "2025-05-12", open: 2.58, high: 2.65, low: 2.55, close: 2.6 },
+    { time: "2025-05-13", open: 2.6, high: 2.68, low: 2.58, close: 2.65 },
+    { time: "2025-05-14", open: 2.65, high: 2.72, low: 2.62, close: 2.68 },
+    { time: "2025-05-15", open: 2.68, high: 2.75, low: 2.65, close: 2.7 },
+    { time: "2025-05-16", open: 2.7, high: 2.78, low: 2.68, close: 2.75 },
+    { time: "2025-05-19", open: 2.75, high: 2.82, low: 2.72, close: 2.78 },
+    { time: "2025-05-20", open: 2.78, high: 2.85, low: 2.75, close: 2.8 },
+    { time: "2025-05-21", open: 2.8, high: 2.88, low: 2.78, close: 2.85 },
+    { time: "2025-05-22", open: 2.85, high: 2.92, low: 2.82, close: 2.88 },
+    { time: "2025-05-23", open: 2.88, high: 2.95, low: 2.85, close: 2.9 },
+    { time: "2025-05-27", open: 2.9, high: 2.98, low: 2.88, close: 2.95 },
+    { time: "2025-05-28", open: 2.95, high: 3.02, low: 2.92, close: 2.98 },
+    { time: "2025-05-29", open: 2.98, high: 3.05, low: 2.95, close: 3.0 },
+    { time: "2025-05-30", open: 3.0, high: 3.08, low: 2.98, close: 3.05 },
+    // { time: "2025-06-02", open: 3.05, high: 3.12, low: 3.02, close: 3.08 },
+    // { time: "2025-06-03", open: 3.08, high: 3.15, low: 3.05, close: 3.1 },
+    // { time: "2025-06-04", open: 3.1, high: 3.18, low: 3.08, close: 3.15 },
+    // { time: "2025-06-05", open: 3.15, high: 3.22, low: 3.12, close: 3.18 },
+    // { time: "2025-06-06", open: 3.18, high: 3.25, low: 3.15, close: 3.2 },
+    // { time: "2025-06-09", open: 3.2, high: 3.28, low: 3.18, close: 3.25 },
+    // { time: "2025-06-10", open: 3.25, high: 3.32, low: 3.22, close: 3.28 },
+    // { time: "2025-06-11", open: 3.28, high: 3.35, low: 3.25, close: 3.3 },
+    // { time: "2025-06-12", open: 3.3, high: 3.38, low: 3.28, close: 3.35 },
+    // { time: "2025-06-13", open: 3.35, high: 3.42, low: 3.32, close: 3.38 },
+    // { time: "2025-06-16", open: 3.38, high: 3.45, low: 3.35, close: 3.4 },
+    // { time: "2025-06-17", open: 3.4, high: 3.48, low: 3.38, close: 3.45 },
+    // { time: "2025-06-18", open: 3.45, high: 3.52, low: 3.42, close: 3.48 },
+    // { time: "2025-06-19", open: 3.48, high: 3.55, low: 3.45, close: 3.5 },
+    // { time: "2025-06-20", open: 3.5, high: 3.58, low: 3.48, close: 3.55 },
   ];
 
   const interventions: Intervention[] = [
@@ -446,12 +528,12 @@ export default function SelectInterventions() {
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-4xl font-bold text-gray-900">
           Select Interventions
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 mb-2">
         <SearchFilterBar
           filters={filters}
           onFilterChange={handleFilterChange}
