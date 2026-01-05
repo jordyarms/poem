@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
-import Dashboard from './pages/Dashboard';
+import PreviewIndex from './pages/PreviewIndex';
 import Opportunities from './pages/Opportunities';
 import Availability from './pages/Availability';
 import Roles from './pages/Roles';
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <PreviewIndex />,
       },
       {
         path: 'opportunities',

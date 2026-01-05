@@ -424,7 +424,7 @@ export default function ThisMorningsRoutes() {
       <div className="mb-4">
         <p className="text-sm text-gray-600">
           <span className="font-medium">results:</span>{" "}
-          <strong>473 deliveries</strong> to{" "}
+          <strong>{totalDeliveries} deliveries</strong> to{" "}
           <strong>{totalBuildings} buildings</strong>. The long-distance hub
           will be <strong>Underpass Warehouse, 456 Freeway Street</strong>...
         </p>
