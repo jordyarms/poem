@@ -162,11 +162,11 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
         <div
           className={cn(
-            "flex items-center gap-0.5 text-xs font-medium",
+            "flex items-center gap-0.5 text-sm font-medium",
             metric.change.positive ? "text-emerald-600" : "text-red-600"
           )}
         >
-          <Icon className="w-3 h-3" />
+          <Icon className="w-4 h-4" />
           {metric.change.value}
         </div>
       </div>
