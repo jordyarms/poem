@@ -163,78 +163,122 @@ function RouteMap({ routes }: { routes: Route[] }) {
     let labelPosition: [number, number];
     let dropBounds: { latMin: number; latMax: number; lngMin: number; lngMax: number };
 
-    // Define specific adjacent areas with varied shapes
+    // Define specific adjacent areas with varied shapes (non-overlapping)
     switch (route.id) {
-      case 'a': // Northeast area - irregular pentagon
+      case 'a': // Northeast area - detailed irregular polygon
         coordinates = [
           [
             [-117.396, 33.953],
-            [-117.378, 33.955],
-            [-117.375, 33.968],
-            [-117.385, 33.975],
+            [-117.390, 33.952],
+            [-117.383, 33.954],
+            [-117.378, 33.956],
+            [-117.376, 33.960],
+            [-117.375, 33.965],
+            [-117.377, 33.970],
+            [-117.382, 33.974],
+            [-117.388, 33.976],
+            [-117.394, 33.974],
             [-117.398, 33.970],
+            [-117.398, 33.963],
+            [-117.396, 33.956],
             [-117.396, 33.953],
           ],
         ];
         labelPosition = [33.963, -117.387];
-        dropBounds = { latMin: 33.955, latMax: 33.972, lngMin: -117.396, lngMax: -117.378 };
+        dropBounds = { latMin: 33.957, latMax: 33.972, lngMin: -117.395, lngMax: -117.380 };
         break;
-      case 'b': // Northwest area - irregular hexagon
+      case 'b': // Northwest area - detailed irregular polygon
         coordinates = [
           [
-            [-117.415, 33.948],
+            [-117.418, 33.948],
+            [-117.412, 33.946],
+            [-117.405, 33.947],
+            [-117.400, 33.950],
             [-117.398, 33.953],
-            [-117.398, 33.970],
-            [-117.405, 33.978],
+            [-117.398, 33.960],
+            [-117.398, 33.968],
+            [-117.400, 33.974],
+            [-117.404, 33.978],
+            [-117.410, 33.979],
+            [-117.416, 33.977],
             [-117.420, 33.973],
-            [-117.420, 33.955],
-            [-117.415, 33.948],
+            [-117.422, 33.967],
+            [-117.422, 33.958],
+            [-117.420, 33.952],
+            [-117.418, 33.948],
           ],
         ];
         labelPosition = [33.963, -117.410];
-        dropBounds = { latMin: 33.950, latMax: 33.975, lngMin: -117.420, lngMax: -117.400 };
+        dropBounds = { latMin: 33.952, latMax: 33.974, lngMin: -117.418, lngMax: -117.402 };
         break;
-      case 'c': // Southwest area - irregular quadrilateral
+      case 'c': // Southwest area - detailed irregular polygon
         coordinates = [
           [
-            [-117.420, 33.935],
-            [-117.408, 33.930],
-            [-117.396, 33.938],
-            [-117.398, 33.953],
-            [-117.415, 33.948],
-            [-117.420, 33.935],
+            [-117.422, 33.935],
+            [-117.418, 33.930],
+            [-117.412, 33.928],
+            [-117.405, 33.930],
+            [-117.400, 33.933],
+            [-117.398, 33.938],
+            [-117.398, 33.944],
+            [-117.398, 33.950],
+            [-117.400, 33.953],
+            [-117.405, 33.952],
+            [-117.412, 33.950],
+            [-117.418, 33.948],
+            [-117.422, 33.943],
+            [-117.422, 33.935],
           ],
         ];
-        labelPosition = [33.942, -117.408];
-        dropBounds = { latMin: 33.932, latMax: 33.950, lngMin: -117.420, lngMax: -117.398 };
+        labelPosition = [33.942, -117.410];
+        dropBounds = { latMin: 33.933, latMax: 33.949, lngMin: -117.418, lngMax: -117.402 };
         break;
-      case 'd': // Southeast area - compact pentagon
+      case 'd': // Southeast area - detailed compact polygon
         coordinates = [
           [
             [-117.396, 33.938],
-            [-117.375, 33.935],
-            [-117.372, 33.948],
-            [-117.378, 33.955],
+            [-117.390, 33.936],
+            [-117.383, 33.935],
+            [-117.377, 33.936],
+            [-117.373, 33.939],
+            [-117.372, 33.944],
+            [-117.373, 33.949],
+            [-117.376, 33.953],
+            [-117.382, 33.955],
+            [-117.390, 33.954],
             [-117.396, 33.953],
+            [-117.398, 33.950],
+            [-117.398, 33.944],
             [-117.396, 33.938],
           ],
         ];
         labelPosition = [33.945, -117.385];
-        dropBounds = { latMin: 33.936, latMax: 33.953, lngMin: -117.396, lngMax: -117.374 };
+        dropBounds = { latMin: 33.939, latMax: 33.951, lngMin: -117.393, lngMax: -117.377 };
         break;
-      case 'e': // East area - larger irregular polygon
+      case 'e': // East area - detailed larger irregular polygon
         coordinates = [
           [
-            [-117.378, 33.955],
-            [-117.360, 33.958],
-            [-117.355, 33.972],
-            [-117.365, 33.980],
-            [-117.385, 33.975],
-            [-117.378, 33.955],
+            [-117.378, 33.956],
+            [-117.372, 33.957],
+            [-117.365, 33.959],
+            [-117.360, 33.962],
+            [-117.357, 33.966],
+            [-117.355, 33.970],
+            [-117.356, 33.975],
+            [-117.360, 33.979],
+            [-117.365, 33.981],
+            [-117.372, 33.980],
+            [-117.378, 33.978],
+            [-117.384, 33.976],
+            [-117.388, 33.973],
+            [-117.390, 33.968],
+            [-117.388, 33.962],
+            [-117.383, 33.958],
+            [-117.378, 33.956],
           ],
         ];
         labelPosition = [33.968, -117.370];
-        dropBounds = { latMin: 33.958, latMax: 33.978, lngMin: -117.380, lngMax: -117.358 };
+        dropBounds = { latMin: 33.962, latMax: 33.977, lngMin: -117.385, lngMax: -117.362 };
         break;
       default:
         coordinates = [[[]]];
