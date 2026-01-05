@@ -274,9 +274,10 @@ function RouteMap({ routes }: { routes: Route[] }) {
       strokeColor: fillColor,
       strokeWidth: 2,
       label: {
-        text: `${route.label}\n${route.drops} drops\n${route.miles} miles\n${
-          route.status === 'assigned' ? 'Assigned' : `Open to ${route.openTime}`
-        }`,
+        title: route.label,
+        details: `${route.drops} drops • ${route.miles} miles`,
+        status: route.status === 'assigned' ? 'Assigned' : `Open to ${route.openTime}`,
+        statusClickable: route.status === 'open',
         position: labelPosition,
       },
     });
@@ -353,14 +354,17 @@ export default function ThisMorningsRoutes() {
   return (
     <div className="container mx-auto p-6 max-w-7xl">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">This Morning's Routes</h1>
-        <p className="text-gray-600">
-          THIS Search produced <strong>{totalDeliveries} deliveries</strong> to <strong>{totalBuildings} buildings</strong>.
-          The long-distance hub will be <strong>Underpass Warehouse, 456 Freeway Street</strong>...
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900">This Morning's Routes</h1>
       </div>
 
       <FilterBar filters={filters} onFilterChange={handleFilterChange} />
+
+      <div className="mb-4">
+        <p className="text-sm text-gray-600">
+          <span className="font-medium">results:</span> <strong>{totalDeliveries} deliveries</strong> to <strong>{totalBuildings} buildings</strong>.
+          The long-distance hub will be <strong>Underpass Warehouse, 456 Freeway Street</strong>...
+        </p>
+      </div>
 
       <RouteMap routes={routes} />
     </div>

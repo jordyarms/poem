@@ -27,7 +27,10 @@ export interface MapPolygon {
   strokeColor?: string;
   strokeWidth?: number;
   label?: {
-    text: string;
+    title: string;
+    details?: string;
+    status?: string;
+    statusClickable?: boolean;
     position: [number, number];
   };
 }
@@ -128,7 +131,7 @@ export default function MapboxMap({
           polygon.label && (
             <div
               key={`label-${polygon.id}`}
-              className="absolute bg-white/95 backdrop-blur-sm border border-gray-300 rounded-lg px-3 py-2 shadow-lg pointer-events-none"
+              className="absolute bg-white/95 backdrop-blur-sm border border-gray-300 rounded-lg px-3 py-2 shadow-lg"
               style={{
                 left: '50%',
                 top: '50%',
@@ -137,11 +140,22 @@ export default function MapboxMap({
                 }px, ${
                   ((viewState.latitude - polygon.label.position[0]) * 10000) / Math.pow(2, 13 - viewState.zoom)
                 }px) translate(-50%, -50%)`,
+                pointerEvents: polygon.label.statusClickable ? 'auto' : 'none',
               }}
             >
-              <div className="text-xs font-semibold text-gray-900 whitespace-pre-line">
-                {polygon.label.text}
+              <div className="text-sm font-bold text-gray-900 mb-1">
+                {polygon.label.title}
               </div>
+              {polygon.label.details && (
+                <div className="text-xs text-gray-600 mb-1">
+                  {polygon.label.details}
+                </div>
+              )}
+              {polygon.label.status && (
+                <div className={`text-xs font-medium ${polygon.label.statusClickable ? 'text-purple-600 hover:text-purple-700 underline cursor-pointer' : 'text-gray-700'}`}>
+                  {polygon.label.status}
+                </div>
+              )}
             </div>
           )
       )}
