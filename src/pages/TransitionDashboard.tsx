@@ -34,12 +34,11 @@ interface FilterBarProps {
 
 function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
   return (
-    <div className="bg-purple-50 border-2 border-purple-400 rounded-lg p-3 mb-4">
-      <div className="flex flex-wrap items-center gap-3 text-sm">
-        <span className="font-semibold text-purple-900">
-          Aggregate activity for
-        </span>
-
+    <div className="mb-4">
+      <div className="text-sm font-semibold text-gray-900 mb-2">
+        Aggregate activity for
+      </div>
+      <div className="flex items-center gap-3 text-sm">
         <div className="flex items-center gap-2">
           <label className="text-gray-600">Sectors:</label>
           <Select
@@ -102,14 +101,14 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => onFilterChange("dateFrom", e.target.value)}
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
             />
             <span className="text-gray-400">–</span>
             <input
               type="date"
               value={filters.dateTo}
               onChange={(e) => onFilterChange("dateTo", e.target.value)}
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
             />
           </div>
         </div>
