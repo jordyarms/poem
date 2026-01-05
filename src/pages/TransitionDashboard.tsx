@@ -28,6 +28,7 @@ interface FilterBarProps {
     geoSpecific: string;
     dateFrom: string;
     dateTo: string;
+    year: string;
   };
   onFilterChange: (key: string, value: string) => void;
 }
@@ -98,19 +99,38 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
           <label className="text-gray-600">date range:</label>
           <div className="flex items-center gap-2">
             <input
-              type="date"
+              type="text"
               value={filters.dateFrom}
               onChange={(e) => onFilterChange("dateFrom", e.target.value)}
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+              placeholder="MM-DD"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
             <span className="text-gray-400">–</span>
             <input
-              type="date"
+              type="text"
               value={filters.dateTo}
               onChange={(e) => onFilterChange("dateTo", e.target.value)}
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+              placeholder="MM-DD"
+              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
           </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-gray-600">in year:</label>
+          <Select
+            value={filters.year}
+            onValueChange={(value) => onFilterChange("year", value)}
+          >
+            <SelectTrigger className="w-[100px] h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="this year">this year</SelectItem>
+              <SelectItem value="2024">2024</SelectItem>
+              <SelectItem value="2023">2023</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>
@@ -465,8 +485,9 @@ export default function TransitionDashboard() {
     sectors: "all",
     geoCategory: "bioregion",
     geoSpecific: "Silverfen Basin",
-    dateFrom: "2024-05-01",
-    dateTo: "2024-05-07",
+    dateFrom: "05-01",
+    dateTo: "05-07",
+    year: "this year",
   });
 
   const handleFilterChange = (key: string, value: string) => {
