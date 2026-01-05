@@ -1,6 +1,6 @@
 import { Filter } from 'lucide-react';
 import { useState } from 'react';
-import MapboxMap, { MapPolygon } from '@/components/poems/MapboxMap';
+import MapboxMap, { MapPolygon, MapMarker } from '@/components/poems/MapboxMap';
 import {
   Select,
   SelectContent,
@@ -132,88 +132,124 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
 }
 
 function RouteMap({ routes }: { routes: Route[] }) {
-  const center: [number, number] = [33.9533, -117.3962]; // Riverside, California
+  const center: [number, number] = [33.9533, -117.3962]; // Riverside, California (downtown)
 
-  // Define polygon areas for each route
-  const routePolygons: MapPolygon[] = routes.map((route) => {
+  // Helper function to generate random drop markers within a polygon area
+  const generateDropMarkers = (
+    routeId: string,
+    bounds: { latMin: number; latMax: number; lngMin: number; lngMax: number },
+    count: number
+  ): MapMarker[] => {
+    const markers: MapMarker[] = [];
+    for (let i = 0; i < count; i++) {
+      const lat = bounds.latMin + Math.random() * (bounds.latMax - bounds.latMin);
+      const lng = bounds.lngMin + Math.random() * (bounds.lngMax - bounds.lngMin);
+      markers.push({
+        id: `${routeId}-drop-${i}`,
+        position: [lat, lng],
+        title: `Drop ${i + 1}`,
+        description: `Route ${routeId.toUpperCase()}`,
+      });
+    }
+    return markers;
+  };
+
+  // Define adjacent irregular polygon areas around downtown
+  const routePolygons: MapPolygon[] = [];
+  const dropMarkers: MapMarker[] = [];
+
+  routes.forEach((route) => {
     let coordinates: number[][][];
     let labelPosition: [number, number];
+    let dropBounds: { latMin: number; latMax: number; lngMin: number; lngMax: number };
 
-    // Define specific geographic areas for each route
+    // Define specific adjacent areas with varied shapes
     switch (route.id) {
-      case 'a': // Northeast area
+      case 'a': // Northeast area - irregular pentagon
         coordinates = [
           [
-            [-117.37, 33.97],
-            [-117.35, 33.97],
-            [-117.35, 33.99],
-            [-117.37, 33.99],
-            [-117.37, 33.97],
+            [-117.396, 33.953],
+            [-117.378, 33.955],
+            [-117.375, 33.968],
+            [-117.385, 33.975],
+            [-117.398, 33.970],
+            [-117.396, 33.953],
           ],
         ];
-        labelPosition = [33.98, -117.36];
+        labelPosition = [33.963, -117.387];
+        dropBounds = { latMin: 33.955, latMax: 33.972, lngMin: -117.396, lngMax: -117.378 };
         break;
-      case 'b': // Northwest area
+      case 'b': // Northwest area - irregular hexagon
         coordinates = [
           [
-            [-117.43, 33.97],
-            [-117.41, 33.97],
-            [-117.41, 33.99],
-            [-117.43, 33.99],
-            [-117.43, 33.97],
+            [-117.415, 33.948],
+            [-117.398, 33.953],
+            [-117.398, 33.970],
+            [-117.405, 33.978],
+            [-117.420, 33.973],
+            [-117.420, 33.955],
+            [-117.415, 33.948],
           ],
         ];
-        labelPosition = [33.98, -117.42];
+        labelPosition = [33.963, -117.410];
+        dropBounds = { latMin: 33.950, latMax: 33.975, lngMin: -117.420, lngMax: -117.400 };
         break;
-      case 'c': // Southwest area
+      case 'c': // Southwest area - irregular quadrilateral
         coordinates = [
           [
-            [-117.43, 33.92],
-            [-117.41, 33.92],
-            [-117.41, 33.94],
-            [-117.43, 33.94],
-            [-117.43, 33.92],
+            [-117.420, 33.935],
+            [-117.408, 33.930],
+            [-117.396, 33.938],
+            [-117.398, 33.953],
+            [-117.415, 33.948],
+            [-117.420, 33.935],
           ],
         ];
-        labelPosition = [33.93, -117.42];
+        labelPosition = [33.942, -117.408];
+        dropBounds = { latMin: 33.932, latMax: 33.950, lngMin: -117.420, lngMax: -117.398 };
         break;
-      case 'd': // Southeast area (smaller, denser)
+      case 'd': // Southeast area - compact pentagon
         coordinates = [
           [
-            [-117.37, 33.92],
-            [-117.35, 33.92],
-            [-117.35, 33.94],
-            [-117.37, 33.94],
-            [-117.37, 33.92],
+            [-117.396, 33.938],
+            [-117.375, 33.935],
+            [-117.372, 33.948],
+            [-117.378, 33.955],
+            [-117.396, 33.953],
+            [-117.396, 33.938],
           ],
         ];
-        labelPosition = [33.93, -117.36];
+        labelPosition = [33.945, -117.385];
+        dropBounds = { latMin: 33.936, latMax: 33.953, lngMin: -117.396, lngMax: -117.374 };
         break;
-      case 'e': // Far east area (larger)
+      case 'e': // East area - larger irregular polygon
         coordinates = [
           [
-            [-117.35, 33.95],
-            [-117.32, 33.95],
-            [-117.32, 33.98],
-            [-117.35, 33.98],
-            [-117.35, 33.95],
+            [-117.378, 33.955],
+            [-117.360, 33.958],
+            [-117.355, 33.972],
+            [-117.365, 33.980],
+            [-117.385, 33.975],
+            [-117.378, 33.955],
           ],
         ];
-        labelPosition = [33.965, -117.335];
+        labelPosition = [33.968, -117.370];
+        dropBounds = { latMin: 33.958, latMax: 33.978, lngMin: -117.380, lngMax: -117.358 };
         break;
       default:
         coordinates = [[[]]];
         labelPosition = [0, 0];
+        dropBounds = { latMin: 0, latMax: 0, lngMin: 0, lngMax: 0 };
     }
 
     // Color based on status: blue for assigned, green for open
     const fillColor = route.status === 'assigned' ? '#2563eb' : '#059669';
 
-    return {
+    routePolygons.push({
       id: route.id,
       coordinates,
       fillColor,
-      fillOpacity: 0.35,
+      fillOpacity: 0.15,
       strokeColor: fillColor,
       strokeWidth: 2,
       label: {
@@ -222,12 +258,16 @@ function RouteMap({ routes }: { routes: Route[] }) {
         }`,
         position: labelPosition,
       },
-    };
+    });
+
+    // Generate drop markers for this route (scale down for visualization)
+    const markerCount = Math.min(Math.ceil(route.drops / 10), 15); // Show subset of drops
+    dropMarkers.push(...generateDropMarkers(route.id, dropBounds, markerCount));
   });
 
   return (
     <div className="rounded-lg border-2 border-gray-300 overflow-hidden" style={{ height: '500px' }}>
-      <MapboxMap center={center} zoom={12} polygons={routePolygons} height="500px" />
+      <MapboxMap center={center} zoom={13.5} polygons={routePolygons} markers={dropMarkers} height="500px" />
     </div>
   );
 }
