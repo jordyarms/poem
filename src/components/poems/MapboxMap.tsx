@@ -67,24 +67,32 @@ export default function MapboxMap({
   const onMapLoad = useCallback((event: any) => {
     const map = event.target;
 
-    // Hide university, airport, and park labels by filtering POI layers
-    const layersToFilter = [
+    // Hide all POI and place labels to anonymize the map
+    const layersToHide = [
       'poi-label',
       'transit-label',
+      'place-label',
+      'natural-point-label',
+      'natural-line-label',
+      'water-point-label',
+      'water-line-label',
+      'waterway-label',
+    ];
+
+    layersToHide.forEach((layerId: string) => {
+      if (map.getLayer(layerId)) {
+        map.setLayoutProperty(layerId, 'visibility', 'none');
+      }
+    });
+
+    // Also hide airport polygons and other identifiable features
+    const layersToFilter = [
+      'airport',
     ];
 
     layersToFilter.forEach((layerId: string) => {
       if (map.getLayer(layerId)) {
-        // Filter out universities, airports, parks, and nature reserves
-        map.setFilter(layerId, [
-          'all',
-          ['!=', ['get', 'class'], 'park'],
-          ['!=', ['get', 'class'], 'park_like'],
-          ['!=', ['get', 'class'], 'airport'],
-          ['!=', ['get', 'class'], 'school'],
-          ['!=', ['get', 'type'], 'University'],
-          ['!=', ['get', 'type'], 'Park'],
-        ]);
+        map.setLayoutProperty(layerId, 'visibility', 'none');
       }
     });
   }, []);
