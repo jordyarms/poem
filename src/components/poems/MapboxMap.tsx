@@ -67,24 +67,13 @@ export default function MapboxMap({
   const onMapLoad = useCallback((event: any) => {
     const map = event.target;
 
-    // Hide university, airport, and park labels by filtering POI layers
-    const layersToFilter = [
-      'poi-label',
-      'transit-label',
-    ];
+    // Get all layers from the map style
+    const layers = map.getStyle().layers;
 
-    layersToFilter.forEach((layerId: string) => {
-      if (map.getLayer(layerId)) {
-        // Filter out universities, airports, parks, and nature reserves
-        map.setFilter(layerId, [
-          'all',
-          ['!=', ['get', 'class'], 'park'],
-          ['!=', ['get', 'class'], 'park_like'],
-          ['!=', ['get', 'class'], 'airport'],
-          ['!=', ['get', 'class'], 'school'],
-          ['!=', ['get', 'type'], 'University'],
-          ['!=', ['get', 'type'], 'Park'],
-        ]);
+    // Hide all text/symbol layers to completely remove text
+    layers.forEach((layer: any) => {
+      if (layer.type === 'symbol') {
+        map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
     });
   }, []);
