@@ -1,8 +1,15 @@
 import { TrendingUp, DollarSign, Droplets, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createChart, ColorType } from "lightweight-charts";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface MetricCardProps {
   title: string;
@@ -11,6 +18,11 @@ interface MetricCardProps {
   link?: string;
   icon: typeof TrendingUp;
   color?: string;
+  periodSelector?: {
+    value: string;
+    onChange: (value: string) => void;
+    options: { value: string; label: string }[];
+  };
 }
 
 function MetricCard({
@@ -20,6 +32,7 @@ function MetricCard({
   link,
   icon: Icon,
   color = "purple",
+  periodSelector,
 }: MetricCardProps) {
   const colorClasses = {
     purple: "bg-purple-50 text-purple-600 border-purple-200",
@@ -44,6 +57,28 @@ function MetricCard({
 
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
+
+          {periodSelector && (
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs text-gray-600">over:</span>
+              <Select
+                value={periodSelector.value}
+                onValueChange={periodSelector.onChange}
+              >
+                <SelectTrigger className="w-[140px] h-7 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {periodSelector.options.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
           <div className="flex items-baseline gap-2">
             <p className="text-5xl mt-1 mb-1 font-bold text-gray-900">
               {value}
@@ -470,6 +505,8 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
 }
 
 export default function MyFunds() {
+  const [returnPeriod, setReturnPeriod] = useState("7days");
+
   const mockFunds: FundEntry[] = [
     {
       date: "May 13",
@@ -544,6 +581,16 @@ export default function MyFunds() {
           icon={TrendingUp}
           link="Returns breakdown"
           color="green"
+          periodSelector={{
+            value: returnPeriod,
+            onChange: setReturnPeriod,
+            options: [
+              { value: "24hours", label: "Last 24 hours" },
+              { value: "7days", label: "Last 7 days" },
+              { value: "30days", label: "Last 30 days" },
+              { value: "90days", label: "Last 90 days" },
+            ],
+          }}
         />
 
         <LiquidityCard
