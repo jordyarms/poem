@@ -103,7 +103,7 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
               value={filters.dateFrom}
               onChange={(e) => onFilterChange("dateFrom", e.target.value)}
               placeholder="MM-DD"
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
+              className="h-8 px-2 py-1 border-2 border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
             <span className="text-gray-400">–</span>
             <input
@@ -111,7 +111,7 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
               value={filters.dateTo}
               onChange={(e) => onFilterChange("dateTo", e.target.value)}
               placeholder="MM-DD"
-              className="h-8 px-2 py-1 border border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
+              className="h-8 px-2 py-1 border-2 border-gray-300 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
           </div>
         </div>
@@ -153,7 +153,7 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border border-gray-200 rounded-lg p-3"
+      className="bg-white border-2 border-gray-300 rounded-lg p-3"
     >
       <h3 className="text-sm font-semibold text-gray-900 mb-1">
         {metric.title}
@@ -235,7 +235,7 @@ function SemicircularGauge({
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white border border-gray-200 rounded-lg p-3 flex flex-col items-center justify-between h-full"
+      className="bg-white border-2 border-gray-300 rounded-lg p-3 flex flex-col items-center justify-between h-full"
     >
       <h4 className="text-sm font-semibold text-gray-900 text-center mb-2 min-h-[32px] flex items-center">
         {title}
@@ -319,7 +319,7 @@ function UnpackagedRetailChart() {
   ];
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-3">
+    <div className="bg-white border-2 border-gray-300 rounded-lg p-3">
       <h3 className="text-sm font-semibold text-gray-900 mb-2">
         Unpackaged Retail v. Conventional
       </h3>

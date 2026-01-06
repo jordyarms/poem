@@ -33,7 +33,7 @@ interface FilterBarProps {
 
 function FilterBar({ filters, onFilterChange }: FilterBarProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+    <div className="bg-white border-2 border-gray-300 rounded-lg p-4 mb-6">
       <div className="flex items-center gap-2 mb-3">
         <Filter className="w-4 h-4 text-gray-600" />
         <span className="text-sm font-semibold text-gray-700">
@@ -85,7 +85,7 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
             type="number"
             value={filters.deliveriesWithin}
             onChange={(e) => onFilterChange("deliveriesWithin", e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full px-2 py-1.5 border-2 border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
@@ -112,7 +112,7 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
             type="time"
             value={filters.between}
             onChange={(e) => onFilterChange("between", e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full px-2 py-1.5 border-2 border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
@@ -122,7 +122,7 @@ function FilterBar({ filters, onFilterChange }: FilterBarProps) {
             type="time"
             value={filters.and}
             onChange={(e) => onFilterChange("and", e.target.value)}
-            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full px-2 py-1.5 border-2 border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
