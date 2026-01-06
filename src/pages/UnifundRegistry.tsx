@@ -61,7 +61,7 @@ function SearchFilterBar({
   onFilterChange: (key: keyof SearchFilters, value: string) => void;
 }) {
   return (
-    <div className="bg-white border-2 border-gray-300 rounded-lg p-4 mb-4">
+    <div className="bg-white border-[3px] border-gray-400 rounded-lg p-4 mb-4">
       <div className="flex items-center gap-2 mb-3">
         <Search className="w-4 h-4 text-purple-600" />
         <h2 className="text-base font-semibold text-gray-900">
@@ -202,7 +202,7 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border-2 border-gray-300 rounded-lg p-3"
+      className="bg-white border-[3px] border-gray-400 rounded-lg p-3"
     >
       <h3 className="text-xs font-medium text-gray-600 mb-1.5">
         {metric.label}
@@ -253,7 +253,7 @@ function ReturnsChart({ coloredTitle = false }: { coloredTitle?: boolean }) {
   ];
 
   return (
-    <div className="bg-white border-2 border-gray-300 rounded-lg overflow-hidden">
+    <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
       <h3
         className={cn(
           "text-base font-semibold px-3 py-2.5",
@@ -315,20 +315,20 @@ function FundsTable({
   coloredTitle?: boolean;
 }) {
   return (
-    <div className="bg-white border-2 border-gray-300 rounded-lg overflow-hidden">
+    <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
       <h2
         className={cn(
           "text-base font-semibold px-3 py-2.5",
           coloredTitle
             ? "bg-blue-50 text-blue-900 border-b border-blue-100"
-            : "text-gray-900 border-b-2 border-gray-300"
+            : "text-gray-900 border-b-[3px] border-gray-400"
         )}
       >
         Funds returned by your search
       </h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b-2 border-gray-300">
+          <thead className="bg-gray-50 border-b-[3px] border-gray-400">
             <tr>
               <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">
                 Lifespan
@@ -369,7 +369,7 @@ function FundsTable({
             {funds.map((fund, idx) => (
               <tr
                 key={idx}
-                className="border-b-2 border-gray-200 hover:bg-gray-50"
+                className="border-b-[3px] border-gray-300 hover:bg-gray-50"
               >
                 <td className="py-2 px-3 text-gray-700 text-xs">
                   {fund.lifespan}
@@ -594,7 +594,7 @@ export default function UnifundRegistry() {
       {/* Desktop: Side by side layout for Averages and Returns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         {/* Averages Section - 3x2 grid */}
-        <div className="bg-white border-2 border-gray-300 rounded-lg overflow-hidden">
+        <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
           <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b border-purple-100">
             Averages of these funds{" "}
             <span className="text-xs text-purple-700">

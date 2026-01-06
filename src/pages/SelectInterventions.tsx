@@ -45,7 +45,7 @@ function SearchFilterBar({
   onFilterChange: (key: keyof SearchFilters, value: string) => void;
 }) {
   return (
-    <div className="bg-white border-2 border-gray-300 rounded-lg p-4">
+    <div className="bg-white border-[3px] border-gray-400 rounded-lg p-4">
       <div className="flex items-center gap-2 mb-3">
         <Search className="w-4 h-4 text-purple-600" />
         <h2 className="text-base font-semibold text-gray-900">
@@ -197,7 +197,7 @@ function MetricScoreCard({
   isVelocity?: boolean;
 }) {
   return (
-    <div className="bg-white border-2 border-gray-300 rounded-lg p-3 flex flex-col">
+    <div className="bg-white border-[3px] border-gray-400 rounded-lg p-3 flex flex-col">
       <h4 className="text-sm font-medium text-gray-600 mb-0">{metric.label}</h4>
       <div className="flex items-baseline gap-2 mb-0">
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
@@ -247,7 +247,7 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border-2 border-gray-300 rounded-lg p-4 mb-4"
+      className="bg-white border-[3px] border-gray-400 rounded-lg p-4 mb-4"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Left column: Title, action button, and metrics (2/3 width) */}
@@ -567,10 +567,10 @@ export default function SelectInterventions() {
         />
 
         <div className="flex flex-col gap-2 lg:min-w-[200px]">
-          <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-md hover:bg-gray-50">
+          <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border-[3px] border-gray-400 rounded-md hover:bg-gray-50">
             Add filters
           </button>
-          <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-md hover:bg-gray-50">
+          <button className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border-[3px] border-gray-400 rounded-md hover:bg-gray-50">
             Apply carbon estimates
           </button>
           <button className="px-3 py-2 text-sm font-medium text-white bg-purple-600 border border-purple-600 rounded-md hover:bg-purple-700">

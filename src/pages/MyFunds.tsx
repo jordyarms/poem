@@ -31,7 +31,7 @@ function MetricCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border-2 border-gray-300 rounded-lg p-3"
+      className="bg-white border-[3px] border-gray-400 rounded-lg p-3"
     >
       <div className="flex items-start gap-3">
         <div
@@ -86,7 +86,7 @@ function LiquidityCard({ title, periods, link }: LiquidityCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="bg-white border-2 border-gray-300 rounded-lg p-3"
+      className="bg-white border-[3px] border-gray-400 rounded-lg p-3"
     >
       <div className="flex items-start gap-3">
         <div className="p-2 rounded-lg bg-blue-50 text-blue-600 border-blue-200 flex-shrink-0">
@@ -168,7 +168,7 @@ function AccountInfo({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-white border-2 border-gray-300 rounded-lg overflow-hidden"
+      className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden"
     >
       <h3
         className={`text-base font-semibold mb-3 ${
@@ -203,7 +203,7 @@ function AccountInfo({
             </span>
           </div>
 
-          <div className="pt-2 border-t-2 border-gray-300">
+          <div className="pt-2 border-t-[3px] border-gray-400">
             <span className="text-sm text-gray-600 block mb-1.5">
               Commitments:
             </span>
@@ -214,7 +214,7 @@ function AccountInfo({
             ))}
           </div>
 
-          <div className="flex justify-between items-center pt-2 border-t-2 border-gray-300">
+          <div className="flex justify-between items-center pt-2 border-t-[3px] border-gray-400">
             <span className="text-sm text-gray-600">Alerts:</span>
             <span className="text-sm text-gray-500">None</span>
           </div>
@@ -363,7 +363,7 @@ function ReturnsTrackingChart({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-white border-2 border-gray-300 rounded-lg overflow-hidden"
+      className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden"
     >
       <h3
         className={`text-base font-semibold mb-3 ${
@@ -403,7 +403,7 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
       <div className={`overflow-x-auto ${coloredTitle ? "px-3 pb-3" : ""}`}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b-2 border-gray-300">
+            <tr className="border-b-[3px] border-gray-400">
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
                 Date
               </th>
@@ -434,7 +434,7 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
             {funds.map((fund, idx) => (
               <tr
                 key={idx}
-                className="border-b-2 border-gray-200 hover:bg-gray-50"
+                className="border-b-[3px] border-gray-300 hover:bg-gray-50"
               >
                 <td className="py-2 px-2 text-gray-700 text-xs">{fund.date}</td>
                 <td className="py-2 px-2 text-gray-900 font-medium text-xs">
