@@ -67,32 +67,13 @@ export default function MapboxMap({
   const onMapLoad = useCallback((event: any) => {
     const map = event.target;
 
-    // Hide all POI and place labels to anonymize the map
-    const layersToHide = [
-      'poi-label',
-      'transit-label',
-      'place-label',
-      'natural-point-label',
-      'natural-line-label',
-      'water-point-label',
-      'water-line-label',
-      'waterway-label',
-    ];
+    // Get all layers from the map style
+    const layers = map.getStyle().layers;
 
-    layersToHide.forEach((layerId: string) => {
-      if (map.getLayer(layerId)) {
-        map.setLayoutProperty(layerId, 'visibility', 'none');
-      }
-    });
-
-    // Also hide airport polygons and other identifiable features
-    const layersToFilter = [
-      'airport',
-    ];
-
-    layersToFilter.forEach((layerId: string) => {
-      if (map.getLayer(layerId)) {
-        map.setLayoutProperty(layerId, 'visibility', 'none');
+    // Hide all text/symbol layers to completely remove text
+    layers.forEach((layer: any) => {
+      if (layer.type === 'symbol') {
+        map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
     });
   }, []);
