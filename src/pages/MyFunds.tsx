@@ -68,7 +68,7 @@ function MetricCard({
                 <SelectTrigger className="h-5 w-auto border-0 border-b border-gray-300 rounded-none px-1 py-0 text-xs focus:ring-0 focus:border-gray-600 bg-transparent hover:border-gray-600">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="shadow-none border border-gray-200">
                   {periodSelector.options.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
