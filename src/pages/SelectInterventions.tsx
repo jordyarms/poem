@@ -197,7 +197,7 @@ function MetricScoreCard({
   isVelocity?: boolean;
 }) {
   return (
-    <div className="bg-white border-[3px] border-gray-400 rounded-lg p-3 flex flex-col">
+    <div className="bg-white border border-gray-400 rounded-lg p-3 flex flex-col">
       <h4 className="text-sm font-medium text-gray-600 mb-0">{metric.label}</h4>
       <div className="flex items-baseline gap-2 mb-0">
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>

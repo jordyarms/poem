@@ -173,7 +173,7 @@ function AccountInfo({
       <h3
         className={`text-base font-semibold mb-3 ${
           coloredTitle
-            ? "bg-purple-50 text-purple-900 px-3 py-2.5 border-b border-purple-100"
+            ? "bg-purple-50 text-purple-900 px-3 py-2.5 border-b-[3px] border-purple-100"
             : "text-gray-900 px-3 pt-3"
         }`}
       >
@@ -203,7 +203,7 @@ function AccountInfo({
             </span>
           </div>
 
-          <div className="pt-2 border-t-[3px] border-gray-400">
+          <div className="pt-2 border-t border-gray-400">
             <span className="text-sm text-gray-600 block mb-1.5">
               Commitments:
             </span>
@@ -214,7 +214,7 @@ function AccountInfo({
             ))}
           </div>
 
-          <div className="flex justify-between items-center pt-2 border-t-[3px] border-gray-400">
+          <div className="flex justify-between items-center pt-2 border-t border-gray-400">
             <span className="text-sm text-gray-600">Alerts:</span>
             <span className="text-sm text-gray-500">None</span>
           </div>
@@ -368,7 +368,7 @@ function ReturnsTrackingChart({
       <h3
         className={`text-base font-semibold mb-3 ${
           coloredTitle
-            ? "bg-emerald-50 text-emerald-900 px-3 py-2.5 border-b border-emerald-100"
+            ? "bg-emerald-50 text-emerald-900 px-3 py-2.5 border-b-[3px] border-emerald-100"
             : "text-gray-900 px-3 pt-3"
         }`}
       >
@@ -388,12 +388,12 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
-      className="bg-white border border-gray-200 rounded-lg overflow-hidden mt-4"
+      className="bg-white border-[3px] border-gray-200 rounded-lg overflow-hidden mt-4"
     >
       <h3
         className={`text-base font-semibold mb-3 ${
           coloredTitle
-            ? "bg-blue-50 text-blue-900 px-3 py-2.5 border-b border-blue-100"
+            ? "bg-blue-50 text-blue-900 px-3 py-2.5 border-b-[3px] border-blue-100"
             : "text-gray-900 px-3 pt-3"
         }`}
       >
@@ -403,7 +403,7 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
       <div className={`overflow-x-auto ${coloredTitle ? "px-3 pb-3" : ""}`}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b-[3px] border-gray-400">
+            <tr className="border-b border-gray-400">
               <th className="text-left py-2 px-2 font-medium text-gray-600 text-xs">
                 Date
               </th>
@@ -434,7 +434,7 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
             {funds.map((fund, idx) => (
               <tr
                 key={idx}
-                className="border-b-[3px] border-gray-300 hover:bg-gray-50"
+                className="border-b border-gray-300 hover:bg-gray-50"
               >
                 <td className="py-2 px-2 text-gray-700 text-xs">{fund.date}</td>
                 <td className="py-2 px-2 text-gray-900 font-medium text-xs">

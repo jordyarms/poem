@@ -103,7 +103,7 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
               value={filters.dateFrom}
               onChange={(e) => onFilterChange("dateFrom", e.target.value)}
               placeholder="MM-DD"
-              className="h-8 px-2 py-1 border-[3px] border-gray-400 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
+              className="h-8 px-2 py-1 border border-gray-400 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
             <span className="text-gray-400">–</span>
             <input
@@ -111,7 +111,7 @@ function AggregateFilterBar({ filters, onFilterChange }: FilterBarProps) {
               value={filters.dateTo}
               onChange={(e) => onFilterChange("dateTo", e.target.value)}
               placeholder="MM-DD"
-              className="h-8 px-2 py-1 border-[3px] border-gray-400 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
+              className="h-8 px-2 py-1 border border-gray-400 rounded bg-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 w-[70px]"
             />
           </div>
         </div>
@@ -535,8 +535,8 @@ function GeographicMap() {
 
   return (
     <div
-      className="rounded-lg border-2 border-gray-300 overflow-hidden"
-      style={{ height: "432px" }}
+      className="rounded-lg border-[3px] overflow-hidden"
+      style={{ height: "440px" }}
     >
       <MapboxMap
         center={[33.9533, -117.3962]} // Riverside, California

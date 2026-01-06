@@ -202,7 +202,7 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border-[3px] border-gray-400 rounded-lg p-3"
+      className="bg-white border border-gray-400 rounded-lg p-3"
     >
       <h3 className="text-xs font-medium text-gray-600 mb-1.5">
         {metric.label}
@@ -258,14 +258,14 @@ function ReturnsChart({ coloredTitle = false }: { coloredTitle?: boolean }) {
         className={cn(
           "text-base font-semibold px-3 py-2.5",
           coloredTitle
-            ? "bg-emerald-50 text-emerald-900 border-b border-emerald-100"
+            ? "bg-emerald-50 text-emerald-900 border-b-[3px] border-emerald-100"
             : "text-gray-900 pt-3"
         )}
       >
         Returns against all unifunds
       </h3>
       <div className={coloredTitle ? "px-3 pb-3 pt-3" : ""}>
-        <ResponsiveContainer width="100%" height={220}>
+        <ResponsiveContainer width="100%" height={232}>
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#6b7280" />
@@ -320,15 +320,15 @@ function FundsTable({
         className={cn(
           "text-base font-semibold px-3 py-2.5",
           coloredTitle
-            ? "bg-blue-50 text-blue-900 border-b border-blue-100"
-            : "text-gray-900 border-b-[3px] border-gray-400"
+            ? "bg-blue-50 text-blue-900 border-b-[3px] border-blue-100"
+            : "text-gray-900 border-b border-gray-400"
         )}
       >
         Funds returned by your search
       </h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b-[3px] border-gray-400">
+          <thead className="bg-gray-50 border-b border-gray-400">
             <tr>
               <th className="text-left py-2 px-3 font-semibold text-gray-700 text-xs">
                 Lifespan
@@ -369,7 +369,7 @@ function FundsTable({
             {funds.map((fund, idx) => (
               <tr
                 key={idx}
-                className="border-b-[3px] border-gray-300 hover:bg-gray-50"
+                className="border-b border-gray-300 hover:bg-gray-50"
               >
                 <td className="py-2 px-3 text-gray-700 text-xs">
                   {fund.lifespan}
@@ -595,7 +595,7 @@ export default function UnifundRegistry() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         {/* Averages Section - 3x2 grid */}
         <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
-          <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b border-purple-100">
+          <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b-[3px] border-purple-100">
             Averages of these funds{" "}
             <span className="text-xs text-purple-700">
               (last 7 days{" "}
