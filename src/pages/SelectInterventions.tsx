@@ -432,6 +432,29 @@ export default function SelectInterventions() {
     // { time: "2025-06-20", open: 3.5, high: 3.58, low: 3.48, close: 3.55 },
   ];
 
+  const weatherizationData = [
+    { time: "2025-05-01", open: 3.5, high: 3.62, low: 3.42, close: 3.48 },
+    { time: "2025-05-02", open: 3.48, high: 3.55, low: 3.35, close: 3.38 },
+    { time: "2025-05-05", open: 3.38, high: 3.52, low: 3.32, close: 3.45 },
+    { time: "2025-05-06", open: 3.45, high: 3.58, low: 3.28, close: 3.32 },
+    { time: "2025-05-07", open: 3.32, high: 3.42, low: 3.15, close: 3.18 },
+    { time: "2025-05-08", open: 3.18, high: 3.35, low: 3.12, close: 3.28 },
+    { time: "2025-05-09", open: 3.28, high: 3.38, low: 3.08, close: 3.12 },
+    { time: "2025-05-12", open: 3.12, high: 3.25, low: 2.98, close: 3.05 },
+    { time: "2025-05-13", open: 3.05, high: 3.18, low: 2.95, close: 3.15 },
+    { time: "2025-05-14", open: 3.15, high: 3.22, low: 2.88, close: 2.92 },
+    { time: "2025-05-15", open: 2.92, high: 3.08, low: 2.82, close: 3.0 },
+    { time: "2025-05-16", open: 3.0, high: 3.12, low: 2.75, close: 2.82 },
+    { time: "2025-05-19", open: 2.82, high: 2.95, low: 2.68, close: 2.88 },
+    { time: "2025-05-20", open: 2.88, high: 3.02, low: 2.72, close: 2.78 },
+    { time: "2025-05-21", open: 2.78, high: 2.92, low: 2.62, close: 2.68 },
+    { time: "2025-05-22", open: 2.68, high: 2.85, low: 2.58, close: 2.75 },
+    { time: "2025-05-23", open: 2.75, high: 2.88, low: 2.55, close: 2.62 },
+    { time: "2025-05-27", open: 2.62, high: 2.78, low: 2.48, close: 2.55 },
+    { time: "2025-05-28", open: 2.55, high: 2.72, low: 2.42, close: 2.65 },
+    { time: "2025-05-29", open: 2.65, high: 2.75, low: 2.48, close: 2.52 },
+  ];
+
   const interventions: Intervention[] = [
     {
       category: "EMPLOYMENT",
@@ -510,18 +533,22 @@ export default function SelectInterventions() {
       metrics: {
         returnOnCapital: {
           label: "Return on Capital",
-          value: "",
+          value: "-1.85%",
+          change: { value: "2%", positive: false },
         },
         fundSize: {
           label: "Fund Size",
-          value: "",
+          value: "$48,920",
+          change: { value: "5%", positive: false },
         },
         velocity: {
           label: "Velocity",
-          value: "",
+          value: "2.1",
+          change: { value: "8%", positive: false },
         },
       },
-      showChart: false,
+      showChart: true,
+      chartData: weatherizationData,
     },
   ];
 
