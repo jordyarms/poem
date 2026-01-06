@@ -56,16 +56,16 @@ function MetricCard({
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-medium text-gray-600 mb-1">{title}</h3>
+          <h3 className="text-sm font-medium text-gray-600 mb-0.5">{title}</h3>
 
           {periodSelector && (
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-1.5 mb-0.5">
               <span className="text-xs text-gray-600">over:</span>
               <Select
                 value={periodSelector.value}
                 onValueChange={periodSelector.onChange}
               >
-                <SelectTrigger className="w-[140px] h-7 text-xs">
+                <SelectTrigger className="h-5 w-auto border-0 border-b border-gray-300 rounded-none px-1 py-0 text-xs focus:ring-0 focus:border-gray-600 bg-transparent hover:border-gray-600">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -80,7 +80,7 @@ function MetricCard({
           )}
 
           <div className="flex items-baseline gap-2">
-            <p className="text-5xl mt-1 mb-1 font-bold text-gray-900">
+            <p className="text-5xl font-bold text-gray-900">
               {value}
             </p>
             {change && (
