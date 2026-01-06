@@ -170,66 +170,69 @@ function AccountInfo({
       transition={{ delay: 0.2 }}
       className="bg-white border border-gray-200 rounded-lg overflow-hidden"
     >
-      <h3 className={`text-base font-semibold mb-3 ${
-        coloredTitle
-          ? "bg-purple-50 text-purple-900 px-3 py-2.5 border-b border-purple-100"
-          : "text-gray-900 px-3 pt-3"
-      }`}>
+      <h3
+        className={`text-base font-semibold mb-3 ${
+          coloredTitle
+            ? "bg-purple-50 text-purple-900 px-3 py-2.5 border-b border-purple-100"
+            : "text-gray-900 px-3 pt-3"
+        }`}
+      >
         Current Account
       </h3>
 
       <div className="px-3 pb-3">
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-gray-600">Balance:</span>
+            <span className="text-md font-semibold text-gray-900">
+              {balance}
+            </span>
+          </div>
 
-      <div className="space-y-2">
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Balance:</span>
-          <span className="text-md font-semibold text-gray-900">{balance}</span>
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-gray-600">Auto-placed:</span>
+            <span className="text-md font-semibold text-gray-900">
+              {autoPlaced}
+            </span>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-gray-600">Auto-returning:</span>
+            <span className="text-md font-medium text-gray-700">
+              {autoReturning.amount}, {autoReturning.date}
+            </span>
+          </div>
+
+          <div className="pt-2 border-t border-gray-200">
+            <span className="text-sm text-gray-600 block mb-1.5">
+              Commitments:
+            </span>
+            {commitments.map((commitment, idx) => (
+              <div key={idx} className="text-md text-gray-700 mb-1">
+                {commitment.date}, {commitment.description}, {commitment.amount}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+            <span className="text-sm text-gray-600">Alerts:</span>
+            <span className="text-sm text-gray-500">None</span>
+          </div>
         </div>
 
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Auto-placed:</span>
-          <span className="text-md font-semibold text-gray-900">
-            {autoPlaced}
-          </span>
+        <div className="flex gap-2 mt-3">
+          <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
+            Move money
+          </a>
+          <span className="text-gray-300">|</span>
+          <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
+            Change settings
+          </a>
+          <span className="text-gray-300">|</span>
+          <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
+            View transactions
+          </a>
         </div>
-
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600">Auto-returning:</span>
-          <span className="text-md font-medium text-gray-700">
-            {autoReturning.amount}, {autoReturning.date}
-          </span>
-        </div>
-
-        <div className="pt-2 border-t border-gray-200">
-          <span className="text-sm text-gray-600 block mb-1.5">
-            Commitments:
-          </span>
-          {commitments.map((commitment, idx) => (
-            <div key={idx} className="text-md text-gray-700 mb-1">
-              {commitment.date}, {commitment.description}, {commitment.amount}
-            </div>
-          ))}
-        </div>
-
-        <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-          <span className="text-sm text-gray-600">Alerts:</span>
-          <span className="text-sm text-gray-500">None</span>
-        </div>
-      </div>
-
-      <div className="flex gap-2 mt-3">
-        <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
-          Move money
-        </a>
-        <span className="text-gray-300">|</span>
-        <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
-          Change settings
-        </a>
-        <span className="text-gray-300">|</span>
-        <a href="#" className="text-xs text-purple-600 hover:text-purple-700">
-          View transactions
-        </a>
-      </div>
       </div>
     </motion.div>
   );
@@ -255,7 +258,9 @@ interface ReturnsTrackingChartProps {
   coloredTitle?: boolean;
 }
 
-function ReturnsTrackingChart({ coloredTitle = false }: ReturnsTrackingChartProps = {}) {
+function ReturnsTrackingChart({
+  coloredTitle = false,
+}: ReturnsTrackingChartProps = {}) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -360,14 +365,19 @@ function ReturnsTrackingChart({ coloredTitle = false }: ReturnsTrackingChartProp
       transition={{ delay: 0.2 }}
       className="bg-white border border-gray-200 rounded-lg overflow-hidden"
     >
-      <h3 className={`text-base font-semibold mb-3 ${
-        coloredTitle
-          ? "bg-emerald-50 text-emerald-900 px-3 py-2.5 border-b border-emerald-100"
-          : "text-gray-900 px-3 pt-3"
-      }`}>
+      <h3
+        className={`text-base font-semibold mb-3 ${
+          coloredTitle
+            ? "bg-emerald-50 text-emerald-900 px-3 py-2.5 border-b border-emerald-100"
+            : "text-gray-900 px-3 pt-3"
+        }`}
+      >
         Aggregate Portfolio Performance (last 30 days)
       </h3>
-      <div className={coloredTitle ? "px-3 pb-3" : ""} ref={chartContainerRef} />
+      <div
+        className={coloredTitle ? "px-3 pb-3" : ""}
+        ref={chartContainerRef}
+      />
     </motion.div>
   );
 }
@@ -380,11 +390,13 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
       transition={{ delay: 0.3 }}
       className="bg-white border border-gray-200 rounded-lg overflow-hidden mt-4"
     >
-      <h3 className={`text-base font-semibold mb-3 ${
-        coloredTitle
-          ? "bg-blue-50 text-blue-900 px-3 py-2.5 border-b border-blue-100"
-          : "text-gray-900 px-3 pt-3"
-      }`}>
+      <h3
+        className={`text-base font-semibold mb-3 ${
+          coloredTitle
+            ? "bg-blue-50 text-blue-900 px-3 py-2.5 border-b border-blue-100"
+            : "text-gray-900 px-3 pt-3"
+        }`}
+      >
         Cash Deployed (8 unifunds)
       </h3>
 
@@ -550,9 +562,9 @@ export default function MyFunds() {
         <AccountInfo
           balance="$99.99"
           autoPlaced="$875"
-          autoReturning={{ amount: "$580", date: "May 27" }}
+          autoReturning={{ amount: "$580", date: "December 27" }}
           commitments={[
-            { date: "May 28", description: "Rent", amount: "$780" },
+            { date: "December 28", description: "Rent", amount: "$780" },
           ]}
           coloredTitle={true}
         />
