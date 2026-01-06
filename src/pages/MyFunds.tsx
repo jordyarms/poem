@@ -68,7 +68,7 @@ function MetricCard({
                 <SelectTrigger className="h-5 w-auto border-0 border-b border-gray-300 rounded-none px-1 py-0 text-xs focus:ring-0 focus:border-gray-600 bg-transparent hover:border-gray-600">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="shadow-none border border-gray-200">
+                <SelectContent className="!shadow-none border border-gray-200">
                   {periodSelector.options.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.label}
@@ -80,7 +80,7 @@ function MetricCard({
           )}
 
           <div className="flex items-baseline gap-2">
-            <p className="text-5xl font-bold text-gray-900">
+            <p className="text-4xl font-bold text-gray-900">
               {value}
             </p>
             {change && (
