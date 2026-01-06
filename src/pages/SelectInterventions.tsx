@@ -533,7 +533,7 @@ export default function SelectInterventions() {
       metrics: {
         returnOnCapital: {
           label: "Return on Capital",
-          value: "1.85%",
+          value: "-1.85%",
           change: { value: "2%", positive: false },
         },
         fundSize: {
