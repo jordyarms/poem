@@ -1,4 +1,12 @@
-import { TrendingUp, DollarSign, Droplets, ArrowUpRight } from "lucide-react";
+import {
+  TrendingUp,
+  DollarSign,
+  Droplets,
+  ArrowUpRight,
+  CreditCard,
+  BarChart3,
+  Coins,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { createChart, ColorType } from "lightweight-charts";
@@ -80,7 +88,13 @@ function MetricCard({
           )}
 
           <div className="flex items-baseline gap-2">
-            <p className={`${periodSelector ? "text-4xl" : "text-5xl"} font-bold text-gray-900`}>{value}</p>
+            <p
+              className={`${
+                periodSelector ? "text-4xl" : "text-5xl"
+              } font-bold text-gray-900`}
+            >
+              {value}
+            </p>
             {change && (
               <span
                 className={`text-xs font-medium ${
@@ -203,17 +217,32 @@ function AccountInfo({
       transition={{ delay: 0.2 }}
       className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden"
     >
-      <h3
-        className={`text-base font-semibold mb-3 ${
+      <div
+        className={`${
           coloredTitle
-            ? "bg-purple-50 text-purple-900 px-3 py-2.5 border-b-[3px] border-purple-100"
-            : "text-gray-900 px-3 pt-3"
+            ? "bg-purple-50 border-b-[3px] border-purple-100 px-3 py-2.5"
+            : "px-3 pt-3"
         }`}
       >
-        Current Account
-      </h3>
+        <div
+          className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}
+        >
+          <CreditCard
+            className={`w-4 h-4 ${
+              coloredTitle ? "text-purple-600" : "text-purple-600"
+            }`}
+          />
+          <h3
+            className={`text-base font-semibold ${
+              coloredTitle ? "text-purple-900" : "text-gray-900"
+            }`}
+          >
+            Current Account
+          </h3>
+        </div>
+      </div>
 
-      <div className="px-3 pb-3">
+      <div className={`px-3 pb-3 ${coloredTitle ? "pt-3" : ""}`}>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Balance:</span>
@@ -306,7 +335,7 @@ function ReturnsTrackingChart({
         textColor: "#6b7280",
         fontSize: 11,
       },
-      width: chartContainerRef.current.clientWidth,
+      width: chartContainerRef.current.clientWidth - 24,
       height: 240,
       rightPriceScale: {
         borderColor: "#e5e7eb",
@@ -398,17 +427,32 @@ function ReturnsTrackingChart({
       transition={{ delay: 0.2 }}
       className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden"
     >
-      <h3
-        className={`text-base font-semibold mb-3 ${
+      <div
+        className={`${
           coloredTitle
-            ? "bg-emerald-50 text-emerald-900 px-3 py-2.5 border-b-[3px] border-emerald-100"
-            : "text-gray-900 px-3 pt-3"
+            ? "bg-emerald-50 border-b-[3px] border-emerald-100 px-3 py-2.5"
+            : "px-3 pt-3"
         }`}
       >
-        Aggregate Portfolio Performance (last 30 days)
-      </h3>
+        <div
+          className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}
+        >
+          <BarChart3
+            className={`w-4 h-4 ${
+              coloredTitle ? "text-emerald-600" : "text-purple-600"
+            }`}
+          />
+          <h3
+            className={`text-base font-semibold ${
+              coloredTitle ? "text-emerald-900" : "text-gray-900"
+            }`}
+          >
+            Aggregate Portfolio Performance (last 30 days)
+          </h3>
+        </div>
+      </div>
       <div
-        className={coloredTitle ? "px-3 pb-3" : ""}
+        className={coloredTitle ? "px-3 pb-3 pt-3" : ""}
         ref={chartContainerRef}
       />
     </motion.div>
@@ -423,15 +467,30 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
       transition={{ delay: 0.3 }}
       className="bg-white border-[3px] border-gray-200 rounded-lg overflow-hidden mt-4"
     >
-      <h3
-        className={`text-base font-semibold mb-3 ${
+      <div
+        className={`${
           coloredTitle
-            ? "bg-blue-50 text-blue-900 px-3 py-2.5 border-b-[3px] border-blue-100"
-            : "text-gray-900 px-3 pt-3"
+            ? "bg-blue-50 border-b-[3px] border-blue-100 px-3 py-2.5"
+            : "px-3 pt-3"
         }`}
       >
-        Cash Deployed (8 unifunds)
-      </h3>
+        <div
+          className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}
+        >
+          <Coins
+            className={`w-4 h-4 ${
+              coloredTitle ? "text-blue-600" : "text-purple-600"
+            }`}
+          />
+          <h3
+            className={`text-base font-semibold ${
+              coloredTitle ? "text-blue-900" : "text-gray-900"
+            }`}
+          >
+            Cash Deployed (8 unifunds)
+          </h3>
+        </div>
+      </div>
 
       <div className={`overflow-x-auto ${coloredTitle ? "px-3 pb-3" : ""}`}>
         <table className="w-full text-sm">
