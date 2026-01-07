@@ -1,4 +1,4 @@
-import { Search, TrendingUp, TrendingDown, ArrowUpRight, Percent, Wallet, Users, Clock } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, ArrowUpRight, PieChart, Banknote, Users, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -215,42 +215,47 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-400 rounded-lg p-3"
     >
-      <div className="flex items-start gap-2 mb-2">
+      <div className="flex items-start gap-3">
         <div
-          className={`p-1.5 rounded-lg ${
+          className={`p-2 rounded-lg ${
             colorClasses[metric.color as keyof typeof colorClasses] ||
             colorClasses.purple
           } flex-shrink-0`}
         >
-          <MetricIcon className="w-5 h-5" />
+          <MetricIcon className="w-8 h-8" />
         </div>
-        <h3 className="text-xs font-medium text-gray-600 flex-1 pt-1">
-          {metric.label}
-        </h3>
-      </div>
-      <div className="flex items-baseline gap-2 mb-1.5">
-        <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
-        {metric.unit && (
-          <span className="text-xs text-gray-500">{metric.unit}</span>
-        )}
-      </div>
-      <div className="flex items-center justify-between">
-        <div
-          className={cn(
-            "flex items-center gap-1 text-xs font-medium",
-            metric.change.positive ? "text-emerald-600" : "text-red-600"
-          )}
-        >
-          <ChangeIcon className="w-3 h-3" />
-          {metric.change.value}
+
+        <div className="flex-1 min-w-0">
+          <h3 className="text-xs font-medium text-gray-600 mb-0.5">
+            {metric.label}
+          </h3>
+          <div className="flex items-baseline gap-2 mb-1">
+            <span className="text-4xl font-bold text-gray-900">
+              {metric.value}
+            </span>
+            {metric.unit && (
+              <span className="text-xs text-gray-500">{metric.unit}</span>
+            )}
+          </div>
+          <div className="flex items-center justify-between">
+            <div
+              className={cn(
+                "flex items-center gap-1 text-xs font-medium",
+                metric.change.positive ? "text-emerald-600" : "text-red-600"
+              )}
+            >
+              <ChangeIcon className="w-3 h-3" />
+              {metric.change.value}
+            </div>
+            <a
+              href="#"
+              className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
+            >
+              View
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          </div>
         </div>
-        <a
-          href="#"
-          className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
-        >
-          View
-          <ArrowUpRight className="w-3 h-3" />
-        </a>
       </div>
     </motion.div>
   );
@@ -476,29 +481,29 @@ export default function UnifundRegistry() {
       label: "Capital Ratio",
       value: "37%",
       change: { value: "2%", positive: false },
-      icon: Percent,
-      color: "blue",
+      icon: PieChart,
+      color: "purple",
     },
     {
       label: "Current Deposits",
       value: "$13,458",
       change: { value: "7%", positive: true },
-      icon: Wallet,
-      color: "green",
+      icon: Banknote,
+      color: "purple",
     },
     {
       label: "Depositors",
       value: "9.2",
       change: { value: "11%", positive: false },
       icon: Users,
-      color: "amber",
+      color: "purple",
     },
     {
       label: "Growth",
       value: "1.8%",
       change: { value: "1%", positive: true },
       icon: TrendingUp,
-      color: "orange",
+      color: "purple",
     },
     {
       label: "Cost-per-Dollar-per-Hour",
