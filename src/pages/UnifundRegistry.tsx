@@ -217,12 +217,12 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
     >
       <div className="flex items-start gap-3">
         <div
-          className={`p-2 rounded-lg ${
+          className={`p-1.5 rounded-lg ${
             colorClasses[metric.color as keyof typeof colorClasses] ||
             colorClasses.purple
           } flex-shrink-0`}
         >
-          <MetricIcon className="w-8 h-8" />
+          <MetricIcon className="w-6 h-6" />
         </div>
 
         <div className="flex-1 min-w-0">
