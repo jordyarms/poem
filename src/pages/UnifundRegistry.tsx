@@ -215,10 +215,20 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-400 rounded-lg p-3"
     >
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="text-xs font-medium text-gray-600">
-          {metric.label}
-        </h3>
+      <div className="flex items-start justify-between mb-1.5">
+        <div className="flex-1">
+          <h3 className="text-xs font-medium text-gray-600 mb-0.5">
+            {metric.label}
+          </h3>
+          <div className="flex items-baseline gap-2">
+            <span className="text-4xl font-bold text-gray-900">
+              {metric.value}
+            </span>
+            {metric.unit && (
+              <span className="text-xs text-gray-500">{metric.unit}</span>
+            )}
+          </div>
+        </div>
         <div
           className={`p-1.5 rounded-lg ${
             colorClasses[metric.color as keyof typeof colorClasses] ||
@@ -227,15 +237,6 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
         >
           <MetricIcon className="w-6 h-6" />
         </div>
-      </div>
-
-      <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-4xl font-bold text-gray-900">
-          {metric.value}
-        </span>
-        {metric.unit && (
-          <span className="text-xs text-gray-500">{metric.unit}</span>
-        )}
       </div>
 
       <div className="flex items-center justify-between">
