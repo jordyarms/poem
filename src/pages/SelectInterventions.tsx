@@ -1,4 +1,4 @@
-import { Search, TrendingUp, TrendingDown } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, CircleDollarSign, Wallet, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ interface InterventionMetric {
   label: string;
   value: string;
   change?: { value: string; positive: boolean };
+  icon: typeof TrendingUp;
 }
 
 interface Intervention {
@@ -196,9 +197,16 @@ function MetricScoreCard({
   metric: InterventionMetric;
   isVelocity?: boolean;
 }) {
+  const MetricIcon = metric.icon;
+
   return (
     <div className="bg-white border border-gray-400 rounded-lg p-3 flex flex-col">
-      <h4 className="text-sm font-medium text-gray-600 mb-0">{metric.label}</h4>
+      <div className="flex items-start justify-between mb-0.5">
+        <h4 className="text-sm font-medium text-gray-600">{metric.label}</h4>
+        <div className="p-1.5 rounded-lg bg-purple-50 text-purple-600 border-purple-200 flex-shrink-0">
+          <MetricIcon className="w-5 h-5" />
+        </div>
+      </div>
       <div className="flex items-baseline gap-2 mb-0">
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
       </div>
@@ -465,16 +473,19 @@ export default function SelectInterventions() {
           label: "Return on Capital",
           value: "2.30%",
           change: { value: "1%", positive: true },
+          icon: CircleDollarSign,
         },
         fundSize: {
           label: "Fund Size",
           value: "$12,776",
           change: { value: "7%", positive: false },
+          icon: Wallet,
         },
         velocity: {
           label: "Velocity",
           value: "3.6",
           change: { value: "11%", positive: true },
+          icon: Gauge,
         },
       },
       showChart: true,
@@ -488,15 +499,18 @@ export default function SelectInterventions() {
         returnOnCapital: {
           label: "Return on Capital",
           value: "0.00%",
+          icon: CircleDollarSign,
         },
         fundSize: {
           label: "Fund Size",
           value: "$95,241",
           change: { value: "3%", positive: false },
+          icon: Wallet,
         },
         velocity: {
           label: "Velocity",
           value: "N/A",
+          icon: Gauge,
         },
       },
       showChart: true,
@@ -511,16 +525,19 @@ export default function SelectInterventions() {
           label: "Return on Capital",
           value: "0.40%",
           change: { value: "1%", positive: true },
+          icon: CircleDollarSign,
         },
         fundSize: {
           label: "Fund Size",
           value: "$74,336",
           change: { value: "8%", positive: true },
+          icon: Wallet,
         },
         velocity: {
           label: "Velocity",
           value: "0.01",
           change: { value: "0%", positive: true },
+          icon: Gauge,
         },
       },
       showChart: true,
@@ -535,16 +552,19 @@ export default function SelectInterventions() {
           label: "Return on Capital",
           value: "-1.85%",
           change: { value: "2%", positive: false },
+          icon: CircleDollarSign,
         },
         fundSize: {
           label: "Fund Size",
           value: "$48,920",
           change: { value: "5%", positive: false },
+          icon: Wallet,
         },
         velocity: {
           label: "Velocity",
           value: "2.1",
           change: { value: "8%", positive: false },
+          icon: Gauge,
         },
       },
       showChart: true,
