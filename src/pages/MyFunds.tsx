@@ -80,9 +80,7 @@ function MetricCard({
           )}
 
           <div className="flex items-baseline gap-2">
-            <p className="text-4xl font-bold text-gray-900">
-              {value}
-            </p>
+            <p className={`${periodSelector ? "text-4xl" : "text-5xl"} font-bold text-gray-900`}>{value}</p>
             {change && (
               <span
                 className={`text-xs font-medium ${
