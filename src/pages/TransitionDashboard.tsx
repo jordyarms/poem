@@ -629,7 +629,7 @@ export default function TransitionDashboard() {
       change: { value: "2%", positive: true },
       link: true,
       icon: Package,
-      color: "teal",
+      color: "purple",
     },
   ];
 
