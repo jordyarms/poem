@@ -648,7 +648,7 @@ export default function TransitionDashboard() {
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-xl font-bold text-gray-900">
           Transition Dashboard
         </h1>
       </div>

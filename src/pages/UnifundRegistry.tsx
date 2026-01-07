@@ -1,4 +1,17 @@
-import { Search, TrendingUp, TrendingDown, ArrowUpRight, PieChart, Banknote, Users, Clock, CircleDollarSign, Calculator, BarChart2, Table } from "lucide-react";
+import {
+  Search,
+  TrendingUp,
+  TrendingDown,
+  ArrowUpRight,
+  PieChart,
+  Banknote,
+  Users,
+  Clock,
+  CircleDollarSign,
+  Calculator,
+  BarChart2,
+  Table,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -289,11 +302,18 @@ function ReturnsChart({ coloredTitle = false }: { coloredTitle?: boolean }) {
         )}
       >
         <div className={cn("flex items-center gap-2", !coloredTitle && "mb-3")}>
-          <BarChart2 className={cn("w-4 h-4", coloredTitle ? "text-emerald-600" : "text-purple-600")} />
-          <h3 className={cn(
-            "text-base font-semibold",
-            coloredTitle ? "text-emerald-900" : "text-gray-900"
-          )}>
+          <BarChart2
+            className={cn(
+              "w-4 h-4",
+              coloredTitle ? "text-emerald-600" : "text-purple-600"
+            )}
+          />
+          <h3
+            className={cn(
+              "text-base font-semibold",
+              coloredTitle ? "text-emerald-900" : "text-gray-900"
+            )}
+          >
             Returns against all unifunds
           </h3>
         </div>
@@ -359,11 +379,18 @@ function FundsTable({
         )}
       >
         <div className={cn("flex items-center gap-2", !coloredTitle && "mb-3")}>
-          <Table className={cn("w-4 h-4", coloredTitle ? "text-blue-600" : "text-purple-600")} />
-          <h2 className={cn(
-            "text-base font-semibold",
-            coloredTitle ? "text-blue-900" : "text-gray-900"
-          )}>
+          <Table
+            className={cn(
+              "w-4 h-4",
+              coloredTitle ? "text-blue-600" : "text-purple-600"
+            )}
+          />
+          <h2
+            className={cn(
+              "text-base font-semibold",
+              coloredTitle ? "text-blue-900" : "text-gray-900"
+            )}
+          >
             Funds returned by your search
           </h2>
         </div>
@@ -640,7 +667,7 @@ export default function UnifundRegistry() {
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">Unifund Registry</h1>
+        <h1 className="text-xl font-bold text-gray-900">Unifund Registry</h1>
       </div>
 
       <SearchFilterBar filters={filters} onFilterChange={handleFilterChange} />
