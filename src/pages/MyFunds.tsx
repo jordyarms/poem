@@ -613,12 +613,56 @@ export default function MyFunds() {
       geography: "5 miles radius",
       fundNo: "879",
     },
+    {
+      date: "Jan 22",
+      invested: "$175.00",
+      stake: "8%",
+      fundCategory: "Investment",
+      fundPurpose: ["Green energy", "Solar", "Community projects"],
+      sparklineData: [2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3],
+      geography: "25 miles home",
+      fundNo: "2045871",
+    },
+    {
+      date: "Jan 15",
+      invested: "$300.00",
+      stake: "15%",
+      fundCategory: "Fund-of-Funds",
+      fundPurpose: ["Local food", "Agriculture", "Min return: 3%"],
+      sparklineData: [1.9, 2.0, 2.1, 2.0, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7],
+      geography: "Regional",
+      fundNo: "1567234",
+    },
+    {
+      date: "Dec 11",
+      invested: "$125.00",
+      stake: "5%",
+      fundCategory: "Investment",
+      fundPurpose: ["Transportation", "EV charging", "Infrastructure"],
+      sparklineData: [2.0, 1.9, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8],
+      geography: "15 miles work",
+      fundNo: "987432",
+    },
+    {
+      date: "Nov 28",
+      invested: "$68.00",
+      stake: "2%",
+      fundCategory: "Lending",
+      fundPurpose: [
+        "Max period: 30 days",
+        "Max loan: $150",
+        "Min. Reliability: Level 4",
+      ],
+      sparklineData: [1.7, 1.8, 1.6, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5],
+      geography: "Citywide",
+      fundNo: "445",
+    },
   ];
 
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">My Funds</h1>
+        <h1 className="text-xl font-bold text-gray-900">My Funds</h1>
       </div>
 
       {/* Top Metrics Row */}
