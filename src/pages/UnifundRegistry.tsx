@@ -288,8 +288,8 @@ function ReturnsChart({ coloredTitle = false }: { coloredTitle?: boolean }) {
             : "pt-3"
         )}
       >
-        <div className="flex items-center gap-2">
-          <BarChart2 className="w-4 h-4 text-purple-600" />
+        <div className={cn("flex items-center gap-2", !coloredTitle && "mb-3")}>
+          <BarChart2 className={cn("w-4 h-4", coloredTitle ? "text-emerald-600" : "text-purple-600")} />
           <h3 className={cn(
             "text-base font-semibold",
             coloredTitle ? "text-emerald-900" : "text-gray-900"
@@ -358,8 +358,8 @@ function FundsTable({
             : "border-b border-gray-400"
         )}
       >
-        <div className="flex items-center gap-2">
-          <Table className="w-4 h-4 text-purple-600" />
+        <div className={cn("flex items-center gap-2", !coloredTitle && "mb-3")}>
+          <Table className={cn("w-4 h-4", coloredTitle ? "text-blue-600" : "text-purple-600")} />
           <h2 className={cn(
             "text-base font-semibold",
             coloredTitle ? "text-blue-900" : "text-gray-900"
