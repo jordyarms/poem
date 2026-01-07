@@ -414,7 +414,7 @@ export default function ThisMorningsRoutes() {
   return (
     <div className="container mx-auto p-6 max-w-7xl">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-gray-900">
           This Morning's Routes
         </h1>
       </div>

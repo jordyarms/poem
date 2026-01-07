@@ -1,4 +1,13 @@
-import { TrendingUp, TrendingDown, ArrowUpRight, Truck, Navigation, ShoppingBag, Package, Store } from "lucide-react";
+import {
+  TrendingUp,
+  TrendingDown,
+  ArrowUpRight,
+  Truck,
+  Navigation,
+  ShoppingBag,
+  Package,
+  Store,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -352,7 +361,7 @@ function UnpackagedRetailChart() {
           Unpackaged Retail v. Conventional
         </h3>
       </div>
-      <ResponsiveContainer width="100%" height={180}>
+      <ResponsiveContainer width="90%" height={180}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis dataKey="week" tick={{ fontSize: 11 }} stroke="#6b7280" />

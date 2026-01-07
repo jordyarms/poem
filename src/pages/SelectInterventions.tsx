@@ -1,4 +1,11 @@
-import { Search, TrendingUp, TrendingDown, CircleDollarSign, Wallet, Gauge } from "lucide-react";
+import {
+  Search,
+  TrendingUp,
+  TrendingDown,
+  CircleDollarSign,
+  Wallet,
+  Gauge,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
@@ -203,9 +210,13 @@ function MetricScoreCard({
     <div className="bg-white border border-gray-400 rounded-lg p-3 flex flex-col">
       <div className="flex items-start justify-between mb-0">
         <div className="flex-1">
-          <h4 className="text-sm font-medium text-gray-600 mb-0">{metric.label}</h4>
+          <h4 className="text-sm font-medium text-gray-600 mb-0">
+            {metric.label}
+          </h4>
           <div className="flex items-baseline gap-2 mb-0">
-            <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
+            <span className="text-4xl font-bold text-gray-900">
+              {metric.value}
+            </span>
           </div>
         </div>
         <div className="p-1.5 rounded-lg bg-purple-50 text-purple-600 border-purple-200 flex-shrink-0">
@@ -257,13 +268,13 @@ function InterventionRow({ intervention }: { intervention: Intervention }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white border-[3px] border-gray-400 rounded-lg p-4 mb-4"
+      className="bg-white border-[3px] border-gray-400 rounded-lg p-4 mb-2"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
         {/* Left column: Title, action button, and metrics (2/3 width) */}
         <div>
           {/* Title and action link/text */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-1">
             <h3 className="text-xl font-semibold text-gray-900">
               <span className="text-purple-700">{intervention.category}:</span>{" "}
               {intervention.title}
@@ -577,7 +588,7 @@ export default function SelectInterventions() {
   return (
     <div className="container mx-auto p-4 max-w-7xl">
       <div className="mb-4">
-        <h1 className="text-4xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-gray-900">
           Select Interventions
         </h1>
       </div>
