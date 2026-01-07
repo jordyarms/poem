@@ -1,4 +1,4 @@
-import { Search, TrendingUp, TrendingDown, ArrowUpRight, PieChart, Banknote, Users, Clock, CircleDollarSign } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, ArrowUpRight, PieChart, Banknote, Users, Clock, CircleDollarSign, Calculator, BarChart2, Table } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -280,16 +280,24 @@ function ReturnsChart({ coloredTitle = false }: { coloredTitle?: boolean }) {
 
   return (
     <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
-      <h3
+      <div
         className={cn(
-          "text-base font-semibold px-3 py-2.5",
+          "px-3 py-2.5",
           coloredTitle
-            ? "bg-emerald-50 text-emerald-900 border-b-[3px] border-emerald-100"
-            : "text-gray-900 pt-3"
+            ? "bg-emerald-50 border-b-[3px] border-emerald-100"
+            : "pt-3"
         )}
       >
-        Returns against all unifunds
-      </h3>
+        <div className="flex items-center gap-2">
+          <BarChart2 className="w-4 h-4 text-purple-600" />
+          <h3 className={cn(
+            "text-base font-semibold",
+            coloredTitle ? "text-emerald-900" : "text-gray-900"
+          )}>
+            Returns against all unifunds
+          </h3>
+        </div>
+      </div>
       <div className={coloredTitle ? "px-3 pb-3 pt-3" : ""}>
         <ResponsiveContainer width="100%" height={232}>
           <LineChart data={data}>
@@ -342,16 +350,24 @@ function FundsTable({
 }) {
   return (
     <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
-      <h2
+      <div
         className={cn(
-          "text-base font-semibold px-3 py-2.5",
+          "px-3 py-2.5",
           coloredTitle
-            ? "bg-blue-50 text-blue-900 border-b-[3px] border-blue-100"
-            : "text-gray-900 border-b border-gray-400"
+            ? "bg-blue-50 border-b-[3px] border-blue-100"
+            : "border-b border-gray-400"
         )}
       >
-        Funds returned by your search
-      </h2>
+        <div className="flex items-center gap-2">
+          <Table className="w-4 h-4 text-purple-600" />
+          <h2 className={cn(
+            "text-base font-semibold",
+            coloredTitle ? "text-blue-900" : "text-gray-900"
+          )}>
+            Funds returned by your search
+          </h2>
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-400">
@@ -637,19 +653,24 @@ export default function UnifundRegistry() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4">
         {/* Averages Section - 3x2 grid */}
         <div className="lg:col-span-3 bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
-          <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b-[3px] border-purple-100">
-            Averages of these funds{" "}
-            <span className="text-xs text-purple-700">
-              (last 7 days{" "}
-              <a
-                href="#"
-                className="text-purple-600 hover:text-purple-700 underline"
-              >
-                change
-              </a>
-              )
-            </span>
-          </h2>
+          <div className="bg-purple-50 px-3 py-2.5 border-b-[3px] border-purple-100">
+            <div className="flex items-center gap-2">
+              <Calculator className="w-4 h-4 text-purple-600" />
+              <h2 className="text-base font-semibold text-purple-900">
+                Averages of these funds{" "}
+                <span className="text-xs text-purple-700">
+                  (last 7 days{" "}
+                  <a
+                    href="#"
+                    className="text-purple-600 hover:text-purple-700 underline"
+                  >
+                    change
+                  </a>
+                  )
+                </span>
+              </h2>
+            </div>
+          </div>
           <div className="p-3">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {averages.map((metric, idx) => (
