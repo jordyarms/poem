@@ -1,4 +1,4 @@
-import { Search, TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, ArrowUpRight, Percent, Wallet, Users, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -37,6 +37,8 @@ interface FundAverage {
   value: string;
   change: { value: string; positive: boolean };
   unit?: string;
+  icon: typeof TrendingUp;
+  color?: string;
 }
 
 interface UnifundEntry {
@@ -196,7 +198,16 @@ function SearchFilterBar({
 }
 
 function AverageMetricCard({ metric }: { metric: FundAverage }) {
-  const Icon = metric.change.positive ? TrendingUp : TrendingDown;
+  const ChangeIcon = metric.change.positive ? TrendingUp : TrendingDown;
+  const MetricIcon = metric.icon;
+
+  const colorClasses = {
+    purple: "bg-purple-50 text-purple-600 border-purple-200",
+    blue: "bg-blue-50 text-blue-600 border-blue-200",
+    green: "bg-emerald-50 text-emerald-600 border-emerald-200",
+    amber: "bg-amber-50 text-amber-600 border-amber-200",
+    orange: "bg-orange-50 text-orange-600 border-orange-200",
+  };
 
   return (
     <motion.div
@@ -204,9 +215,19 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-400 rounded-lg p-3"
     >
-      <h3 className="text-xs font-medium text-gray-600 mb-1.5">
-        {metric.label}
-      </h3>
+      <div className="flex items-start gap-2 mb-2">
+        <div
+          className={`p-1.5 rounded-lg ${
+            colorClasses[metric.color as keyof typeof colorClasses] ||
+            colorClasses.purple
+          } flex-shrink-0`}
+        >
+          <MetricIcon className="w-5 h-5" />
+        </div>
+        <h3 className="text-xs font-medium text-gray-600 flex-1 pt-1">
+          {metric.label}
+        </h3>
+      </div>
       <div className="flex items-baseline gap-2 mb-1.5">
         <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
         {metric.unit && (
@@ -220,7 +241,7 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
             metric.change.positive ? "text-emerald-600" : "text-red-600"
           )}
         >
-          <Icon className="w-3 h-3" />
+          <ChangeIcon className="w-3 h-3" />
           {metric.change.value}
         </div>
         <a
@@ -448,27 +469,43 @@ export default function UnifundRegistry() {
       label: "Capital Deployed",
       value: "79%",
       change: { value: "2%", positive: true },
+      icon: TrendingUp,
+      color: "purple",
     },
     {
       label: "Capital Ratio",
       value: "37%",
       change: { value: "2%", positive: false },
+      icon: Percent,
+      color: "blue",
     },
     {
       label: "Current Deposits",
       value: "$13,458",
       change: { value: "7%", positive: true },
+      icon: Wallet,
+      color: "green",
     },
     {
       label: "Depositors",
       value: "9.2",
       change: { value: "11%", positive: false },
+      icon: Users,
+      color: "amber",
     },
-    { label: "Growth", value: "1.8%", change: { value: "1%", positive: true } },
+    {
+      label: "Growth",
+      value: "1.8%",
+      change: { value: "1%", positive: true },
+      icon: TrendingUp,
+      color: "orange",
+    },
     {
       label: "Cost-per-Dollar-per-Hour",
       value: "$0.012",
       change: { value: "3%", positive: false },
+      icon: Clock,
+      color: "purple",
     },
   ];
 
@@ -592,9 +629,9 @@ export default function UnifundRegistry() {
       </p>
 
       {/* Desktop: Side by side layout for Averages and Returns */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-4">
         {/* Averages Section - 3x2 grid */}
-        <div className="bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
+        <div className="lg:col-span-3 bg-white border-[3px] border-gray-400 rounded-lg overflow-hidden">
           <h2 className="bg-purple-50 text-purple-900 text-base font-semibold px-3 py-2.5 border-b-[3px] border-purple-100">
             Averages of these funds{" "}
             <span className="text-xs text-purple-700">
@@ -618,7 +655,7 @@ export default function UnifundRegistry() {
         </div>
 
         {/* Returns Chart Section */}
-        <div>
+        <div className="lg:col-span-2">
           <ReturnsChart coloredTitle={true} />
         </div>
       </div>

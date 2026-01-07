@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
+import { TrendingUp, TrendingDown, ArrowUpRight, Truck, Navigation, ShoppingBag, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -144,10 +144,20 @@ interface PerformanceMetric {
   change: { value: string; positive: boolean };
   link?: boolean;
   changeRadiusLink?: boolean;
+  icon: typeof TrendingUp;
+  color?: string;
 }
 
 function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
-  const Icon = metric.change.positive ? TrendingUp : TrendingDown;
+  const ChangeIcon = metric.change.positive ? TrendingUp : TrendingDown;
+  const MetricIcon = metric.icon;
+
+  const colorClasses = {
+    purple: "bg-purple-50 text-purple-600 border-purple-200",
+    blue: "bg-blue-50 text-blue-600 border-blue-200",
+    green: "bg-emerald-50 text-emerald-600 border-emerald-200",
+    orange: "bg-orange-50 text-orange-600 border-orange-200",
+  };
 
   return (
     <motion.div
@@ -155,44 +165,59 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border-[3px] border-gray-400 rounded-lg p-3"
     >
-      <h3 className="text-sm font-semibold text-gray-900 mb-1">
-        {metric.title}
-      </h3>
-      <div className="flex items-baseline gap-2 mb-1">
-        <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
+      <div className="flex items-start gap-3">
         <div
-          className={cn(
-            "flex items-center gap-0.5 text-sm font-medium",
-            metric.change.positive ? "text-emerald-600" : "text-red-600"
-          )}
+          className={`p-2 rounded-lg ${
+            colorClasses[metric.color as keyof typeof colorClasses] ||
+            colorClasses.purple
+          } flex-shrink-0`}
         >
-          <Icon className="w-4 h-4" />
-          {metric.change.value}
+          <MetricIcon className="w-8 h-8" />
         </div>
-      </div>
-      <p className="text-xs text-gray-600 mb-2">{metric.subtitle}</p>
-      <div className="flex gap-2 text-xs">
-        {metric.link && (
-          <a
-            href="#"
-            className="text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
-          >
-            View
-            <ArrowUpRight className="w-3 h-3" />
-          </a>
-        )}
-        {metric.changeRadiusLink && (
-          <>
-            {metric.link && <span className="text-gray-300">|</span>}
-            <a
-              href="#"
-              className="text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
+
+        <div className="flex-1 min-w-0">
+          <h3 className="text-sm font-medium text-gray-600 mb-0.5">
+            {metric.title}
+          </h3>
+          <div className="flex items-baseline gap-2 mb-0.5">
+            <span className="text-4xl font-bold text-gray-900">
+              {metric.value}
+            </span>
+            <div
+              className={cn(
+                "flex items-center gap-0.5 text-sm font-medium",
+                metric.change.positive ? "text-emerald-600" : "text-red-600"
+              )}
             >
-              Change radius
-              <ArrowUpRight className="w-3 h-3" />
-            </a>
-          </>
-        )}
+              <ChangeIcon className="w-4 h-4" />
+              {metric.change.value}
+            </div>
+          </div>
+          <p className="text-xs text-gray-600 mb-1.5">{metric.subtitle}</p>
+          <div className="flex gap-2 text-xs">
+            {metric.link && (
+              <a
+                href="#"
+                className="text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
+              >
+                View
+                <ArrowUpRight className="w-3 h-3" />
+              </a>
+            )}
+            {metric.changeRadiusLink && (
+              <>
+                {metric.link && <span className="text-gray-300">|</span>}
+                <a
+                  href="#"
+                  className="text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
+                >
+                  Change radius
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -574,6 +599,8 @@ export default function TransitionDashboard() {
       subtitle: "Drops per Hour",
       change: { value: "4%", positive: true },
       link: true,
+      icon: Truck,
+      color: "purple",
     },
     {
       title: "Travel-to-Work",
@@ -581,6 +608,8 @@ export default function TransitionDashboard() {
       subtitle: "Miles per Shift",
       change: { value: "7%", positive: false },
       link: true,
+      icon: Navigation,
+      color: "blue",
     },
     {
       title: "Local Produce Sales",
@@ -589,6 +618,8 @@ export default function TransitionDashboard() {
       change: { value: "12%", positive: false },
       link: true,
       changeRadiusLink: true,
+      icon: ShoppingBag,
+      color: "green",
     },
     {
       title: "All Resale Markets",
@@ -596,6 +627,8 @@ export default function TransitionDashboard() {
       subtitle: "Pre-owned Items in Time Period",
       change: { value: "2%", positive: true },
       link: true,
+      icon: RefreshCw,
+      color: "orange",
     },
   ];
 
