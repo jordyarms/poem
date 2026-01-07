@@ -1,4 +1,12 @@
-import { TrendingUp, DollarSign, Droplets, ArrowUpRight, CreditCard, BarChart3, Coins } from "lucide-react";
+import {
+  TrendingUp,
+  DollarSign,
+  Droplets,
+  ArrowUpRight,
+  CreditCard,
+  BarChart3,
+  Coins,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { createChart, ColorType } from "lightweight-charts";
@@ -80,7 +88,13 @@ function MetricCard({
           )}
 
           <div className="flex items-baseline gap-2">
-            <p className={`${periodSelector ? "text-4xl" : "text-5xl"} font-bold text-gray-900`}>{value}</p>
+            <p
+              className={`${
+                periodSelector ? "text-4xl" : "text-5xl"
+              } font-bold text-gray-900`}
+            >
+              {value}
+            </p>
             {change && (
               <span
                 className={`text-xs font-medium ${
@@ -210,9 +224,19 @@ function AccountInfo({
             : "px-3 pt-3"
         }`}
       >
-        <div className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}>
-          <CreditCard className={`w-4 h-4 ${coloredTitle ? "text-purple-600" : "text-purple-600"}`} />
-          <h3 className={`text-base font-semibold ${coloredTitle ? "text-purple-900" : "text-gray-900"}`}>
+        <div
+          className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}
+        >
+          <CreditCard
+            className={`w-4 h-4 ${
+              coloredTitle ? "text-purple-600" : "text-purple-600"
+            }`}
+          />
+          <h3
+            className={`text-base font-semibold ${
+              coloredTitle ? "text-purple-900" : "text-gray-900"
+            }`}
+          >
             Current Account
           </h3>
         </div>
@@ -311,7 +335,7 @@ function ReturnsTrackingChart({
         textColor: "#6b7280",
         fontSize: 11,
       },
-      width: chartContainerRef.current.clientWidth,
+      width: chartContainerRef.current.clientWidth - 24,
       height: 240,
       rightPriceScale: {
         borderColor: "#e5e7eb",
@@ -410,9 +434,19 @@ function ReturnsTrackingChart({
             : "px-3 pt-3"
         }`}
       >
-        <div className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}>
-          <BarChart3 className={`w-4 h-4 ${coloredTitle ? "text-emerald-600" : "text-purple-600"}`} />
-          <h3 className={`text-base font-semibold ${coloredTitle ? "text-emerald-900" : "text-gray-900"}`}>
+        <div
+          className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}
+        >
+          <BarChart3
+            className={`w-4 h-4 ${
+              coloredTitle ? "text-emerald-600" : "text-purple-600"
+            }`}
+          />
+          <h3
+            className={`text-base font-semibold ${
+              coloredTitle ? "text-emerald-900" : "text-gray-900"
+            }`}
+          >
             Aggregate Portfolio Performance (last 30 days)
           </h3>
         </div>
@@ -440,9 +474,19 @@ function FundsTable({ funds, coloredTitle = false }: FundsTableProps) {
             : "px-3 pt-3"
         }`}
       >
-        <div className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}>
-          <Coins className={`w-4 h-4 ${coloredTitle ? "text-blue-600" : "text-purple-600"}`} />
-          <h3 className={`text-base font-semibold ${coloredTitle ? "text-blue-900" : "text-gray-900"}`}>
+        <div
+          className={`flex items-center gap-2 ${coloredTitle ? "" : "mb-3"}`}
+        >
+          <Coins
+            className={`w-4 h-4 ${
+              coloredTitle ? "text-blue-600" : "text-purple-600"
+            }`}
+          />
+          <h3
+            className={`text-base font-semibold ${
+              coloredTitle ? "text-blue-900" : "text-gray-900"
+            }`}
+          >
             Cash Deployed (8 unifunds)
           </h3>
         </div>
