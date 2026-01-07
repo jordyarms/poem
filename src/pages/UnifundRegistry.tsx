@@ -1,4 +1,4 @@
-import { Search, TrendingUp, TrendingDown, ArrowUpRight, PieChart, Banknote, Users, Clock } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, ArrowUpRight, PieChart, Banknote, Users, Clock, CircleDollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -474,7 +474,7 @@ export default function UnifundRegistry() {
       label: "Capital Deployed",
       value: "79%",
       change: { value: "2%", positive: true },
-      icon: TrendingUp,
+      icon: CircleDollarSign,
       color: "purple",
     },
     {
