@@ -610,7 +610,7 @@ export default function TransitionDashboard() {
       change: { value: "7%", positive: false },
       link: true,
       icon: Navigation,
-      color: "blue",
+      color: "purple",
     },
     {
       title: "Local Produce Sales",
@@ -620,7 +620,7 @@ export default function TransitionDashboard() {
       link: true,
       changeRadiusLink: true,
       icon: ShoppingBag,
-      color: "green",
+      color: "purple",
     },
     {
       title: "All Resale Markets",
