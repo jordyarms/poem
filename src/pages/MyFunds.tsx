@@ -218,7 +218,7 @@ function AccountInfo({
         </div>
       </div>
 
-      <div className="px-3 pb-3">
+      <div className={`px-3 pb-3 ${coloredTitle ? "pt-3" : ""}`}>
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Balance:</span>
@@ -418,7 +418,7 @@ function ReturnsTrackingChart({
         </div>
       </div>
       <div
-        className={coloredTitle ? "px-3 pb-3" : ""}
+        className={coloredTitle ? "px-3 pb-3 pt-3" : ""}
         ref={chartContainerRef}
       />
     </motion.div>

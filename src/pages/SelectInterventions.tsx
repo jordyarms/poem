@@ -201,14 +201,16 @@ function MetricScoreCard({
 
   return (
     <div className="bg-white border border-gray-400 rounded-lg p-3 flex flex-col">
-      <div className="flex items-start justify-between mb-0.5">
-        <h4 className="text-sm font-medium text-gray-600">{metric.label}</h4>
+      <div className="flex items-start justify-between mb-0">
+        <div className="flex-1">
+          <h4 className="text-sm font-medium text-gray-600 mb-0">{metric.label}</h4>
+          <div className="flex items-baseline gap-2 mb-0">
+            <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
+          </div>
+        </div>
         <div className="p-1.5 rounded-lg bg-purple-50 text-purple-600 border-purple-200 flex-shrink-0">
           <MetricIcon className="w-5 h-5" />
         </div>
-      </div>
-      <div className="flex items-baseline gap-2 mb-0">
-        <span className="text-4xl font-bold text-gray-900">{metric.value}</span>
       </div>
       {metric.change && (
         <div
