@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, ArrowUpRight, Truck, Navigation, ShoppingBag, RefreshCw } from "lucide-react";
+import { TrendingUp, TrendingDown, ArrowUpRight, Truck, Navigation, ShoppingBag, Package } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -157,6 +157,7 @@ function PerformanceCard({ metric }: { metric: PerformanceMetric }) {
     blue: "bg-blue-50 text-blue-600 border-blue-200",
     green: "bg-emerald-50 text-emerald-600 border-emerald-200",
     orange: "bg-orange-50 text-orange-600 border-orange-200",
+    teal: "bg-teal-50 text-teal-600 border-teal-200",
   };
 
   return (
@@ -627,8 +628,8 @@ export default function TransitionDashboard() {
       subtitle: "Pre-owned Items in Time Period",
       change: { value: "2%", positive: true },
       link: true,
-      icon: RefreshCw,
-      color: "orange",
+      icon: Package,
+      color: "teal",
     },
   ];
 
