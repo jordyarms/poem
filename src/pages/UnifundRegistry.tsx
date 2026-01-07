@@ -215,7 +215,10 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white border border-gray-400 rounded-lg p-3"
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start justify-between mb-2">
+        <h3 className="text-xs font-medium text-gray-600">
+          {metric.label}
+        </h3>
         <div
           className={`p-1.5 rounded-lg ${
             colorClasses[metric.color as keyof typeof colorClasses] ||
@@ -224,38 +227,34 @@ function AverageMetricCard({ metric }: { metric: FundAverage }) {
         >
           <MetricIcon className="w-6 h-6" />
         </div>
+      </div>
 
-        <div className="flex-1 min-w-0">
-          <h3 className="text-xs font-medium text-gray-600 mb-0.5">
-            {metric.label}
-          </h3>
-          <div className="flex items-baseline gap-2 mb-1">
-            <span className="text-4xl font-bold text-gray-900">
-              {metric.value}
-            </span>
-            {metric.unit && (
-              <span className="text-xs text-gray-500">{metric.unit}</span>
-            )}
-          </div>
-          <div className="flex items-center justify-between">
-            <div
-              className={cn(
-                "flex items-center gap-1 text-xs font-medium",
-                metric.change.positive ? "text-emerald-600" : "text-red-600"
-              )}
-            >
-              <ChangeIcon className="w-3 h-3" />
-              {metric.change.value}
-            </div>
-            <a
-              href="#"
-              className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
-            >
-              View
-              <ArrowUpRight className="w-3 h-3" />
-            </a>
-          </div>
+      <div className="flex items-baseline gap-2 mb-1">
+        <span className="text-4xl font-bold text-gray-900">
+          {metric.value}
+        </span>
+        {metric.unit && (
+          <span className="text-xs text-gray-500">{metric.unit}</span>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between">
+        <div
+          className={cn(
+            "flex items-center gap-1 text-xs font-medium",
+            metric.change.positive ? "text-emerald-600" : "text-red-600"
+          )}
+        >
+          <ChangeIcon className="w-3 h-3" />
+          {metric.change.value}
         </div>
+        <a
+          href="#"
+          className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-0.5"
+        >
+          View
+          <ArrowUpRight className="w-3 h-3" />
+        </a>
       </div>
     </motion.div>
   );
